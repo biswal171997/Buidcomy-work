@@ -1,0 +1,161 @@
+﻿<div class="modal-content">
+   <div class="modal-header">
+      <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> Add Technical Bid Process </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+     <form id="formId">
+       <div class="row">
+           <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+               <label> Project Name/ID or NIT Number </label>
+               <div class="form-group">
+                   <input type="text" id="projectId" name="projectId" onchange="GetProjectDetails(); RemoveWhiteSpace(event);" class="form-control autocomplete" autocomplete="off">
+                   <input type="hidden" id="hiddenProjectId" name="hiddenProjectId" />
+               </div>
+           </div>
+       </div>
+       <div id="sectionPopUp">
+           <div class="card bglight-primary">
+               <div class="text-secondary fs-7 mb-2"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> <span class="Startdateid"></span> </div>
+               <h6 class="fw-500 mb-3"> <span class="projectDescId"></span> </h6>
+               <div class="row">
+                   <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                       <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                       <p class="m-0"> <span class="ConstrId"></span> </p>
+                   </div>
+                   <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                       <small class="text-secondary"> Length (Mtr.) </small>
+                       <p class="m-0"> <span class="LenthId"></span> </p>
+                   </div>
+                   <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2">
+                       <small class="text-secondary"> Estimated Amount </small>
+                       <p class="m-0"><span class="Estimated"></span>  </p>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+
+       <div class="row">
+           <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-12">
+               <div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-4 mt-2">
+                   <label> Technical Evaluation Status </label>
+
+                   <div class="row">
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="radio" onchange="radioButton()" value="1" id="performYes" checked>
+                               <label for="performYes" class=" m-0"> Yes </label>
+                           </div>
+
+                       </div>
+
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="radio" onchange="radioButton()" value="2" id="performNo">
+                               <label for="performNo" class=" m-0"> No </label>
+                           </div>
+                       </div>
+
+                   </div>
+
+               </div>
+               <div id="techicalBidshowhide">
+                   <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                       <label> Technical Evaluation Date <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <div class="input-group mb-3">
+                               <input type="text" class="form-control datepicker" placeholder="DD-MMM-YYYY" name="technicalDate" id="technicalDate" aria-describedby="basic-addon2">
+                               <span class="input-group-text" id="basic-addon2">
+                                   <i class="buidcoicon-calendar-day"></i>
+                               </span>
+                           </div>
+
+                       </div>
+                   </div>
+
+
+                   <div class="row">
+
+                       <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                           <label> Upload Technical Document <span class="text-danger"> * </span></label>
+                           <div class="form-group">
+                               <div class="custom__fileupload">
+                                   <input type="file" class="form-control" name="technicalDocPath" id="technicalDoc">
+                                   <label>  <span> Browse  </span> </label>
+                               </div>
+                               <span class="Clstechnicaldocfile"></span>
+                               <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                           </div>
+                       </div>
+
+                       <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                           <label> Financial Bid Date <span class="text-danger"> * </span></label>
+                           <div class="form-group">
+                               <div class="input-group mb-3">
+                                   <input type="text" class="form-control datepicker" name="finanicalDate" id="finanicalDate"  placeholder="DD-MMM-YYYY" aria-describedby="basic-addon2">
+                                   <span class="input-group-text" id="basic-addon2">
+                                       <i class="buidcoicon-calendar-day"></i>
+                                   </span>
+                               </div>
+
+                           </div>
+                       </div>
+
+
+                   </div>
+
+               </div>
+
+           </div>
+           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-12">
+               <div class="card__fixtbl">
+                   <div class="table-responsive">
+                       <table class="table table-striped border" id="tbl_biddersList">
+                           <thead>
+                               <tr>
+                                   <th width="5%"> Sl# </th>
+                                   <th width="5%">
+                                       <div class="form-check">
+                                           <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault_">
+                                       </div>
+                                   </th>
+                                   <th> Bidder Name </th>
+                               </tr>
+                           </thead>
+                           <tbody id="tblbody">
+                             
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+         </form>
+   </div>
+
+
+   <div class="modal-footer lg__btn  justify-content-start">
+      <button type="button" class="btn btn-light-danger me-3" id="dynamicReset" onclick="Reset()">Reset</button>
+      <button type="button" class="btn btn-primary" onclick="Save_Project_TencherBid()" id="dynamicSave"> Submit </button>
+   </div>
+</div>
+<script>
+    function radioButton() {
+        if ($('#performYes').is(":checked", true)) {
+            $('#techicalBidshowhide').show();
+            $('#tbl_biddersList').show();
+        } else if ($('#performNo').is(":checked", true)) {
+            $('#techicalBidshowhide').hide();
+            $('.hasDatepicker').val('');
+            $('#technicalDoc').val('');
+            $('#tbl_biddersList').hide();
+        }
+
+    }
+    function RemoveWhiteSpace(e) {
+        let element = e.target;
+        element.value = element.value.trim();
+    }
+</script>

@@ -1,0 +1,347 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> Add Financial Bid Process </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <form id="formId">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    <label> Project Name/ID or NIT Number </label>
+                    <div class="form-group">
+                        <input type="text" id="projectId" name="projectId" onkeypress=" AllowAlphaNumeric(event);" onchange="GetProjectDetails(); RemoveWhiteSpace(event);" class="form-control autocomplete" autocomplete="off">
+                        <input type="hidden" id="hiddenProjectId" />
+                    </div>
+                </div>
+            </div>
+            <div id="sectionPopUp">
+                <div class="card bglight-primary">
+                    <div class="text-secondary fs-7 mb-2"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> <span class="Startdateid"></span> </div>
+                    <h6 class="fw-500 mb-3"> <span class="projectDescId"></span> </h6>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                            <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                            <p class="m-0"> <span class="ConstrId"></span> </p>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                            <small class="text-secondary"> Length (Mtr.) </small>
+                            <p class="m-0"> <span class="LenthId"></span> </p>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2">
+                            <small class="text-secondary"> Estimated Amount </small>
+                            <p class="m-0"><span class="Estimated"></span>  </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    @*<div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-4 mt-2">
+                        <label> Financial Evaluation Status </label>
+
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio" onchange="radioButton()" value="1" id="performYes" checked>
+                                    <label for="performYes" class=" m-0"> Yes </label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio" onchange="radioButton()" value="2" id="performNo">
+                                    <label for="performNo" class=" m-0"> No </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>*@
+                    <div id="financialtblshowhide">
+                        <div class="card__fixtbl">
+                            <div class="table-responsive">
+                                <table class="table table-striped border" id="tbl_technicalbidders">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">
+                                                &nbsp;
+                                            </th>
+                                            <th class="mw-150">Choose LOA Bidder </th>
+                                            <th class="mw-150">Financial Score </th>
+                                            <th class="mw-150">Bid Amount </th>
+                                            <th class="mw-300">Financial Bid Document</th>
+                                            <th class="mw-300">LOA Document</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td> RAMESH THAKUR  </td>
+                                            <td>
+                                                <input class="form-control" id="" value="">
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="custom__upload">
+                                                        <input type="file" class="form-control" id="file-upload">
+                                                        <label>
+                                                            <span> Browse Files </span>
+                                                        </label>
+                                                    </div>
+                                                    <small class="text-end text-danger mt-2 d-block w-100 fs-8"> (Multiple file upload allowed file type .jpg .png) </small>
+                                                </div>
+                                            </td>
+                                        </tr>*@
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button type="button" class="btn btn-light-danger me-3" id="dynamicReset" onclick="Reset()">Reset</button>
+        <button type="button" class="btn btn-primary" onclick="Save_FinancialBid()" id="dynamicSave">Submit</button>
+    </div>
+</div>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<input type="hidden" id="HdnTenderId" />
+<input type="hidden" id="hdntechnicalStatus" />
+<input type="hidden" id="vchtechnicalStatus" />
+<script>
+    function RemoveWhiteSpace(e) {
+        e.value = $.trim(e.value);
+    }
+
+    function AllowAlphaNumeric(event) {
+        var keyCode = event.which || event.keyCode;
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([58, 45, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            event.preventDefault();
+        }
+    }
+
+    $(document).ready(function () {
+        $(".decimal-input").on("keypress", function (event) {
+            var value = $(this).val();
+            var key = String.fromCharCode(event.which);
+            if (!/[\d.]/.test(key) || (key === "." && value.includes("."))) {
+                event.preventDefault();
+                return false;
+            }
+            var newValue = value + key;
+            if (newValue.includes(".") && newValue.split(".")[1].length > 2) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $(".decimal-input").on("input", function () {
+            var value = $(this).val();
+            value = value.replace(/[^0-9.]/g, "");
+            var parts = value.split(".");
+            if (parts.length > 2) {
+                value = parts[0] + "." + parts.slice(1).join("");
+            }
+            if (parts.length === 2) {
+                value = parts[0] + "." + parts[1].substring(0, 2);
+            }
+            $(this).val(value);
+        });
+    });
+    $(".decimal-input").on("keypress", function (event) {
+        var value = $(this).val();
+        var key = String.fromCharCode(event.which);
+        if (!/[\d.]/.test(key) || (key === "." && value.includes("."))) {
+            event.preventDefault();
+            return false;
+        }
+        var newValue = value + key;
+        if (newValue.includes(".") && newValue.split(".")[1].length > 2) {
+            event.preventDefault();
+            return false;
+        }
+    });
+    $(".decimal-input").on("input", function () {
+        var value = $(this).val();
+        value = value.replace(/[^0-9.]/g, "");
+        var parts = value.split(".");
+        if (parts.length > 2) {
+            value = parts[0] + "." + parts.slice(1).join("");
+        }
+        if (parts.length === 2) {
+            value = parts[0] + "." + parts[1].substring(0, 2);
+        }
+        $(this).val(value);
+    });
+      $(".autocomplete").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetProjectName","Tender")',
+            data: JSON.stringify(request.term),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (!data || data.length === 0 || data.message === "No record found") {
+                    response([{ label: "No record found", value: "" }]); // Show message
+                } else {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.projectName || item.projectCode,
+                            value: item.projectId
+                        };
+                    }));
+                }
+            },
+            error: function () {
+                response([]);
+            }
+        });
+    },
+    minLength: 3,
+    focus: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+        } else {
+            $("#projectId").val(ui.item.label);
+        }
+        return false;
+    },
+    select: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+            $("#projectId").val(""); // Clear TextBox Value
+            $("#projectId").attr("placeholder", "Record Not Found"); // Set Placeholder
+            $("#hiddenProjectId").val(""); // Reset Hidden Value
+        } else {
+            $("#projectId").val(ui.item.label);
+            $("#hiddenProjectId").val(ui.item.value);
+        }
+        return false;
+    }
+});
+      function GetProjectDetails() {
+       var ProjectId= $('#hiddenProjectId').val();
+          if (ProjectId !== "" && ProjectId != undefined) {
+              $.ajax({
+                  type: "POST",
+                 url: '@Url.Action("GetProjectBasicDetails", "FinancialBid")',
+                  data: { 'Id': ProjectId },
+                  dataType: "json",
+                  traditional: true,
+                  success: function (data) {
+                      $('#HdnTenderId').val(data[0].tenderId);
+                      $("#hdntechnicalStatus").val(data[0].int_technicalStatus);
+                      $('.Startdateid').text(data[0].createdOn);
+                      $('.projectDescId').text(data[0].projectName);
+                      $('.ConstrId').text(data[0].constructionArea);
+                      $('.LenthId').text(data[0].length);
+                      $('.Estimated').text("₹" + data[0].projectAmount);
+                      $('#vchtechnicalStatus').val(data[0].technicalStatus);
+                      $('#sectionPopUp').show();
+                      GetTechincalBidders(data[0].tenderId);
+                  }
+              });
+          } else {
+              $('#sectionPopUp').hide();
+          }
+    }
+    function GetTechincalBidders(Id)
+    {
+    var technicalstatus = $('#vchtechnicalStatus').val();
+    if (technicalstatus == "Yes") {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: { Id: Id },
+            url: '@Url.Action("GetTechnicalBidders", "FinancialBid")',
+            success: function (result) {
+                console.log(result);
+                var rows = '';
+                $('#tbl_technicalbidders tbody').empty(); 
+
+                for (var i = 0; i < result.length; i++) {
+                    rows += '<tr>';
+                    rows += '<input type="hidden" id="hdntechId" value="' + result[0].id + '">';
+                    rows += '<td><div class="form-check"><input class="form-check-input checkbox" name="radioBidder" value="' + result[i].bidderID + '" type="radio" id="checkbox_' + i + '" data-index="' + i + '"></div></td>';
+                    rows += '<td>' + result[i].bidderName + '</td>';
+                    rows += '<td><input type="text" class="form-control decimal-input financialAmount" id="input1_' + i + '"></td>';
+                    rows += '<td><input type="text" class="form-control decimal-input BidAmount" id="input_' + i + '"></td>';
+                    rows += '<td><div class="form-group">';
+                    rows += '<div class="custom__upload">';
+                    rows += '<input type="file" class="form-control financialBidDoc" id="file-upload1_' + i + '">';
+                    rows += '<label><span> Browse Files </span></label>';
+                    rows += '</div>';
+                    rows += '<small class="text-end text-danger mt-2 d-block w-100 fs-8">(Multiple file upload allowed file type .jpg .png)</small>';
+                    rows += '</div></td>';
+                    rows += '<td><div class="form-group">';
+                    rows += '<div class="custom__upload">';
+                    rows += '<input type="file" class="form-control LOADocument" id="file-upload_' + i + '" disabled>';
+                    rows += '<label><span> Browse Files </span></label>';
+                    rows += '</div>';
+                    rows += '<small class="text-end text-danger mt-2 d-block w-100 fs-8">(Multiple file upload allowed file type .jpg .png)</small>';
+                    rows += '</div></td>';
+                    rows += '</tr>';
+                }
+
+                $('#tbl_technicalbidders tbody').append(rows);
+                $('#tbl_technicalbidders').show();
+
+                // Radio Button Click Event
+                $('.checkbox').on('click', function () {
+                    var selectedIndex = $(this).data('index');
+                    $('.checkbox').prop('checked', false);
+                    $(this).prop('checked', true); 
+
+                    $('.checkbox').each(function () {
+                        var index = $(this).data('index');
+                        $('#file-upload_' + index).prop('disabled', true).val(''); 
+                    });
+
+                    if ($(this).prop('checked')) {
+                        $('#file-upload_' + selectedIndex).prop('disabled', false);
+                    }
+                });
+            },
+            error: function (Message) {
+                Swal.fire("Error!", "Something went wrong. Please try again later.", "error");
+            }
+        });
+    } else {
+        Swal.fire("Alert!", "First You have to add Technical Bid Details", "warning").then(function () {
+            window.location.href = '@Url.Action("FinancialBidView", "FinancialBid")';
+        });
+    }
+}
+
+
+    //function radioButton() {
+    //    if ($("#performYes").is(":checked", true)) {
+    //        $('#financialtblshowhide').show();
+    //    } else if ($("#performNo").is(":checked"), true) {
+    //        $('#financialtblshowhide').hide();
+    //        let Id = $("#HdnTenderId").val() || 0;
+    //        if (Id > 0) {
+    //            GetTechincalBidders(Id);
+    //        }
+    //    }
+    //}
+</script>

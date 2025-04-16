@@ -1,0 +1,237 @@
+﻿@{
+    ViewData["Title"] = "View project";
+}
+@{
+    ViewData["Title"] = "Add Project Type";
+}
+<div class="page-body">
+    @Html.AntiForgeryToken()
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Master"> Master </a></li>
+                <li class="breadcrumb-item active" title="Project Type" aria-current="page"> Status Master </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addProjecttype">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" title="Delete" data-bs-toggle="tooltip"> <i class="bi bi-trash"></i> </button>
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table__fixed">
+                <div class="table-responsive border">
+                    <table id="tbl" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="5%">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    </div>
+                                </th>
+                                <th width="5%"> Sl# </th>
+                                <th width="10%"> Status Description </th>
+                                <th width="70%"> Created By </th>
+                                <th width="70%"> Created On </th>
+                                <th width="10%"> Edit </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    </div>
+                                </td>
+                                <td> 1 </td>
+                                <td> Project </td>
+                                <td> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet ex at magna dignissim, congue laoreet eros porttitor </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                </td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add project type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProjecttype" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Add Status </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <label class="control-label" for="txtProjectType">Status Description<span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                    <input type="text" id="statusName" name="statusName" placeholder="" class="form-control" autocomplete="off">
+                                    <input id="hdnM_Application_Status_Master" type="hidden" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer lg__btn border-0 justify-content-start">
+                    <button type="button" class="btn btn-light-danger me-3"> Reset </button>
+                    <button type="button" class="btn btn-primary" id="subaddData" onclick="Save_M_Application_Status_Master()"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add project type Modal -->
+</div>
+<script>
+    $(document).ready(function () {
+        Get_M_Application_Status_Master();
+    });
+    function encryptData(data) {
+        // Convert the integer data to a string
+        var dataString = String(data);
+
+        // Encrypt the data using CryptoJS
+        var encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data: dataString }), 'secret_key').toString();
+
+        return encryptedData;
+    }
+
+
+    function Delete_M_Application_Status_Master(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "Delete",
+                    dataType: "json",
+                    url: "@Url.Action("Delete_M_Application_Status_Master","Master")",
+
+                    data: { "Id": id },
+                    success: function (response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Data Deleted Successfully!',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = "/Master/ViewM_Application_Status_Master";
+                            }
+                            else if (result.isDenied) {
+                                Swal.fire('Changes are not saved', '', 'info')
+                            }
+                        })
+                    }
+                });
+
+            }
+            return false;
+        })
+    }
+    function Get_M_Application_Status_Master() {
+	    $.ajax ({
+	     type:'Get',
+	     dataType: 'Json',
+	     contentType: 'application/json; charset=utf-8',
+	     data: { },
+		    url: "@Url.Action("Get_M_Application_Status_Master","Master")",
+		    success: function (result) {
+			    var data1 = JSON.parse(result);
+			    if (data1.length > 0) {
+			    $('#tbl.tbody').empty();
+				    $.each(data1, function (i, data) {
+
+                        var encryptedID = encryptData(data.statusId);
+                        var trows = "<tr>";
+                        trows = trows + "<td><div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div></td>";
+                        trows = trows + "<td>" + (i+1) + "</td>";
+				        trows = trows +"<td>"+ data.statusName +"</td>";
+				        trows = trows +"<td>"+ data.createdBy +"</td>";
+				        trows = trows +"<td>"+ data.createdOn +"</td>";
+				    //trows = trows +"<td>"+ data.updatedBy +"</td>";
+				    //trows = trows +"<td>"+ data.updatedOn +"</td>";
+                        //trows = trows +"<td>"+ data.deletedFlag +"</td>";
+                        trows = trows + "<td><button type='button' class='btn btn-outline-primary btn-sm' data-bs-toggle='tooltip' title='Edit'><i class='bi bi-pencil'></i></button></td>";
+                       /* trows = trows + "<td>" + "<a class='btn-primary' href='/Master/ApplicationStatusMaster?strid=" + encryptedID + "'>Edit</a>&nbsp;<button class='btn-danger' onclick='Delete_M_Application_Status_Master(" + data.statusId + ")'>Delete</button>" + "</td>";*/
+				    trows = trows + "</tr>";
+				    $('#tbl').append(trows);
+				    });
+			    }
+		    },
+	    error: function (Message) {
+	    alert(Message);
+		    }
+	    });
+	}
+
+    function Save_M_Application_Status_Master() {
+        if ($("#form").valid()) {
+
+            var M_Application_Status_Master = {
+
+                statusId: $('#hdnM_Application_Status_Master').val(),
+                statusName: $("#statusName").val(),
+
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Master/ApplicationStatusMaster",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                data: M_Application_Status_Master,
+                content: 'application/json;charset=utf-8',
+                dataType: "json",
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: result.responseText,
+                        text: result.responseMessage,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = "/Master/ApplicationStatusMaster";
+                        }
+                    })
+                },
+                error: function (result) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: result.responseText,
+                        text: result.responseMessage,
+                    });
+                },
+            });
+        }
+    }
+
+</script>

@@ -1,0 +1,694 @@
+﻿@using Microsoft.Extensions.Configuration;
+@inject IConfiguration Configuration
+@{
+    var proposalLetterPath = Configuration.GetSection("Path").GetValue<string>("ProposalLetter");
+    var encodedPath = Uri.EscapeDataString(proposalLetterPath!);
+}
+@Html.AntiForgeryToken()
+<style>
+    .nav-link {
+        cursor: pointer;
+    }
+</style>
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/Proposal/CreateProposal" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Construction Steps"> Construction Steps </a></li>
+                <li class="breadcrumb-item active" title="Upload Proposal" aria-current="page"> Upload Proposal </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" onclick="AddProposal()">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal" data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+            @* <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview" data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button> *@
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <input id="hdnsearch" type="hidden" value="0" />
+        <div class="dashboard__tab">
+            <div class="flex__tab">
+                <div class="card card__bg flex-20">
+                    <div class="card-body">
+                        <div class="left__card">
+                            <div class="icon__circle">
+                                <i class="buidcoicon-application"></i>
+                            </div>
+                            <div class="card__text">
+                                <p> Total Application </p>
+                                <h4 id="htotalapplication" class="flex-1"> 0 </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-80 bg-transparent">
+                    <div class="card-body p-0">
+                        <div class="custom__pilltab" id="pil l-navtab">
+                            <!-- Nav tabs -->
+                            
+                            <ul class="nav nav-tabs nav-justified" role="tablist">
+                                <li class="nav-item">
+                                    <a id="a_NewApplication" class="nav-link active" role="tab">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-primary">
+                                                <i class="buidcoicon-edit-document"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> New Application </p>
+                                                <h4 id="hnewapplication" class="flex-1 text-primary"> 0 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="a_InProgress" class="nav-link" role="tab">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-warning">
+                                                <i class="buidcoicon-in-progress"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> InProgress </p>
+                                                <h4 id="hinprogress" class="flex-1 text-warning"> 0 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="a_Approved" class="nav-link" role="tab">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-success">
+                                                <i class="buidcoicon-approved"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> Approved </p>
+                                                <h4 id="happroved" class="flex-1 text-success"> 0 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="a_Cancelled" class="nav-link" role="tab">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-orange">
+                                                <i class="buidcoicon-cancelled"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> Cancelled </p>
+                                                <h4 id="hcancelled" class="flex-1 text-orange"> 0 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="NewApplication" role="tabpanel">
+                <div class="body__bg">
+                    <div id="dvfilterdata" class="card filter__datas">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3 justify-content-between flex-wrap">
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                        <label for="" class="m-0"> <span id="spsearchletterno" class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600"> #1223452 </span>  </label>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                        <label for="" class="m-0"> Financial Year :  <span id="spsearchfy" class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2"> 2025 </span>  </label>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label for="" class="m-0"> Proposal Submitted By :  <span id="spsearchclient" class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2"> Water Supply </span>  </label>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <span id="spsearchprojecttype" class="badge badge-warning"> Project Type </span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                        <label for="" class="m-0"> Category : </label>
+                                        <span id="spsearchcategory" class=" ps-xl-2 ps-lg-2 fw-500">
+                                            Water Supply Projects
+                                        </span>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label for="" class="m-0"> Sub-Category : </label>
+                                        <span id="spsearchsubcategory" class=" ps-xl-2 ps-lg-2 fw-500">
+                                            Sub-Category 2
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                        <label for="" class="m-0">  District : </label>
+                                        <span id="spsearchdistrict" class=" ps-xl-2 ps-lg-2 fw-500">
+                                            Khordha
+                                        </span>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label for="" class="m-0">  Urban Local Body : </label>
+                                        <span id="spsearchulb" class=" ps-xl-2 ps-lg-2 fw-500">
+                                            NA
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped datatable" id="tblviewproposal">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px"> Sl# </th>
+                                    <th style="width:120px"> District </th>
+                                    <th style="width:360px"> Letter Details </th>
+                                    <th style="width:200px">
+                                        <div> Category </div>
+                                        <small class="text-secondary"> Sub-Category </small>
+                                    </th>
+                                    <th style="width:190px"> Update Information </th>
+                                    <th style="width:100px"> Status </th>
+                                    <th style="width:150px"> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="InProgress" role="tabpanel">
+                <h3>Reverted Content</h3>
+                <p>This is the content for the Reverted tab.</p>
+            </div>
+            <div class="tab-pane fade" id="Approved" role="tabpanel">
+                <h3>Approved Content</h3>
+                <p>This is the content for the Approved tab.</p>
+            </div>
+            <div class="tab-pane fade" id="Cancelled" role="tabpanel">
+                <h3>Cancelled Content</h3>
+                <p>This is the content for the Cancelled tab.</p>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+    <!-- add form Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProposal" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddProposal")
+        </div>
+    </div>
+    <!-- add form Modal -->
+
+    <!-- add fdr Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="fdrmodal" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddProposalFdr")
+        </div>
+    </div>
+    <!-- add fdr Modal -->
+
+    <!-- add project site -->
+    <div class="modal fade right custom-view-modal-medium" id="projectSite" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+
+            @Html.Partial("_AddProjectSite")
+        </div>
+    </div>
+    <!-- add project site -->
+</div>
+<!-- below script for create proposal -->
+<script src="~/js/forms/encryptdecrypt.js"></script>
+<script>
+    var baseUrl = "@Url.Content("~/")";
+    var _encodedpath = '@encodedPath';
+    $(document).ready(function () {
+        $('#dvfilterdata').hide();
+        $('#splayoutheader').text('Upload Proposal');
+        $(".nav-link").click(function () {
+            var tabelements = `
+            <div class="body__bg">
+                <div id="dvfilterdata" class="card filter__datas">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3 justify-content-between flex-wrap">
+                            <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                    <label class="m-0"> <span id="spsearchletterno" class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600"> #1223452 </span>  </label>
+                                </div>
+                                <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                    <label class="m-0"> Financial Year :
+                                        <span id="spsearchfy" class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2"> 2025 </span>
+                                    </label>
+                                </div>
+                                <div class="mb-xl-0 mb-lg-0 mb-2">
+                                    <label class="m-0"> Proposal Submitted By :
+                                        <span id="spsearchclient" class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2"> Water Supply </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span id="spsearchprojecttype" class="badge badge-warning"> Project Type </span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                    <label class="m-0"> Category : </label>
+                                    <span id="spsearchcategory" class=" ps-xl-2 ps-lg-2 fw-500">
+                                        Water Supply Projects
+                                    </span>
+                                </div>
+                                <div class="mb-xl-0 mb-lg-0 mb-2">
+                                    <label class="m-0"> Sub-Category : </label>
+                                    <span id="spsearchsubcategory" class=" ps-xl-2 ps-lg-2 fw-500">
+                                        Sub-Category 2
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                    <label class="m-0">  District : </label>
+                                    <span id="spsearchdistrict" class=" ps-xl-2 ps-lg-2 fw-500">
+                                        Khordha
+                                    </span>
+                                </div>
+                                <div class="mb-xl-0 mb-lg-0 mb-2">
+                                    <label class="m-0">  Urban Local Body : </label>
+                                    <span id="spsearchulb" class=" ps-xl-2 ps-lg-2 fw-500">
+                                        NA
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped datatable" id="tblviewproposal">
+                        <thead>
+                            <tr>
+                                <th style="width:50px"> Sl# </th>
+                                <th style="width:120px"> District </th>
+                                <th style="width:360px"> Letter Details </th>
+                                <th style="width:200px">
+                                    <div> Category </div>
+                                    <small class="text-secondary"> Sub-Category </small>
+                                </th>
+                                <th style="width:190px"> Update Information </th>
+                                <th style="width:100px"> Status </th>
+                                <th style="width:150px"> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
+            $(".tab-pane").empty();
+            //resetDatatable();
+            // Remove active class from all tabs
+            $(".nav-link").removeClass("active");
+            $(".tab-pane").removeClass("show active");
+
+            // Add active class to the clicked tab
+            $(this).addClass("active");
+            let tabId = $(this).attr("id").replace("a_", "");
+            $("#" + tabId).html(tabelements);
+            if ($('#hdnsearch').val() == 0) {
+                $('#dvfilterdata').hide();
+            }
+            else { 
+                $('#dvfilterdata').show();
+            }
+            $("#" + tabId).addClass("show active");
+            GetProposal(tabId);
+        });
+        GetProposal('NewApplication');
+    });
+    function lettersNumberValidate(event) {
+        var keyCode = event.which || event.keyCode;
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([45]); // ., ,, :, -, (, ), \, / space
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            event.preventDefault();
+        }
+    }
+    function lettersDigitValidate(event) {
+        var keyCode = event.which || event.keyCode;
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([32]); // ., ,, :, -, (, ), \, / space
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            event.preventDefault();
+        }
+    }
+    function updateCharCount(textArea) {
+        var maxLength = $(textArea).attr("maxlength"); // Get maxlength from textarea
+        var currentLength = $(textArea).val().length; // Current text length
+        var remaining = maxLength - currentLength; // Remaining characters
+
+        var spanId = $(textArea).data("targetid"); // Get target span ID from data attribute
+        $('#' + spanId).text(remaining); // Update the count in the span
+
+        if (remaining < 0) {
+            alert("You have reached your maximum limit of characters allowed.");
+            $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+            $('#' + spanId).text(0); // Set to 0 when limit is exceeded
+        }
+    }
+    $(document).on('blur keyup', '.LengthRemarks', function () {
+        updateCharCount(this);
+    });
+    function formatDate(inputDate) {
+        const date = new Date(inputDate); // Convert input to Date object
+
+        const day = date.getDate().toString().padStart(2, '0'); // Get day with leading zero
+        const monthAbbr = date.toLocaleString('en-US', { month: 'short' }); // Get short month name
+        const year = date.getFullYear();
+
+        return `${day}-${monthAbbr}-${year}`;
+    }
+    function GetProposal(searchtype) {
+        resetDatatable();
+        $.ajax({
+            type: 'Get',
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            data: { "searchtype": searchtype },
+            url: "@Url.Action("GetProposal", "Proposal")",
+            success: function (result) {
+                var data = JSON.parse(result);
+                var data1 = JSON.parse(data.data);
+                console.log(data1);
+                debugger
+                $('#htotalapplication').text(data1.proposalsummary.TotalApplication);
+                $('#hnewapplication').text(data1.proposalsummary.NewApplication);
+                $('#hinprogress').text(data1.proposalsummary.InProgress);
+                $('#happroved').text(data1.proposalsummary.Approved);
+                $('#hcancelled').text(data1.proposalsummary.Cancelled);
+                $('#tblviewproposal tbody').empty();
+                if (data1.proposal) {
+                    $.each(data1.proposal, function (i, data) {
+                        var encryptedurl = '@Url.Action("ViewProposal", "Proposal")' + '?Id=' + encryptData(data.proposalid);
+                        var url = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data.letterDocPath + '&filepath=@encodedPath';
+                        var trows = "<tr>";
+                        trows = trows + "<td>" + (i + 1) + "</td>";
+                        trows = trows + "<td>" + data.district + "</td>";
+                        trows = trows + "<td>";
+                        trows = trows + '<div class="table__body__text">';
+                        trows = trows + '    <div class="row mb-3">';
+                        trows = trows + '        <div class="col-xl-8 col-12 d-flex align-items-center column-gap-4 mb-2">';
+                        trows = trows + '            <div class="badge bg-yellow fw-600">';
+                        trows = trows + '                <span class="text-solid-black">' + data.letterNo + '</span>';
+                        trows = trows + '            </div>';
+                        trows = trows + '            <div class="text-secondary"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> ' + formatDate(data.proposalLetterDate) + '</div>';
+                        trows = trows + '        </div>';
+                        trows = trows + '        <div class="col-xl-4 col-12 text-start text-xl-end">';
+                        trows = trows + '            <a href="' + url + '" data-bs-toggle="tooltip" class="text-secondary" title="Download Document">';
+                        trows = trows + '                <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i> Proposal Letter';
+                        trows = trows + '            </a>';
+                        trows = trows + '        </div>';
+                        trows = trows + '    </div>';
+                        trows = trows + '    <div class="content">';
+                        trows = trows + '        <p>' + data.subject + '</p>';
+                        trows = trows + '    </div>';
+                        trows = trows + '</div>';
+                        trows = trows + '</td>';
+                        trows = trows + '<td><label class="fw-600">' + data.categoryName + ' </label>';
+                        trows = trows + '<p class="text-secondary">' + data.subCategoryName + ' </p></td>';
+                        trows = trows + "<td>";
+                        trows = trows + '    <div class="d-block">';
+                        trows = trows + '        <button onclick="AddFDR(' + data.proposalid + ', 0)" title="Add FDR" data-bs-toggle="modal" type="button" class="button btn btn-outline-primary btn-sm mb-2">';
+                        trows = trows + '            <i class="bi bi-plus-circle me-2"></i> Add DPR';
+                        trows = trows + '        </button>';
+                        trows = trows + '    </div>';
+                        trows = trows + '    <div class="d-block">';
+                        trows = trows + '        <button onclick="AddProposalSite(' + data.proposalid + ', 0)" title="Add Project Site" type="button" class="button btn btn-outline-success btn-sm">';
+                        trows = trows + '            <i class="bi bi-plus-circle me-2"></i> Add Project Site';
+                        trows = trows + '        </button>';
+                        trows = trows + '    </div>';
+                        trows = trows + "</td>";
+                        trows = trows + '<td><span class="badge badge-warning">' + data.status + ' </span></td>';
+                        trows = trows + "<td>";
+                        trows = trows + '    <div class="table__icon">';
+                        trows = trows + '        <a href="' + encryptedurl + '" title="View" data-bs-toggle="tooltip">';
+                        trows = trows + '            <i class="buidcoicon-eye text-success"></i>';
+                        trows = trows + '        </a>';
+                        if (data.status == 'Draft' || data.status == 'Reverted by TS') {
+                        trows = trows + '        <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip" onclick="EditProposalLetter(' + data.proposalid + ')">';
+                        trows = trows + '            <i class="buidcoicon-edit"></i>';
+                        trows = trows + '        </a>';
+                        trows = trows + '        <a href="#!" title="Delete" data-bs-toggle="tooltip" onclick="CancelProposalLetter(' + data.proposalid + ')">';
+                        trows = trows + '            <i class="buidcoicon-trash text-orange"></i>';
+                        trows = trows + '        </a>';
+                        }
+                        
+                        trows = trows + '    </div>';
+                        trows = trows + "</td>";
+
+                        trows = trows + "</tr>";
+                        $('#tblviewproposal tbody').append(trows);
+                    });
+                    
+                    bindDatatable();
+                }
+                else { 
+                    //bindDatatable();
+                }
+            },
+            error: function (Message) {
+                alert(Message);
+            }
+        });
+    }
+</script>
+<!-- below script for add proposal -->
+<script src="~/js/forms/addproposal.js"></script>
+<!-- below script for add project site -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    let map; // Declare map in a higher scope
+    let marker;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const initialPosition = [25.0961, 85.3131]; // Bihar
+
+        map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView(initialPosition, 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        marker = L.marker(initialPosition, { draggable: true }).addTo(map);
+
+        // Set initial input values
+        document.getElementById('txtsitelattitude').value = initialPosition[0];
+        document.getElementById('txtsitelongitude').value = initialPosition[1];
+
+        // Marker drag event
+        marker.on('dragend', function () {
+            const position = marker.getLatLng();
+            updateInputs(position.lat, position.lng);
+        });
+
+        // Map click event
+        map.on('click', function (e) {
+            marker.setLatLng(e.latlng);
+            updateInputs(e.latlng.lat, e.latlng.lng);
+        });
+
+        // Input fields events
+        const latInput = document.getElementById('txtsitelattitude');
+        const lngInput = document.getElementById('txtsitelongitude');
+
+        latInput.addEventListener('change', updateMapFromInputs);
+        lngInput.addEventListener('change', updateMapFromInputs);
+
+        function updateInputs(lat, lng) {
+            latInput.value = lat.toFixed(6);
+            lngInput.value = lng.toFixed(6);
+        }
+
+        function updateMapFromInputs() {
+            const lat = parseFloat(latInput.value);
+            const lng = parseFloat(lngInput.value);
+            if (!isNaN(lat) && !isNaN(lng)) {
+                const newPosition = [lat, lng];
+                marker.setLatLng(newPosition);
+                map.setView(newPosition, 13);
+            }
+        }
+
+        // Call invalidateSize() after a short delay to ensure proper rendering
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 300);
+    });
+</script>
+<script src="~/js/forms/addproposalsite.js"></script>
+<!-- below script for search filter -->
+<script src="~/js/forms/searchproposal.js"></script>
+
+<script>
+    function SearchProposal() {
+        if (true) {
+            resetDatatable();
+            var formData = new FormData();
+            formData.append("fyId", $.trim($("#ddlsearch_fyyear").val()));
+            formData.append("submittedByid", $.trim($("#ddlsearch_client").val()));
+            formData.append("categoryid", $.trim($("#ddlsearch_category").val()));
+            formData.append("subCategoryid", $.trim($("#ddlsearch_subcategory").val()));
+            formData.append("projectTypeid", $.trim($("#ddlsearch_projecttype").val()));
+            formData.append("districtid", $.trim($("#ddlsearch_district").val()));
+            formData.append("ulbId", $.trim($("#ddlsearch_ulb").val()));
+            formData.append("letterNo", $.trim($("#txtsearch_letterno").val()));
+            $.ajax({
+                type: "POST",
+                url: baseUrl + "Search/SearchProposal",
+                beforeSend: function (xhr) {
+                    $('#hdnsearch').val(1);
+                    //$('#tblviewproposal tbody').empty();
+                    $('#htotalapplication').text('0');
+                    $('#hnewapplication').text('0');
+                    $('#hinprogress').text('0');
+                    $('#happroved').text('0');
+                    $('#hcancelled').text('0');
+                    $('#searchFilter').modal('hide');
+                    $('#dvfilterdata').show();
+                    $('#spsearchletterno').text($('#txtsearch_letterno').val() == '' ? 'All' : $('#txtsearch_letterno').text('#' + $('#txtsearch_letterno').val()));
+                    $('#spsearchclient').text($('#ddlsearch_client').val() == 0 ? 'All' : $('#ddlsearch_client option:selected').text());
+                    $('#spsearchfy').text($('#ddlsearch_fyyear').val() == 0 ? 'All' : $('#ddlsearch_fyyear option:selected').text());
+                    $('#spsearchcategory').text($('#ddlsearch_category').val() == 0 ? 'All' : $('#ddlsearch_category option:selected').text());
+                    $('#spsearchsubcategory').text($('#ddlsearch_subcategory').val() == 0 ? 'All' : $('#ddlsearch_subcategory option:selected').text());
+                    $('#spsearchprojecttype').text($('#ddlsearch_projecttype').val() == 0 ? 'All' : $('#ddlsearch_projecttype option:selected').text());
+                    $('#spsearchdistrict').text($('#ddlsearch_district').val() == 0 ? 'All' : $('#ddlsearch_district option:selected').text());
+                    $('#spsearchulb').text($('#ddlsearch_ulb').val() == 0 ? 'All' : $('#ddlsearch_ulb option:selected').text());
+
+                },
+                data: formData,
+                processData: false, // **Important for FormData**
+                contentType: false, // **Important for FormData**
+                success: function (result) {
+                    if (result) {
+                        var data = JSON.parse(result);
+                        var data1 = JSON.parse(data.data);
+                        if (data1.proposalsummary) {
+                            $('#htotalapplication').text(data1.proposalsummary.TotalApplication);
+                            $('#hnewapplication').text(data1.proposalsummary.NewApplication);
+                            $('#hinprogress').text(data1.proposalsummary.InProgress);
+                            $('#happroved').text(data1.proposalsummary.Approved);
+                            $('#hcancelled').text(data1.proposalsummary.Cancelled);
+                        }
+                        if (data1.proposal) {
+                            $.each(data1.proposal, function (i, data) {
+                                var encryptedurl = '@Url.Action("ViewProposal", "Proposal")' + '?Id=' + encryptData(data.proposalid);
+                                var url = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data.letterDocPath + '&filepath=@encodedPath';
+                                var trows = "<tr>";
+                                trows = trows + "<td>" + (i + 1) + "</td>";
+                                trows = trows + "<td>" + data.district + "</td>";
+                                trows = trows + "<td>";
+                                trows = trows + '<div class="table__body__text">';
+                                trows = trows + '    <div class="row mb-3">';
+                                trows = trows + '        <div class="col-xl-8 col-12 d-flex align-items-center column-gap-4 mb-2">';
+                                trows = trows + '            <div class="badge bg-yellow fw-600">';
+                                trows = trows + '                <span class="text-solid-black">' + data.letterNo + '</span>';
+                                trows = trows + '            </div>';
+                                trows = trows + '            <div class="text-secondary"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> ' + formatDate(data.proposalLetterDate) + '</div>';
+                                trows = trows + '        </div>';
+                                trows = trows + '        <div class="col-xl-4 col-12 text-start text-xl-end">';
+                                trows = trows + '            <a href="' + url + '" data-bs-toggle="tooltip" class="text-secondary" title="Download Document">';
+                                trows = trows + '                <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i> Proposal Letter';
+                                trows = trows + '            </a>';
+                                trows = trows + '        </div>';
+                                trows = trows + '    </div>';
+                                trows = trows + '    <div class="content">';
+                                trows = trows + '        <p>' + data.subject + '</p>';
+                                trows = trows + '    </div>';
+                                trows = trows + '</div>';
+                                trows = trows + '</td>';
+                                trows = trows + '<td><label class="fw-600">' + data.categoryName + ' </label>';
+                                trows = trows + '<p class="text-secondary">' + data.subCategoryName + ' </p></td>';
+                                trows = trows + "<td>";
+                                trows = trows + '    <div class="d-block">';
+                                trows = trows + '        <button onclick="AddFDR(' + data.proposalid + ', 0)" title="Add FDR" data-bs-toggle="modal" type="button" class="button btn btn-outline-primary btn-sm mb-2">';
+                                trows = trows + '            <i class="bi bi-plus-circle me-2"></i> Add FDR';
+                                trows = trows + '        </button>';
+                                trows = trows + '    </div>';
+                                trows = trows + '    <div class="d-block">';
+                                trows = trows + '        <button onclick="AddProposalSite(' + data.proposalid + ', 0)" title="Add Project Site" type="button" class="button btn btn-outline-success btn-sm">';
+                                trows = trows + '            <i class="bi bi-plus-circle me-2"></i> Add Project Site';
+                                trows = trows + '        </button>';
+                                trows = trows + '    </div>';
+                                trows = trows + "</td>";
+                                trows = trows + '<td><span class="badge badge-warning">' + data.status + ' </span></td>';
+                                trows = trows + "<td>";
+                                trows = trows + '    <div class="table__icon">';
+                                trows = trows + '        <a href="' + encryptedurl + '" title="View" data-bs-toggle="tooltip">';
+                                trows = trows + '            <i class="buidcoicon-eye text-success"></i>';
+                                trows = trows + '        </a>';
+                                trows = trows + '        <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip" onclick="EditProposalLetter(' + data.proposalid + ')">';
+                                trows = trows + '            <i class="buidcoicon-edit"></i>';
+                                trows = trows + '        </a>';
+                                trows = trows + '        <a href="#!" title="Delete" data-bs-toggle="tooltip" onclick="CancelProposalLetter(' + data.proposalid + ')">';
+                                trows = trows + '            <i class="buidcoicon-trash text-orange"></i>';
+                                trows = trows + '        </a>';
+                                trows = trows + '    </div>';
+                                trows = trows + "</td>";
+
+                                trows = trows + "</tr>";
+                                $('#tblviewproposal tbody').append(trows);
+                            });
+
+                            bindDatatable();
+                        }
+                        else {
+                            //bindDatatable();
+                        }
+                    }
+                },
+                error: function (result) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: result.responseText,
+                        text: result.responseMessage,
+                    });
+                }
+            });
+        }
+    }
+    function ResetSearch() {
+        location.href = baseUrl + 'Proposal/CreateProposal';
+    }
+</script>
+<!-- below script for fdr -->
+<script src="~/js/forms/proposalfdr.js"></script>

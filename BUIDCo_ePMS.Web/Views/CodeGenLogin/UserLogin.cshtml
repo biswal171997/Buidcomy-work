@@ -1,0 +1,91 @@
+@{
+    ViewData["Title"] = "UserLogin";
+    Layout = "~/Views/LoginLayout/_Layout1.cshtml";
+}
+<div class="login__wrapp">
+    @Html.AntiForgeryToken()
+    <div class="login-bottom"></div>
+
+    <div class="log__body wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+
+        <div class="left__wrap">
+            <img src="~/images/buiding_login.jpg" alt="Buidco Building" class="img-fluid">
+        </div>
+
+        <div class="right__wrap">
+            <div class="login__box">
+                <div class="login__logo">
+                    <img src="~/images/logo.png" class="Logo" alt="Logo">
+                    <div class="d-block">
+                        <h4>
+                            Project Monitoring & Finance
+                            <span class="d-block"> Management System </span>
+                        </h4>
+                        <small class="d-block"> Bihar Urban Infrastructure Development Corporation. </small>
+                    </div>
+                </div>
+                <!-- login form details -->
+                <form autocomplete="off" id="loginForm">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="input-group__input" type="text" placeholder="&nbsp;" name="username"
+                                   id="userName" autocomplete="off" required />
+                            <label class="input-group__label" for="userName">Enter User ID</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group login__icon">
+                            <input class="input-group__input" type="password" placeholder="&nbsp;"
+                                   name="password" id="userPassword" autocomplete="off" required />
+                            <label class="input-group__label" for="userPassword">Enter Password</label>
+                            <div class="captcha__icon">
+                                <a href="javascript:void(0);" title="View" id="passwordView">
+                                    <i class="bi bi-eye-slash"></i>
+                                    <i class="bi bi-eye" style="display:none;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
+                            <div class="input-group">
+                                <input class="input-group__input" type="text" placeholder="&nbsp;" maxlength="5"
+                                       name="captcha" id="userCaptcha" autocomplete="off" required />
+                                <label class="input-group__label" for="userCaptcha">Captcha</label>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
+                            <div class="d-flex align-items-center justify-content-between refresh-sec captcha-container">
+                                @*<span id="captcha" class="captcha__txt">ABWB9</span>*@
+                                <img id="captchaImage" align="middle" src="~/CodeGenLogin/GenerateCaptcha" alt="CAPTCHA" class="captcha__txt" />
+                                <span id="refresh" class="login__icon">
+                                    <a href="javascript:void(0);" id="loginRefreshCaptcha" 
+                                       onclick="refreshCaptcha()"
+                                       title="Refresh Captcha">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-0 mt-xl-4 mt-md-4 mt-sm-4">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <button type="submit" class="btn btn-primary login__btn" >Login</button>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12 text-end mt-3 mt-xl-2 mt-lg-2 fs-6">
+                            <a href="CodeGenLogin/Forgetpass" title="Forgot Password">Forgot password?</a>
+                        </div>
+                    </div>
+                </form>
+                <!-- login form details -->
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+    function refreshCaptcha() {
+        document.getElementById("captchaImage").src = "@Url.Action("GenerateCaptcha", "CodeGenLogin")?" + new Date().getTime();
+    }
+    </script>
+</div>

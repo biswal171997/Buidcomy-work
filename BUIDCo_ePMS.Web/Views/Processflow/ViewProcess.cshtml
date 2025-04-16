@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewData["Title"] = "ViewProcessflow";
+    var ListData = ViewBag.Data; /*as Task<IEnumerable<BUIDCo_ePMS.Model.Entities.Processflow.ProcessflowModel>>;*/
+}
+<style>
+    /* Table Scroll Inside Container */
+    #tableContainer {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+        /* Sticky Table Header */
+        #tableContainer thead {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+    /* Button Styling */
+    .btn {
+        transition: background 0.3s ease-in-out;
+    }
+</style>
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="page-body">
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/BUIDCo_ePMS.Web/Processflow">Process Flow</a></li>
+                <li class="breadcrumb-item active" aria-current="page">view Process</li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <ul class="nav nav-tabs nav-fill w-100" role="tablist">
+                <a asp-controller="Processflow" asp-action="AddProcess" class="nav-item nav-link text-black" data-toggle="tooltip">Add</a>
+                <a asp-controller="Processflow" asp-action="ViewProcess" class="nav-item nav-link active text-black" data-toggle="tooltip">View</a>
+            </ul>
+        </div>
+
+           <div class="card-body">
+            
+
+            <div id="tableContainer" class="table-responsive border">
+                @if (ListData.Count > 0)
+                {
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="40px">Sl#</th>
+                                <th>Level No</th>
+                                <th>Page Name</th>
+                                <th>User</th>
+                                <th>Designation</th>
+                                <th width="110px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int count = 1;
+                            }
+                            @foreach (var Item in ListData)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@Item.LevelNO</td>
+                                    <td>@Item.NVCHPLINKNAME</td>
+                                    <td>@Item.VCHUSERNAME</td>
+                                    <td>@Item.NVCHDESIGNAME</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm"
+                                           href="/BUIDCo_ePMS.Web/Processflow/AddProcess?INTPLINKID=@Item.INTPLINKID">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        @if (Item.IsHighestLevelNo == 1)
+                                        {
+                                            <a href="javascript:void(0);" class="btn delete-btn" data-id="@Item.APCID">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="norecord text-center">No Record Found</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Apply DataTables
+        $('#tblCMOMeeting').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "lengthMenu": [10, 25, 50, 100],
+            "language": {
+                "search": "Filter records:",
+                "lengthMenu": "Show _MENU_ entries",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                }
+            },
+            "dom": 'Bfrtip',
+            "buttons": [
+                {
+                    extend: 'copy',
+                    text: 'Copy'
+                },
+                {
+                    extend: 'csv',
+                    text: 'Export to CSV'
+                },
+                {
+                    extend: 'excel',
+                    text: 'Export to Excel'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print'
+                }
+            ]
+        });
+
+        // Delete Button Click Event
+        $(".delete-btn").click(function () {
+            var APCID = $(this).data("id");
+
+            if (confirm("Are you sure you want to delete this item?")) {
+                $.ajax({
+                    url: "@Url.Action("UpdateDeleteFlag", "Processflow")",
+                    type: "POST",
+                    data: { APCID: APCID },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = "/BUIDCo_ePMS.Web/Processflow/ViewProcess";
+                        } else {
+                            alert("Failed to delete the item.");
+                        }
+                    },
+                    error: function () {
+                        alert("Error updating delete flag.");
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            $(".delete-btn").click(function () {
+                var APCID = $(this).data("id");
+
+                if (confirm("Are you sure you want to delete this item?")) {
+                    $.ajax({
+                         url: "@Url.Action("UpdateDeleteFlag", "Processflow")",
+                       // url: "/Processflow/UpdateDeleteFlag", // API/controller method to update delete flag
+                        type: "POST",
+                        data: { APCID: APCID },
+                        success: function (response) {
+                            if (response.success) {
+                                // After successful deletion, redirect to ViewProcess
+                                window.location.href = "/BUIDCo_ePMS.Web/Processflow/ViewProcess";
+                            } else {
+                                alert("Failed to delete the item.");
+                            }
+                        },
+                        error: function () {
+                            alert("Error updating delete flag.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>*@

@@ -1,0 +1,644 @@
+﻿<div class="modal-content">
+   <div class="modal-header">
+      <h5 class="modal-title">  Upload Administrative Approval  </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+      <div class="card bglight-primary">
+          <h6 class="fw-500 mb-3">  <span class="text-secondary" id="ProposalSubject"></span> </h6>
+         <ul>
+            <li>
+               <div class="row">
+                  <div class="col-xl-8 col-md-8 col-12 border-right pe-3 mb-1">
+                      <span class="text-secondary" id="ProposalLocation"></span>
+                  </div>
+                  <div class="col-xl-4 col-md-4 col-12 mb-1">
+                     <i class="bi bi-pin-map"></i>
+                     <span class="text-secondary">Area: </span> <span class="text-secondary" id="ProposalArea">0.00 Sq.Mtr.</span>
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="row">
+                  <div class="col-xl-4 col-md-6 col-12 border-right pe-3 mb-1">
+                     <i class="bi bi-person"></i>  <span class="text-secondary"> Created By : </span> <span class="text-secondary" id="ProposalCreatedBy"></span>
+                  </div>
+                  <div class="col-xl-4 col-md-6 col-12 border-right pe-3 mb-1">
+                     <i class="buidcoicon-calendar-day"></i>
+                     <span class="text-secondary">Created: </span> <span class="text-secondary" id="ProposalCreatedOn"></span>
+                  </div>
+                  <div class="col-xl-4 col-md-6 col-12 border-right pe-3 mb-1">
+                     <i class="buidcoicon-calendar-day"></i>
+                     <span class="text-secondary">Estimated: </span> <span class="text-secondary" id="ProposalEstimatedCost"></span>
+                  </div>
+               </div>
+            </li>
+            <li>
+               <a href="#" class="text-light-primary" target="_blank" id="docTAGeneratedLetter">   <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  Download Signed TA Letter </a>
+            </li>
+         </ul>
+         @*<div class="row border-top px-3 pt-3 mt-3">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+         </div>*@
+      </div>
+      <form autocomplete="off" id="formAAUpload">
+          <div class="row">
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                  <label> Letter Number <span class="text-danger"> * </span></label>
+                  <input type="hidden" id="hiddenProposalId" value="0" />
+                  <input type="hidden" id="hiddenfileSignedAALetter" />
+                  <input type="hidden" id="hiddenfileAAOtherDocument" />
+                  <input type="hidden" id="hdnAAProjectPart_List" value="" />
+                  <input type="hidden" id="hdnAAId" value="" />
+                  <div class="form-group">
+                      <input type="text" id="txtAALetterNumber" name="txtAALetterNumber" class="form-control" maxlength="20" onchange="RemoveWhiteSpace(this);" onkeypress="lettersDigitValidate(event)">
+                  </div>
+              </div>
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                  <label> Letter Date <span class="text-danger"> * </span></label>
+                  <div class="form-group">
+                      <div class="input-group mb-3">
+                          <input type="text" class="form-control datepicker" id="txtAALetterDate" name="txtAALetterDate" placeholder="DD-MMM-YYYY" autocomplete="off" readonly
+                                 aria-describedby="basic-addon2">
+                          <span class="input-group-text" id="basic-addon2">
+                              <i class="buidcoicon-calendar-day"></i>
+                          </span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                  <label> Scheme Name <span class="text-danger"> * </span></label>
+                  <div class="form-group">
+                      <select class="form-select" id="ddlSchemeName" name="ddlSchemeName">
+                      </select>
+                  </div>
+              </div>
+              @*<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+           <label> AA Approved By <span class="text-danger"> * </span></label>
+           <div class="form-group">
+              <select class="form-select">
+                 <option> Select </option>
+                 <option> Scheme Name </option>
+                 <option> Scheme Name </option>
+                 <option> Scheme Name </option>
+              </select>
+           </div>
+        </div>*@
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                  <label> Upload Signed AA Letter <span class="text-danger"> * </span></label>
+                  <div class="form-group">
+                      <div class="custom__fileupload">
+                          <input type="file" class="form-control" id="fileSignedAALetter" name="fileSignedAALetter">
+                          <label>  <span> Browse  </span> </label>
+                      </div>
+                      <a href='#' id="downloadSignedAALetter" target="_blank" title='Download' data-bs-toggle='tooltip'><i class='bi bi-file-earmark-pdf ms-2 text-danger'></i></a>
+                      <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                  </div>
+              </div>
+              <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                  <label> Other Document <span class="text-danger"> * </span></label>
+                  <div class="form-group">
+                      <div class="custom__fileupload">
+                          <input type="file" class="form-control" id="fileAAOtherDocument" name="fileAAOtherDocument">
+                          <label>  <span> Browse  </span> </label>
+                      </div>
+                      <a href='#' id="downloadAAOtherDocument" target="_blank" title='Download' data-bs-toggle='tooltip'><i class='bi bi-file-earmark-pdf ms-2 text-danger'></i></a>
+                      <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                  </div>
+              </div>
+              <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                  <div class="row">
+                      <div class="d-flex gap-4 mt-3">
+                          <div class="description">
+                              Is there any part project ?
+                          </div>
+                          <div class="form-check">
+                              <span class=""> Yes </span>
+                              <input class="form-check-input" type="radio" name="radio" onchange="BindProjectPart();" id="proJectYes" checked>
+                          </div>
+                          <div class="form-check">
+                              <span class=""> No </span>
+                              <input class="form-check-input" type="radio" onchange="BindProjectPart();" name="radio" id="proJectNo">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                      <div class="row mt-3">
+                          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                              <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                  <label> Project Part <span class="text-danger"> * </span></label>
+                                  <div class="form-group">
+                                      <select class="form-select ProjectPart" id="ddlAAProjectPart">
+                                          <option>Select</option>
+                                          <option> Part A </option>
+                                          <option> Part B </option>
+
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                  <label> Amount <span class="text-danger"> * </span></label>
+                                  <div class="form-group">
+                                      <input type="text" class="form-control ProjectPart" id="txtAAAmount" maxlength="10">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                              <label> Description <span class="text-danger"> * </span></label>
+                              <div class="form-group">
+                                  <textarea class="form-control LengthRemarks ProjectPart" rows="5" id="txtProjectAADescription" targetid="MaxSize" maxlength="200"></textarea>
+                                  <small class="text-danger d-block text-end mt-2">
+                                      Maximum <span id="txtchar"><strong id="MaxSize">200</strong></span> characters allowed
+                                  </small>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 d-flex align-items-center mb-4">
+                      <button type="button" class="btn btn-outline-primary addmore-btn" onclick="AddMoreRef()"> <i class="bi bi-plus-circle me-2"></i> Add More  </button>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-4">
+                      <div class="table-responsive">
+                          <table class="table table-striped m-0" id="tblAAProjectDetails">
+                              <thead>
+                                  <tr>
+                                      <th width="30"> Sl# </th>
+                                      <th width="100"> Project part </th>
+                                      <th width="320"> Description </th>
+                                      <th width="100"> Amount </th>
+                                      <th width="80"> Action </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @*<tr>
+                                                       <td> 1 </td>
+                                                       <td> Type A </td>
+                                                       <td>
+                                                                                           <p id="description" class="m-0">
+                              Construction of Elevated Service reservoir (ESR)/OHT-7 Nos., of different capacities ranging from 450 KL to 1350 KL having office room and toilet with....
+                              <span id="more-text" style="display:none;"> Additional content that will be shown when 'Read More' is clicked.</span>
+                            </p>
+
+                            <a href="javascript:void(0);" class="text-light-primary read-more" title="Read More" id="toggle-button">Read More</a>
+
+
+
+                                                       </td>
+                                                       <td>  <i class="bi bi-currency-rupee"></i> 2,000,00 </td>
+                                                       <td>
+                                                          <div class="table__icon">
+                                                             <a href="~/Proposal/ViewProposal" title="View" data-bs-toggle="tooltip">
+                                                             <i class="buidcoicon-edit text-primary"></i>
+                                                             </a>
+                                                             <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                             <i class="buidcoicon-trash text-danger"></i>
+                                                             </a>
+                                                          </div>
+                                                       </td>
+                                                    </tr>*@
+                              </tbody>
+                              @*<tfoot>
+                           <tr>
+                              <td> &nbsp;   </td>
+                              <td colspan="2" class="fw-600"> Total   </td>
+                              <td colspan="2" class="fw-600"> <i class="bi bi-currency-rupee"></i>  4,00,000 </td>
+                           </tr>
+                        </tfoot>*@
+                          </table>
+                      </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                      <label> Remarks <span class="text-danger"> * </span></label>
+                      <div class="form-group">
+                          <textarea class="form-control LengthRemarks" rows="4" cols="4" id="txtAARemarks" name="txtAARemarks" maxlength="200" targetid="MaxSize1"></textarea>
+                          <small class="text-danger d-block text-end mt-2">
+                              Maximum <span id="txtchar"><strong id="MaxSize1">200</strong></span> characters allowed
+                          </small>
+                      </div>
+                  </div>
+          </div>
+      </form>
+   </div>
+   <div class="modal-footer lg__btn  justify-content-start">
+       <button type="button" id="btnReset" class="btn btn-light-danger me-3" onclick="resetform()">Reset</button>
+       <button type="button" id="btnCancel" class="btn btn-light-danger me-3" onclick="Cancelform()">Cancel</button>
+       <button type="button" class="btn btn-primary" onclick="SaveProjectDetails();" id="btnAAUpload"> Submit </button>
+   </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        BindSchemeList();
+        $(".datepicker").datepicker({ dateFormat: 'dd-M-yy' });
+        // Keyup event to update character count in real-time
+        $(document).on('keyup', '.LengthRemarks', function () {
+            updateCharCount(this);
+        });
+
+        // Blur event to validate character count when user leaves the textarea
+        $(document).on('blur', '.LengthRemarks', function () {
+            updateCharCount(this);
+        });
+        function updateCharCount(textArea) {
+            var maxLength = $(textArea).attr("maxlength"); // Get maxlength from textarea
+            var currentLength = $(textArea).val().length; // Current text length
+            var remaining = maxLength - currentLength; // Remaining characters
+
+            var spanId = $(textArea).attr("targetid"); // Get target span ID
+            $('#' + spanId).text(remaining); // Update the count in the span
+            if (currentLength ==0) {
+                $(textArea).removeClass("is-valid");
+            }
+            if (remaining < 0) {
+                Swal.fire({
+                    title: 'You have reached your maximum limit of characters allowed.',
+                    text: '',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+                $('#' + spanId).text(0); // Set to 0 when limit is exceeded
+            }
+        }
+    $('#toggle-button').click(function() {
+        var moreText = $('#more-text');
+        var linkText = $('#toggle-button');
+
+        // Toggle the visibility of the additional text
+        moreText.toggle();
+
+        // Change the button text based on the current state
+        if (moreText.is(":visible")) {
+            linkText.text('Read Less');
+        } else {
+            linkText.text('Read More');
+        }
+
+
+    });
+        $.validator.addMethod("fileExtension", function (value, element, param) {
+            if (element.files.length === 0) return true; // No file, so skip validation
+            var extension = value.split('.').pop().toLowerCase();
+            return $.inArray(extension, param) !== -1;
+        }, "Invalid file type.");
+
+        $.validator.addMethod("fileSize", function (value, element, param) {
+            if (element.files.length === 0) return true; // No file, so skip validation
+            return element.files[0].size <= param;
+        }, "File size must be less than 10MB");
+        $("#formAAUpload").validate({
+            rules: {
+
+                txtAALetterNumber: {
+                    required: true
+                },
+                txtAALetterDate: {
+                    required: true
+                },
+
+                ddlSchemeName: {
+                    required: true
+                },
+                fileSignedAALetter: {
+                    required: function () {
+                        return $('#hiddenfileSignedAALetter').val() == "";
+                    },
+                    fileExtension: ["pdf"],
+                    fileSize: 10 * 1024 * 1024
+                },
+                fileAAOtherDocument: {
+                    required: function () {
+                        return $('#hiddenfileAAOtherDocument').val() == "";
+                    },
+                    fileExtension: ["pdf"],
+                    fileSize: 10 * 1024 * 1024
+                },
+                txtAARemarks: {
+                    required: true,
+                   
+                },
+            },
+            messages: {
+
+                txtAALetterNumber: {
+                    required: "Please enter Letter Number."
+                },
+                txtAALetterDate: {
+                    required: "Please select Letter Date."
+                },
+                ddlSchemeName: {
+                    required: "Please select Scheme Name."
+                },
+                fileSignedAALetter: {
+                    required: "Please upload Signed AA Letter",
+                    fileExtension: "Only PDF files are allowed",
+                    fileSize: "File size must be less than 10MB"
+                },
+                fileAAOtherDocument: {
+                    required: "Please upload Other Document",
+                    fileExtension: "Only PDF files are allowed",
+                    fileSize: "File size must be less than 10MB"
+                },
+                txtAARemarks: {
+                    required: "Please enter Remarks."
+                },
+            },
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element.closest(".form-group"));
+            },
+            highlight: function (element) {
+                $(element).removeClass("is-valid");
+                $(element).parent().addClass('error');
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error');
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid");
+            },
+            
+        });
+});
+            function BindSchemeList() {
+    console.log("AJAX Function Called!");
+
+    $.ajax({
+        url: '@Url.Action("GetSchemeList", "AdministartiveApproval")',
+        type: 'GET',
+        dataType: 'json',
+        beforeSend: function () {
+            console.log("Sending request...");
+        },
+        success: function (data) {
+            console.log("Response Data:", data);
+            if (data.success == false) {
+                Swal.fire({
+                    icon: data.responseText,
+                    title: data.responseText,
+                    text: data.responseMessage,
+                });
+            }
+            else {
+                if (!data || data.length === 0) {
+                    swal("", "No data available.", "warning");
+                    return;
+                }
+
+                let options = "<option value=''>Select</option>";
+
+                $.each(data, function (index, item) {
+                    options += `<option value="${item.id}">${item.value}</option>`;
+                });
+
+                $('#ddlSchemeName').html(options);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            console.error("Status Code:", xhr.status);
+            swal("", "Failed to fetch Checklist Names.", "error");
+        }
+    });
+}
+
+   function SaveProjectDetails() {
+       var tbody = $("#tblAAProjectDetails tbody");
+       if ($("#formAAUpload").valid() && tbody.children().length > 0) {
+
+           var projectPartList = '';
+           $('#tblAAProjectDetails tbody tr').each(function (index) {
+               var projectPart = $(this).find('td:eq(1)').text();
+               var desc = $(this).find('td:eq(2)').text();
+               var amount = $(this).find('td:eq(3)').text();
+               projectPartList += projectPart + '|' + desc + '|' + amount + '^';
+           });
+           if (projectPartList != '') {
+               $('#hdnAAProjectPart_List').val(projectPartList);
+           }
+
+           var multipleProject = 0
+           if ($('#proJectYes').is(':checked')) {
+               multipleProject = 1;
+           }
+           var formData = new FormData();
+
+           // Append text fields
+           formData.append("AAId", $('#hdnAAId').val() || 0);
+           formData.append("ProposalId", $('#hiddenProposalId').val());
+           formData.append("AALetterNo", $("#txtAALetterNumber").val());
+           formData.append("AALetterDate", $("#txtAALetterDate").val());
+           formData.append("AASchemeID", $("#ddlSchemeName").val());
+           formData.append("AALetterPath", $("#hiddenfileSignedAALetter").val());
+           formData.append("AAOtherDocuemntPath", $("#hiddenfileAAOtherDocument").val()); // Empty string for now 
+           formData.append("IsMultipleProject", multipleProject);
+           formData.append("ProjectDetailsList", $("#hdnAAProjectPart_List").val() || '');
+           formData.append("AARemarks", $("#txtAARemarks").val());
+
+           // Append file separately (only if a file is selected)
+           var fileInput = $("#fileSignedAALetter")[0].files[0];
+           if (fileInput) {
+               formData.append("fileSignedAALetter", fileInput || null);
+           }
+           var fileInput = $("#fileAAOtherDocument")[0].files[0];
+           if (fileInput) {
+               formData.append("fileAAOtherDocument", fileInput || null);
+           }
+
+           //var hiddenfileAAOtherDocument = $("#hiddenfileAAOtherDocument").val();
+           let dynamicMsg;
+
+           if ($("#hiddenfileAAOtherDocument").val() == '') {
+               dynamicMsg = "Save";
+           } else {
+               dynamicMsg = "Update";
+           }
+           Swal.fire({
+               title: 'Are you sure?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   $.ajax({
+                       type: "POST",
+                       url: "@Url.Action("Save_AAUpload_Details", "AdministartiveApproval")",
+                       beforeSend: function (xhr) {
+                           xhr.setRequestHeader("XSRF-TOKEN",
+                               $('input:hidden[name="__RequestVerificationToken"]').val());
+                       },
+                       data: formData,
+                       contentType: false,
+                       processData: false,
+                       success: function (result) {
+                           Swal.fire({
+                               icon: result.success ? 'success' : 'error',
+                               title: result.responseText,
+                               text: result.responseMessage,
+                           }).then((result) => {
+                               if (result.isConfirmed) {
+                                   location.href = "@Url.Action("AdministrativeList", "AdministartiveApproval")";
+                               }
+                           })
+                       },
+                       error: function (result) {
+                           Swal.fire({
+                               icon: reset.responseText,
+                               title: result.responseText,
+                               text: result.responseMessage,
+                           });
+                       },
+                   });
+
+               }
+               return false;
+           })
+
+       }
+       else {
+           Swal.fire({
+               icon: 'warning',
+               title: 'Please Add Project Part Details.',
+               text: '',
+           });
+       }
+    }
+
+    function AddMoreRef() {
+        var projectPart = $("#ddlAAProjectPart").val();
+        var aaAmount = $("#txtAAAmount").val();
+        var aaProjectDescr = $("#txtProjectAADescription").val();
+
+        if (projectPart == 'Select') {
+            Swal.fire({
+                icon: 'warning',
+                title: "Please Select Project Part!",
+                text: "",
+            })
+            return false;
+        }
+
+        if (aaAmount == '') {
+            Swal.fire({
+                icon: 'warning',
+                title: "Please Enter Amount value!",
+                text: "",
+            })
+            return false;
+        }
+
+        if (aaProjectDescr == '') {
+            Swal.fire({
+                icon: 'warning',
+                title: "Please Enter Description!",
+                text: "",
+            })
+            return false;
+        }
+        if (projectPart != 'Select' && aaAmount != '' && aaProjectDescr != '') {
+            var rows = '';
+            var cont = 1;
+            let checkVal;
+            $('#tblAAProjectDetails tbody tr').each(function (index) {
+                $(this).find('td:eq(0)').text(cont++);
+                var projectPart = $(this).find('td:eq(1)').text();
+                var DescofChange = $(this).find('td:eq(2)').text();
+                var ddlAAProjectPart = $('#ddlAAProjectPart').val();
+                if (projectPart == ddlAAProjectPart) {
+                    checkVal = 1;
+                    alert('Project Part already exists!');
+                }
+
+
+            });
+            if (checkVal != 1) {
+                rows += '<tr>';
+                rows += '<td>' + cont++ + '</td>';
+                rows += '<td>' + $("#ddlAAProjectPart").val() + '</td>';
+                rows += '<td>' + $("#txtProjectAADescription").val() + '</td>';
+                rows += '<td>' + $("#txtAAAmount").val() + '</td>';
+                rows += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i ></a ></td>'
+                rows += '</tr>';
+                $('#tblAAProjectDetails tbody').append(rows);
+                $('#tblAAProjectDetails').show();
+                //$("#ddlAAProjectPart").val('');
+                $('#ddlAAProjectPart').prop('selectedIndex', 0);
+                $('#txtAAAmount').val('');
+                $('#txtProjectAADescription').val('');
+            }
+            
+            $('.ProjectPart').removeClass("is-valid");
+        }
+    }
+    $(document).on("click", '.delete', function () {
+        let rowToDelete = $(this).closest('tr');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Remove it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                rowToDelete.remove();
+                $('#tblAAProjectDetails tbody tr').each(function (i) {
+                    $(this).find('td:first').html(i + 1);
+                });
+                if ($('#tblAAProjectDetails tbody tr').length == 0) {
+                    $("#tblAAProjectDetails").hide();
+                    //$("#ddlAAProjectPart").val('');
+                    $('#ddlAAProjectPart').prop('selectedIndex', 0);
+                    $('#txtAAAmount').val('');
+                    $('#txtProjectAADescription').val('');
+                }
+            }
+        });
+    });
+    function BindProjectPart() {
+        let options = "<option value=''>Select</option>";
+        if ($('#proJectYes').is(':checked')) {
+             
+            options += `<option>Part A</option>`;
+            options += `<option>Part B</option>`;
+        } else {
+            options += `<option>Part A</option>`;
+        }
+        $('#ddlAAProjectPart').empty();
+        $('#ddlAAProjectPart').html(options);
+        $('#ddlAAProjectPart').prop('selectedIndex', 0);
+    }
+    $("#txtAAAmount").on("input", function () {
+        var value = $(this).val();
+
+        // Allow only numbers with up to two decimal places
+        var validValue = value.match(/^\d*\.?\d{0,2}$/);
+
+        // If the value is valid, keep it; otherwise, remove the last character
+        $(this).val(validValue ? value : value.slice(0, -1));
+        if (value == '') {
+            $(this).removeClass("is-valid");
+        }
+    });
+    $("#txtAAAmount").on("blur", function () {
+        var value = parseFloat($(this).val()).toFixed(2);
+        $(this).val(isNaN(value) ? '' : value);
+        if ($(this).val() == '') {
+            $(this).removeClass("is-valid");
+        }
+    });
+    $("#ddlAAProjectPart").on("blur", function () {
+        if ($(this).val() == 'Select') {
+            $(this).removeClass("is-valid");
+        }
+    });
+</script>

@@ -1,0 +1,223 @@
+﻿
+@model BUIDCO.Domain.AdminConsole.TabMaster.CreateTabMaster
+
+@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AddTab";
+
+}
+@section Scripts {
+    @*<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>*@
+
+    <script type="text/javascript" language="javascript">
+        function validateForm() {
+            var x = document.forms["frmCreateTab"]["NVCHTAB"].value;
+
+            if ($("#ddlbutton").val() == 0) {
+                $("#ddlbutton").focus();
+                alert("Please Select Button  Name.");
+
+                return false;
+            }
+            else if ($("#txtTabName").val() == "") {
+                $("#txtTabName").focus();
+                alert(" Tab  Name Can't be blank.");
+
+                return false;
+
+            }
+            else if ($("#txtTabURL").val() == "") {
+                $("#txtTabURL").focus();
+                alert("TAB URL Can't be blank.");
+
+                return false;
+            }
+            else if ($("#txttabdescription").val() == "") {
+                $("#txttabdescription").focus();
+                alert("Tab Description Can't be blank.");
+
+                return false;
+
+            }
+            else {
+                return confirm('Are you sure you want to  create this?');
+            }
+        }
+
+        function inputLimiter(e, allow) {
+            var AllowableCharacters = '';
+
+            if (allow == 'NameCharactersymbol') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz./&';
+            }
+            if (allow == 'NameCharacters') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.\'';
+            }
+            if (allow == 'Email') {
+                AllowableCharacters = '1234567890@ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz_.';
+            }
+            if (allow == 'Description') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.,()/';
+            }
+            if (allow == 'NameCharactersAndNumbers') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-,/.\&';
+            }
+            if (allow == 'Numbers') {
+                AllowableCharacters = '1234567890';
+            }
+            if (allow == 'Decimal') {
+                AllowableCharacters = '1234567890.';
+            }
+            if (allow == 'Filename') {
+                AllowableCharacters = '1234567890ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz/';
+            }
+            var k;
+            k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
+            if (k != 13 && k != 8 && k != 0) {
+                if ((e.ctrlKey == false) && (e.altKey == false)) {
+                    return (AllowableCharacters.indexOf(String.fromCharCode(k)) != -1);
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+
+        $(function () {
+            $("#btnReset").bind("click", function () {
+                $("#ddlbutton")[0].selectedIndex = 0;
+                document.forms["frmCreateTab"]["NVCHTAB"].value = "";
+                document.forms["frmCreateTab"]["VCHURL"].value = "";
+                document.forms["frmCreateTab"]["NVCHDESCRIPTION"].value = "";
+                document.forms["frmCreateTab"]["intSortNum"].value = "";
+            });
+        });
+    </script>
+
+  
+
+}
+
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            <h4>Add Tab Master</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Tab Master</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Tab Master</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-area="AdminConsole" asp-controller="TabMaster" asp-action="AddTab">Add</a>
+                        <a class="nav-item nav-link" asp-area="AdminConsole" asp-controller="TabMaster" asp-action="ViewActiveTab">Active</a>
+                        <a class="nav-item nav-link" asp-area="AdminConsole" asp-controller="TabMaster" asp-action="ViewInActiveButton">InActive</a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="ml-2 text-danger">(*) Indicates mandatory </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="frmCreateTab" data-parsley-validate novalidate method="post" asp-action="ButtonTab" asp-area="AdminConsole" asp-controller="TabMaster" asp-area="" asp-antiforgery="true" onsubmit="return validateForm()">
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Button Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <select id="ddlbutton" asp-for="INTBUTTONID" asp-items="@(new SelectList(Model.ButtonList,"INTBUTTONID","NVCHBUTTON"))" class="form-control">
+                                    <option value="0">--Select Button Name --</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Tab  Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="NVCHTAB" id="txtTabName" class="form-control" placeholder="Enter Tab Name" autocomplete="off" maxlength="100" Onkeypress="return inputLimiter(event,'NameCharactersymbol')" />
+
+                                <input asp-for="INTCREATEDBY" type="hidden" value='@ViewBag.CREATEDBY' />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Tab  URL
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="VCHURL" id="txtTabURL" class="form-control" placeholder="Enter Tab URL" autocomplete="off" maxlength="100" />
+
+                                <input type="hidden" id="hdnparentid" />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Tab  Description
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="NVCHDESCRIPTION" id="txttabdescription" class="form-control" placeholder="Enter Button Description" autocomplete="off" maxlength="100" Onkeypress="return inputLimiter(event,'NameCharactersymbol')" />
+
+                                <input type="hidden" id="hdnparentid" />
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Tab  Sortnum
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="intSortNum" id="txtbuttonsortnum" class="form-control" placeholder="Enter Button Sortnum" autocomplete="off" maxlength="100" Onkeypress="return inputLimiter(event,'Numbers')" />
+                               
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input"><span class="text-danger"></span></label>
+
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon"></span>
+                                <button type="submit" name="submit" id="btnsubmit" class="btn btn-primary mb-1t white-text" title="Submit" value="Submit">Submit</button>
+                                <input type="button" id="btnReset" value="Reset" class="btn btn-danger" title="Reset" />
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,561 @@
+﻿@using BUIDCo_ePMS.Model.Entities.AdministartiveApproval
+@model List<AdminApprovalViewEF>
+
+@{
+    ViewData["Title"] = "Administartive Approval";
+}
+<script src="~/js/forms/encryptdecrypt.js"></script>
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Construction Steps"> Construction Steps Text</a></li>
+                <li class="breadcrumb-item active" title="Administrative Approval" aria-current="page"> Administrative Approval </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal" data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview" data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="dashboard__tab">
+            <div class="flex__tab">
+                <div class="card card__bg flex-20">
+                    <div class="card-body">
+                        <div class="left__card">
+                            <div class="icon__circle">
+                                <i class="buidcoicon-application"></i>
+                            </div>
+                            <div class="card__text">
+                                <p> Total Application </p>
+                                <h4 class="flex-1"> 1254 </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-80 bg-transparent">
+                    <div class="card-body p-0">
+                        <div class="custom__pilltab" id="pill-navtab">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-justified" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#application" role="tab" aria-selected="true">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-primary">
+                                                <i class="buidcoicon-edit-document"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> New Application </p>
+                                                <h4 class="flex-1 text-primary"> 542 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#progress" role="tab" aria-selected="false">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-warning">
+                                                <i class="buidcoicon-in-progress"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> In-Progress </p>
+                                                <h4 class="flex-1 text-warning"> 89 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#approved" role="tab" aria-controls="contact" aria-selected="false">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-success">
+                                                <i class="buidcoicon-approved"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> Approved </p>
+                                                <h4 class="flex-1 text-success"> 431 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="setting-tab" data-bs-toggle="tab" href="#cancelled" role="tab" aria-selected="false">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-orange">
+                                                <i class="buidcoicon-cancelled"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> Cancelled </p>
+                                                <h4 class="flex-1 text-orange"> 43 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane fade" id="application" role="tabpanel">
+                applciation view
+            </div>
+            <div class="tab-pane fade show active" id="progress" role="tabpanel">
+                <div class="body__bg">
+                    <!-- filter details -->
+                    <div class="card filter__datas">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3 justify-content-between flex-wrap">
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                        <label class="m-0"> <span class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600"> #1223452 </span>  </label>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                        <label class="m-0"> Financial Year :  <span class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2"> 2025 </span>  </label>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label class="m-0"> Proposal Submitted By :  <span class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2"> Water Supply </span>  </label>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge badge-warning"> Project Type </span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                        <label class="m-0"> Category : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500">
+                                            Water Supply Projects
+                                        </span>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label class="m-0"> Sub-Category : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500">
+                                            Sub-Category 2
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                        <label class="m-0">  District : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500">
+                                            Khordha
+                                        </span>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label class="m-0">  Urban Local Body : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500">
+                                            NA
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- filter details -->
+
+                    <div class="table__fixed">
+
+                        <div class="border table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="50"> Sl# </th>
+                                        <th width="100"> District </th>
+                                        <th class="mw-150"> Proposal <span class="d-block"> Submitted By </span> </th>
+                                        <th class="mw-150">
+                                            <div> Category </div>
+                                            <small class="text-secondary"> Sub-Category </small>
+                                        </th>
+                                        <th class="mw-400"> Letter Details </th>
+                                        <th class="mw-150"> Estimated <span class="d-block"> Cost </span> </th>
+                                        <th class="mw-150"> Technical <span class="d-block"> Approval </span> </th>
+                                        <th class="mw-200"> Administartive <span class="d-block"> Approval </span> </th>
+                                        <th width="100"> Status </th>
+                                        <th width="80"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ var count = 0;
+                                        var url = "";
+                                        var url1 = "";
+                                        if (Model.Count > 0)
+                                        {
+                                            foreach (var project in Model)
+                                            {
+                                                url = Url.Action("AAGenerateLetter", "AdministartiveApproval") + "?Id=" + project.ProposalId;
+                                                url1 = Url.Action("TakeAction", "TakeAction") + "?Id=" + project.ProposalId + "&Moduleid=3";
+                                                count++;
+                                                <tr>
+                                                    <td> @count </td>
+                                                    <td> @project.District </td>
+                                                    <td> @project.ProposalSubmittedBy </td>
+                                                    <td>
+                                                        <label class="fw-600"> @project.Proposalcategory </label>
+                                                        <p class="text-secondary">@project.Proposalsubcategory </p>
+                                                    </td>
+                                                    <td>
+                                                        <div class="table__body__text">
+                                                            <div class="row mb-3">
+                                                                <div class="col-xl-8 col-12 d-flex align-items-center column-gap-4 mb-2 flex-wrap">
+                                                                    <div class="badge bg-yellow fw-600">
+                                                                        <span class="text-solid-black"> @project.ProposalLetterNo </span>
+                                                                    </div>
+                                                                    <div class="text-secondary"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> @project.ProposalLetterDate </div>
+                                                                </div>
+                                                                <div class="col-xl-4 col-12 text-start text-xl-end">
+                                                                    <a href="@Url.Action("DownloadPdf", "AdministartiveApproval", new { fileName = project.ProposalLetterdocpath, rootpath = "ProposalLetter" })" data-bs-toggle="tooltip" target="_blank" class="text-secondary" title="Download Document">
+                                                                        <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Download
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content">
+                                                                <p>
+                                                                    @project.ProposalSubject
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <i class="bi bi-currency-rupee"></i> @project.EstimatedCost
+                                                    </td>
+
+                                                    <td class="fs-7">
+                                                        <div class="mb-2"> <span class="text-secondary pe-2">Approved By: </span><strong>@project.TAApprovedBy</strong> </div>
+                                                        <div class="mb-2"> <i class="text-light-primary buidcoicon-calendar-day me-2"></i>@project.TAGeneratedLetterDate </div>
+                                                        <a href="@Url.Action("DownloadPdf", "AdministartiveApproval", new { fileName = project.TAGeneratedLetterDocPath, rootpath = "TALetter" })" target="_blank" data-bs-toggle="tooltip" title="Download Document">
+                                                            <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>Download
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="row">
+                                                            @if (project.IsAALetterGenerated == 0)
+                                                            {
+                                                                <a href="#" class="btn btn-outline-success btn-sm generate-link" data-url="@url" title="Upload">
+                                                                    <i class="buidcoicon-file me-2"></i> Generate
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+
+
+                                                                <div class="border-end pe-3 mb-3 col-xxl-7 col-xl-9 col-lg-9 col-md-9 col-9">
+                                                                    <small class="text-secondary"> Generated On </small>
+                                                                    <p class="m-0"> @project.AAGeneratedLetterDate </p>
+                                                                </div>
+                                                                <div class="col-xxl-5 col-xl-3 col-lg-3 col-md-3 col-3">
+                                                                    <a href="@Url.Action("DownloadPdf", "AdministartiveApproval", new { fileName = project.AAGeneratedLetterDocPath, rootpath = "AAGeneratedLetter" })"
+                                                                       class="text-danger" target="_blank"
+                                                                       data-bs-toggle="tooltip"
+                                                                       aria-label="View Document"
+                                                                       data-bs-original-title="View Document">
+                                                                        <i class="bi bi-file-earmark-pdf" title="Download PDF"></i>
+                                                                    </a>
+                                                                </div>
+
+                                                            }
+
+                                                            @if (project.IsAALetterGenerated != 0 && project.IsAAUploaded == 0)
+                                                            {
+
+                                                                <div class="border-end pe-3 mb-3 col-xxl-7 col-xl-9 col-lg-9 col-md-9 col-9">
+                                                                    <button type="button" class="btn btn-outline-primary btn-sm" title="Upload" data-bs-toggle="modal" onclick="GetSavedTADetails(@project.ProposalId)" data-bs-target="#uploadTech">
+                                                                        <i class="bi bi-cloud-upload me-2"></i> Upload
+                                                                    </button>
+                                                                </div>
+                                                            }
+                                                            else if (project.IsAALetterGenerated != 0 && project.IsAAUploaded != 0)
+                                                            {
+
+                                                                <div class="border-end pe-3 mb-3 col-xxl-7 col-xl-9 col-lg-9 col-md-9 col-9">
+                                                                    <small class="text-secondary"> AA Uploaded On </small>
+                                                                    <p class="m-0"> @project.AAAUploadedDate </p>
+                                                                </div>
+
+
+                                                            }
+                                                        </div>
+                                                    </td>
+
+
+                                                    <td>
+                                                        <span class="badge badge-warning"> @project.AAStatus</span>
+                                                    </td>
+
+
+                                                    <td>
+                                                        <div class="table__icon">
+                                                            <a href="#" class="generate-link" data-url="@url1" title="View" data-bs-toggle="tooltip">
+                                                                <i class="buidcoicon-eye text-success "></i>
+                                                            </a>
+                                                            @if (project.IsAAUploaded == 1)
+                                                            {
+                                                                <a class="text-primary" title="Edit" data-bs-toggle="tooltip" onclick="GetSavedTADetails(@project.ProposalId);">
+                                                                    <i class="buidcoicon-edit"></i>
+                                                                </a>}
+
+                                                        </div>
+                                                    </td>
+
+
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="10">
+                                                    <p style="text-align:center">No Record Available.</p>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="approved" role="tabpanel">Approved</div>
+            <div class="tab-pane fade" id="cancelled" role="tabpanel">Cancelled</div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+    <!--  adminstrative list Modal -->
+
+    <div class="modal fade right custom-view-modal-medium" id="uploadTech" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_UploadAdminstrativeApproval.cshtml")
+        </div>
+    </div>
+
+    <!--  adminstrative list Modal -->
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".generate-link").forEach(function (element) {
+            debugger;
+            var unencryptedUrl = element.getAttribute("data-url");
+
+            if (!unencryptedUrl) return;
+
+            var absoluteUrl = new URL(unencryptedUrl, window.location.origin);
+            var proposalId = absoluteUrl.searchParams.get("Id");
+            var Moduleid = absoluteUrl.searchParams.get("Moduleid");
+            var encryptedId, encryptedModuleid;
+            if (proposalId) {
+                encryptedId = encryptData(proposalId); // Encrypt ID
+            } else {
+                encryptedId = ""; // Ensure it's always defined
+            }
+
+            if (Moduleid) {
+                encryptedModuleid = encryptData(Moduleid); // Encrypt Moduleid
+            } else {
+                encryptedModuleid = ""; // Ensure it's always defined
+            }
+
+            // Construct the new URL
+            var finalUrl = unencryptedUrl;
+
+            // Replace or append `Id=`
+            if (finalUrl.includes("Id=")) {
+                finalUrl = finalUrl.replace(/Id=[^&]+/, "Id=" + encryptedId);
+            } else {
+                finalUrl += (finalUrl.includes("?") ? "&" : "?") + "Id=" + encryptedId;
+            }
+
+            // Replace or append `Moduleid=`
+            if (finalUrl.includes("Moduleid=")) {
+                finalUrl = finalUrl.replace(/Moduleid=[^&]+/, "Moduleid=" + encryptedModuleid);
+            } else {
+                finalUrl += "&Moduleid=" + encryptedModuleid;
+            }
+            element.setAttribute("href", finalUrl);
+        });
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+
+    function GetSavedTADetails(ProposalId) {
+
+    $.ajax({
+        url: '@Url.Action("GetSavedTADetails", "AdministartiveApproval")',
+        type: 'GET',
+        dataType : 'json',
+        data: { "ProposalId": ProposalId },
+        success: function (data) {
+            console.log(data);
+            if (data.success == false) {
+                Swal.fire({
+                    icon: data.responseText,
+                    title: data.responseText,
+                    text: data.responseMessage,
+                });
+            }
+            else {
+                
+                if (data != null && data != '') {
+                    resetform();
+                    $('#ProposalSubject').html(data.proposalSubject);
+                    $('#ProposalLocation').html(data.proposalDistrict);
+                    $('#ProposalArea').html(data.proposalArea);
+                    $('#ProposalCreatedBy').html(data.proposalCreatedBy);
+                    $('#ProposalCreatedOn').html(data.proposalCreatedOn);
+                    $('#ProposalEstimatedCost').html(data.proposalEstimatedAmount);
+                    $("#docTAGeneratedLetter").attr("href", "DownloadPdf?fileName=" + encodeURIComponent(data.taSignedDocumentPath
+                    ) + "&rootpath=" + encodeURIComponent('TALetter'));
+                    if (data.aaLetterPath != null) {
+                        $("#downloadSignedAALetter").attr("href", "DownloadPdf?fileName=" + encodeURIComponent(data.aaLetterPath) + "&rootpath=" + encodeURIComponent('AAGeneratedLetter'));
+                    }
+                    //else {
+                    //    $("#downloadSignedAALetter").attr("href", "DownloadPdf?fileName=" + encodeURIComponent(data.aaSignedDocumentPath) + "&rootpath=" + encodeURIComponent('AASignedLetter'));
+                    //}
+                    $("#downloadAAOtherDocument").attr("href", "DownloadPdf?fileName=" + encodeURIComponent(data.aaOtherDocuemntPath) + "&rootpath=" + encodeURIComponent('AAOtherDocument'));
+                    if (data.aaOtherDocuemntPath != null) {
+                        $("#btnReset").hide();
+                        $("#btnCancel").show();
+                        $("#downloadAAOtherDocument").show();
+                        $("#btnAAUpload").text('Update');
+                    }
+                    else {
+                        $("#btnReset").show();
+                        $("#btnCancel").hide();
+                        $("#downloadAAOtherDocument").hide();
+                    }
+                    $('#hdnAAId').val(data.aaId);
+                    $('#hiddenProposalId').val(data.proposalId);
+                    $('#hiddenfileSignedAALetter').val(data.aaLetterPath);
+                    $('#hiddenfileAAOtherDocument').val(data.aaOtherDocuemntPath);
+                    $('#txtAALetterNumber').val(data.aaLetterNo);
+                    $('#txtAALetterDate').val(data.aaLetterDate);
+                    if (data.aaSchemeID != null) {
+                        $('#ddlSchemeName').val(data.aaSchemeID);
+                    }
+                    $('#txtAARemarks').val(data.aaRemarks);
+
+                    var rows1 = '';
+                    $('#tblAAProjectDetails tbody').empty();
+
+                    if (data.projectDetailsList && data.projectDetailsList.trim() !== '') {
+                        var allrow = data.projectDetailsList.split("^");
+
+                        for (var i = 0; i < allrow.length; i++) {
+                            if (allrow[i].trim() !== '') {
+                                var getcols1 = allrow[i].split("|");
+
+
+                                var col1 = getcols1[1] ? getcols1[1] : '-';
+                                var col2 = getcols1[2] ? getcols1[2] : '-';
+                                var col3 = getcols1[3] ? getcols1[3] : '-';
+
+                                rows1 += '<tr>';
+                                rows1 += '<td>' + (i + 1) + '</td>';
+                                rows1 += '<td>' + col1 + '</td>';
+                                rows1 += '<td>' + col2 + '</td>';
+                                rows1 += '<td>' + col3 + '</td>';
+                                rows1 += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" title="Delete">'
+                                    + '<i class="buidcoicon-delete text-danger"></i></a></td>';
+                                rows1 += '</tr>';
+                            }
+                        }
+                    }
+
+                    if (rows1) {
+                        $('#tblAAProjectDetails tbody').append(rows1);
+                        $('#tblAAProjectDetails').show();
+                    }
+                    else {
+                        $('#tblAAProjectDetails').hide();
+                    }
+                    $('.LengthRemarks').trigger('blur');
+                    $('#uploadTech').modal('show');
+                }
+            }
+        },
+    error: function (result) {
+        Swal.fire({
+            icon: data.responseText,
+            title: data.responseText,
+            text: data.responseMessage,
+        });
+    },
+    });
+    }
+    function lettersDigitValidate(event) {
+        var keyCode = event.which || event.keyCode;
+
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            // If not allowed, prevent the default action (key press)
+            event.preventDefault();
+        }
+    }
+    function RemoveWhiteSpace(e) {
+        e.value = $.trim(e.value);
+    }
+    function resetform() {
+        if ($('#btnReset').text() == "Reset") {
+            $("#formAAUpload").validate().resetForm();
+            $('#txtAALetterNumber').val('');
+            $(".txtAALetterDate").val('');
+            $("#ddlSchemeName").val('');
+            $('#ddlSchemeName').prop('selectedIndex', 0);
+            $("#downloadSignedAALetter").val('');
+            $("#fileAAOtherDocument").val('');
+            $("#ddlAAProjectPart").val('');
+            $('#ddlAAProjectPart').prop('selectedIndex', 0);
+            $("#txtAAAmount").val('');
+            $("#txtProjectAADescription").val('');
+            $("#txtAAAmount").val('');
+            $('#tblAAProjectDetails tbody').empty();
+            $("#txtAARemarks").val('');
+            $('#tblAAProjectDetails').hide();
+            $('.LengthRemarks').trigger('blur');
+            $("#formAAUpload").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            //$("#form1").find(".error").removeClass("error");
+            //$('.LengthRemarks').trigger('blur');
+        }
+        else {
+            $('#uploadTech').modal("hide");
+        }
+    }
+</script>

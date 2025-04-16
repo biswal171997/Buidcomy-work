@@ -1,0 +1,631 @@
+﻿@{
+ViewData["Title"] = "Adminstrative Approval";
+}
+<div class="page-body">
+   <!-- breadcrumb section -->
+   <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+      <nav aria-label="breadcrumb">
+         <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Dashboard/DashboardLanding" title="Home"><i class="bi bi-house"></i></a></li>
+            <li class="breadcrumb-item"><a href="#" title="Construction Steps"> Construction Steps </a></li>
+            <li class="breadcrumb-item active" title="Adminstrative Approval" aria-current="page"> Adminstrative Approval </li>
+         </ul>
+      </nav>
+      <div class="col-right">
+         <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+            data-bs-target="#searchFilter">
+         <i class="buidcoicon-filter"></i>
+         </button>
+         <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+         <i class="buidcoicon-excel"></i>
+         </button>
+         <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+            data-bs-toggle="tooltip">
+         <i class="bi bi-printer"></i>
+         </button>
+      </div>
+   </div>
+   <!-- breadcrumb section -->
+   <!-- inner body section -->
+   <div class="body__content">
+      <div class="body__bg">
+         <h5 class="mb-3"> Proposal Details </h5>
+         <div class="card table__body__text">
+            <div class="card-body">
+               <div class="row mb-0 mb-xl-2 mb-lg-2 mb-md-2">
+                  <div class="col-xl-8 col-lg-8 col-md-8 col-12 pe-0 pe-xl-4 pe-lg-4 pe-md-4">
+                     <div class="row">
+                        <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8 col-12 d-flex align-items-center column-gap-4 mb-3 flex-wrap">
+                           <div class="badge bg-yellow fw-600">
+                              <span class="text-solid-black"> 212/23 </span>
+                           </div>
+                           <div><i class="text-light-primary buidcoicon-calendar-day me-2"></i> 14-Jun-2024 </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-12 text-end mb-3">
+                           <span class="badge badge-warning"> Pending for TA </span>
+                        </div>
+                     </div>
+                     <p>
+                        Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram basahiya ram ward no
+                        16 se sate chiknauta mauja me bal sundar nadi ke tat par shesh 70 feet sidhi ghat ka
+                        nirman
+                     </p>
+                     <div class="d-flex align-items-center column-gap-3 flex-wrap">
+                        <div class="border-right pe-3">
+                           Category & Sub Category :  <span class="fw-600 mt-2 mt-xl-0 mt-lg-0 mt-md-0"> Water Supply Projects </span>
+                        </div>
+                        <label class="mb-0">
+                        Drinking Water
+                        </label>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-left ps-xl-4 ps-lg-4 ps-md-4">
+                     <div class="form-group">
+                        <label class="mb-1">  Proposal Submitted By : </label>
+                        <div class="description">
+                           Department
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="mb-1">  Proposer Name : </label>
+                        <div class="description">
+                           Md Farooq
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="border-top pt-3">
+                  <div class="row">
+                     <div class="col-xl-8 col-lg-8 col-md-7 col-12">
+                        <div class="row">
+                           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                              <div class="form-group">
+                                 <label class="mb-1">  District :  </label>
+                                 <div class="description">
+                                    Sheohar
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                              <div class="form-group">
+                                 <label class="mb-1">  Urban Local Body (ULB) : </label>
+                                 <div class="description">
+                                    N/A
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                              <div class="form-group">
+                                 <label class="mb-1">  Subject : </label>
+                                 <div class="description">
+                                    N/A
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                              <div class="form-group">
+                                 <label class="mb-1">  Remark : </label>
+                                 <div class="description">
+                                    N/A
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-4 col-lg-4 col-md-5 col-12 ps-2 ps-xl-4 ps-md-4">
+                        <div class="form-group">
+                           <label class="mb-1">  Urban Local Body : </label>
+                           <div class="description">
+                              N/A
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- final detail report -->
+         <div class="accordion accordion-flush" id="faqlist">
+            <!-- Accordion Item 1 -->
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fdr-list" aria-expanded="true">
+                  Proposal Submission
+                  </button>
+               </h2>
+               <div id="fdr-list" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                  <div class="accordion-body">
+                     <div class="card table__body__text">
+                        <div class="card-body">
+                           <div class="fdreport__text">
+                              <h5> Final Detail Report (FDR)  </h5>
+                           </div>
+                           <div class="fdreport__details">
+                              <div class="row">
+                                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label class="mb-1">  FDR Prepared By :  </label>
+                                    <div class="description">
+                                       Department
+                                    </div>
+                                 </div>
+                                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label class="mb-1">  FDR Submitted / Approved Date :  </label>
+                                    <div class="description">
+                                       14-Jun-2024
+                                    </div>
+                                 </div>
+                                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label class="mb-1">  Presentation PPT :  </label>
+                                    <div class="d-block">
+                                       <a href="#" class="description">  <i class="bi bi-filetype-pptx text-danger me-2"></i> Document.pdf </a>
+                                       <span class="text-secondary border-start ps-3 ms-3">  254 kb </span>
+                                    </div>
+                                 </div>
+                                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label class="mb-1">  PDF of Estimation and DPR :  </label>
+                                    <div class="d-block">
+                                       <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+                                       <span class="text-secondary border-start ps-3 ms-3">  254 kb </span>
+                                    </div>
+                                 </div>
+                                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label class="mb-1">  Map Layout  :  </label>
+                                    <div class="d-block">
+                                       <a href="#" class="description">  <i class="bi bi-file-earmark-pdf pe-1 text-danger"> </i> Map1.kml </a>
+                                       <span class="text-secondary border-start ps-3 ms-3">  5 mb </span>
+                                    </div>
+                                 </div>
+                                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label class="mb-1">  Design layout :  </label>
+                                    <div class="d-block">
+                                       <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> design.pdf </a>
+                                       <span class="text-secondary border-start ps-3 ms-3">  10 mb </span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="fdreport__text">
+                              <h5> Project site information  </h5>
+                           </div>
+                           <div class="fdreport__details">
+                              <div class="table-responsive">
+                                 <table class="table table-striped">
+                                    <thead>
+                                       <tr>
+                                          <th width="50"> Sl# </th>
+                                          <th width="140"> Construction Area <br> (In Sq. Mtr) </th>
+                                          <th width="370"> Address </th>
+                                          <th width="180"> Documents </th>
+                                          <th width="70"> Action </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td> 1 </td>
+                                          <td> 214,223 </td>
+                                          <td>
+                                             <div class="site__information">
+                                                <p>
+                                                   Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram.
+                                                </p>
+                                                <div class="khata__section">
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Latitude </small>
+                                                      <p class="fw-500 m-0">  2541.3 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Longitude </small>
+                                                      <p class="fw-500 m-0">  1254.32 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Khata No </small>
+                                                      <p class="fw-500 m-0">  245 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Khesara No. </small>
+                                                      <p class="fw-500 m-0">  142 </p>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </td>
+                                          <td>
+                                             <div class="mb-2">
+                                                <a href="#" class="bg__grey fs-7" title="NOC Document">
+                                                <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i>
+                                                NOC Document
+                                                </a>
+                                             </div>
+                                             <div class="mt-3">
+                                                <p class="d-block text-secondary mb-2"> Other Documents </p>
+                                                <div class=" d-flex align-items-center gap-2 mb-2">
+                                                   <div class="d-flex align-items-center">
+                                                      <div>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                      </div>
+                                                      <a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#shoMoredocs" title="+5 More"> +5 More </a>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse" id="shoMoredocs">
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 4"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 5"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                </div>
+                                             </div>
+                                          </td>
+                                          <td>
+                                             <div class="table__icon">
+                                                <a href="#!" class="text-primary" title="Edit" data-bs-toggle="tooltip">
+                                                <i class="buidcoicon-edit"></i>
+                                                </a>
+                                                <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                <i class="bi bi-trash text-orange "></i>
+                                                </a>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td> 2 </td>
+                                          <td> 220,23 </td>
+                                          <td>
+                                             <div class="site__information">
+                                                <p>
+                                                   Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram.
+                                                </p>
+                                                <div class="khata__section">
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Latitude </small>
+                                                      <p class="fw-500 m-0">  2541.3 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Longitude </small>
+                                                      <p class="fw-500 m-0">  1254.32 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Khata No </small>
+                                                      <p class="fw-500 m-0">  245 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Khesara No. </small>
+                                                      <p class="fw-500 m-0">  142 </p>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </td>
+                                          <td>
+                                             <div class="mb-2">
+                                                <a href="#" class="bg__grey fs-7" title="NOC Document">
+                                                <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i>
+                                                NOC Document
+                                                </a>
+                                             </div>
+                                             <div class="mt-3">
+                                                <p class="d-block text-secondary mb-2"> Other Documents </p>
+                                                <div class=" d-flex align-items-center gap-2 mb-2">
+                                                   <div class="d-flex align-items-center">
+                                                      <div>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                      </div>
+                                                      <a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#shoMoredocs2" title="+5 More"> +5 More </a>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse" id="shoMoredocs2">
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 4"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 5"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                </div>
+                                             </div>
+                                          </td>
+                                          <td>
+                                             <div class="table__icon">
+                                                <a href="#!" class="text-primary" title="Edit" data-bs-toggle="tooltip">
+                                                <i class="buidcoicon-edit"></i>
+                                                </a>
+                                                <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                <i class="bi bi-trash text-orange "></i>
+                                                </a>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td> 3 </td>
+                                          <td> 25,223 </td>
+                                          <td>
+                                             <div class="site__information">
+                                                <p>
+                                                   Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram.
+                                                </p>
+                                                <div class="khata__section">
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Latitude </small>
+                                                      <p class="fw-500 m-0">  2541.3 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Longitude </small>
+                                                      <p class="fw-500 m-0">  1254.32 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Khata No </small>
+                                                      <p class="fw-500 m-0">  245 </p>
+                                                   </div>
+                                                   <div class="khata__list">
+                                                      <small class="d-block text-secondary mb-1"> Khesara No. </small>
+                                                      <p class="fw-500 m-0">  142 </p>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </td>
+                                          <td>
+                                             <div class="mb-2">
+                                                <a href="#" class="bg__grey fs-7" title="NOC Document">
+                                                <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i>
+                                                NOC Document
+                                                </a>
+                                             </div>
+                                             <div class="mt-3">
+                                                <p class="d-block text-secondary mb-2"> Other Documents </p>
+                                                <div class=" d-flex align-items-center gap-2 mb-2">
+                                                   <div class="d-flex align-items-center">
+                                                      <div>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                         <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                      </div>
+                                                      <a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#shoMoredocs3" title="+5 More"> +5 More </a>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse" id="shoMoredocs3">
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 4"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                   <a href="#" data-bs-toggle="tooltip" title="Document 5"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                </div>
+                                             </div>
+                                          </td>
+                                          <td>
+                                             <div class="table__icon">
+                                                <a href="#!" class="text-primary" title="Edit" data-bs-toggle="tooltip">
+                                                <i class="buidcoicon-edit"></i>
+                                                </a>
+                                                <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                <i class="bi bi-trash text-orange "></i>
+                                                </a>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Accordion Item 1 -->
+            <!-- Accordion Item 2 -->
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fdr-list2" aria-expanded="false">
+                  Technical Approval Details
+                  </button>
+               </h2>
+               <div id="fdr-list2" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                  <div class="accordion-body ">
+                     <div class="card table__body__text">
+                        <div class="card-body">
+                           <h6> Iswari Singh Sanskrit Uchh vidhyalaya, Bhagwanpur me kamra nirman karya. </h6>
+                           <div class="row mt-3">
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Location :  </label>
+                                 <div class="description">
+                                    Subject: Sheohar Prakhand ke mathurapur kahtarawa panchayat
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Created By :  </label>
+                                 <div class="description">
+                                    DPO Vaishali
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Created :  </label>
+                                 <div class="description">
+                                    04-Aug-2025
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  TA Letter No :  </label>
+                                 <div class="description">
+                                    TA12/254
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  TA Letter Date :  </label>
+                                 <div class="description">
+                                    24-Aug-2025
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Signed TA Letter :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  10 mb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Area :  </label>
+                                 <div class="description">
+                                    0.00 Sq.Mtr
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Estimated Cost :  </label>
+                                 <div class="description">
+                                    <i class="bi bi-currency-rupee"></i> 7,99,300
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  TA Approved By :  </label>
+                                 <div class="description">
+                                    AE
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Nazri Map :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Map1.kml </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  5 mb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Design Drawing :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Design.pdf </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  10 mb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Other Document :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  254 kb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Remarks :  </label>
+                                 <div class="d-block">
+                                    <p> It is a long establish fact that br reader will be distracted by the readable content of a page when looking at its layout.
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Accordion Item 2 -->
+            <!-- Accordion Item 3 -->
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fdr-list3" aria-expanded="false">
+                  Administartive Approval Details
+                  </button>
+               </h2>
+               <div id="fdr-list3" class="accordion-collapse collapse" aria-labelledby="headingThree">
+                  <div class="accordion-body ">
+                     <div class="card table__body__text">
+                        <div class="card-body">
+                           <h6> Iswari Singh Sanskrit Uchh vidhyalaya, Bhagwanpur me kamra nirman karya. </h6>
+                           <div class="row mt-3">
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Location :  </label>
+                                 <div class="description">
+                                    Subject: Sheohar Prakhand ke mathurapur kahtarawa panchayat
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Created By :  </label>
+                                 <div class="description">
+                                    DPO Vaishali
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Created :  </label>
+                                 <div class="description">
+                                    04-Aug-2025
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  TA Letter No :  </label>
+                                 <div class="description">
+                                    TA12/254
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  TA Letter Date :  </label>
+                                 <div class="description">
+                                    24-Aug-2025
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Signed TA Letter :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  10 mb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Area :  </label>
+                                 <div class="description">
+                                    0.00 Sq.Mtr
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Estimated Cost :  </label>
+                                 <div class="description">
+                                    <i class="bi bi-currency-rupee"></i> 7,99,300
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  TA Approved By :  </label>
+                                 <div class="description">
+                                    AE
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Nazri Map :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Map1.kml </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  5 mb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Design Drawing :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Design.pdf </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  10 mb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Other Document :  </label>
+                                 <div class="d-block">
+                                    <a href="#" class="description">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+                                    <span class="text-secondary border-start ps-3 ms-3">  254 kb </span>
+                                 </div>
+                              </div>
+                              <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                 <label class="mb-1">  Remarks :  </label>
+                                 <div class="d-block">
+                                    <p> It is a long establish fact that br reader will be distracted by the readable content of a page when looking at its layout.
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Accordion Item 3 -->
+         </div>
+      </div>
+      <!-- final detail report -->
+   </div>
+</div>
+<!-- inner body section -->
+<!-- search filter Modal -->
+<div class="modal fade right custom-view-modal-medium" id="searchFilter" tabindex="-1">
+   <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+      @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+   </div>
+</div>
+<!-- search filter Modal -->
+</div>

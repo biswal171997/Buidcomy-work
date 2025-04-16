@@ -1,0 +1,614 @@
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Master"> Master </a></li>
+                <li class="breadcrumb-item active" title="Project Type" aria-current="page">Sub Milestone </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" onclick="Add_M_SubMileStone_Master()">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" title="Delete" data-bs-toggle="tooltip" onclick="Delete_M_SubMileStone_Master()"> <i class="bi bi-trash"></i> </button>
+          
+        </div>
+    </div>
+
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table__fixed">
+                <div class="table-responsive border">
+                    <table id="tbl" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">
+                                    <div class="form-check">
+                                        <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault_" />
+                                    </div>
+                                </th>
+                                <th style="display:none"></th>
+                                <th style="width: 5%;"> Sl# </th>
+                                <th style="width: 20%;">Project Category</th>
+                                <th style="width: 25%;">Milestone </th>
+                                <th style="width: 25%;">Sub Milestone </th>
+                                <th style="width: 30%;"> Description </th>
+                                <th style="width: 5%;"> Edit </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add project type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProjecttype" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Add Sub Milestone </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjectType">Project Category<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <select class="form-select" name="categoryId" id="categoryId" onchange=" GetMilestoneList()">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <input id="hdncategoryId" type="hidden" value="0" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjectType">Milestone<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <select class="form-select" name="milestoneId" id="milestoneId">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <input id="hdnmilestoneId" type="hidden" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjectType">Sub Milestone<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <input type="text" id="submilestoneName" name="submilestoneName" maxlength="50" onkeypress="lettersDigitValidate(event)" onchange="RemoveWhiteSpace(this);" placeholder="" class="form-control" autocomplete="off">
+                                        <input id="hdnsubmilestoneId" type="hidden" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjectType">Description<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <textarea class="form-control LengthRemarks" id="SubMilestoneDesc" onchange="RemoveWhiteSpace(this);" onkeypress="lettersDigitValidate(event)" rows="4" cols="4" name="SubMilestoneDesc" maxlength="200" targetid="MaxSize"></textarea>
+                                        @*<small class="text-danger d-block text-end mt-2">Maximum 200 characters allowed </small>*@
+                                        <small class="text-danger d-block text-end mt-2">
+                                            Maximum <span id="txtchar"><strong id="MaxSize">200</strong></span> characters allowed
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer lg__btn border-0 justify-content-start">
+                    <button type="button" class="btn btn-light-danger me-3" id="DynamicButton" onclick="reset()"> Reset </button>
+                    <button type="button" class="btn btn-primary" id="subaddData" onclick="Save_M_SubMilestone_Master()"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+             $('.form-control').bind('copy paste cut', function (e) {
+                    e.preventDefault();
+
+
+                });
+        $('#splayoutheader').text('Sub Milestone');
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["strid"];
+        if (id != undefined || id != null) {
+            Get_M_SubMileStone_Master(decryptData(id));
+        }
+        Get_M_SubMileStone_Master();
+        GetcategoryList();
+        $("#form").validate({
+            rules: {
+                categoryId: {
+                    required: true
+                },
+                milestoneId: {
+                    required: true
+                },
+                submilestoneName: {
+                    required: true
+                },
+                SubMilestoneDesc: {
+                    required: true
+                },
+            },
+            messages: {
+                categoryId: {
+                    required: "Please select Project Category"
+                },
+                milestoneId: {
+                    required: "Please select Milestone"
+                },
+                submilestoneName: {
+                    required: "Please enter Sub Milestone"
+                },
+                SubMilestoneDesc: {
+                    required: "Please enter Description"
+                },
+
+            },
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element);
+            },
+            highlight: function (element) {
+                $(element).removeClass("is-valid");
+                $(element).parent().addClass('error');
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error');
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid");
+            }
+        });
+    });
+    $(".checkbox").change(function () {
+        var isChecked = $(this).prop("checked");
+        $(".checkbox").prop("checked", $(this).prop("checked"));
+    });
+
+    $('#tblbody').on('change', '.checkbox', function () {
+        const totalCheckboxes = $('.checkbox:visible:not(#flexCheckDefault_)').length;
+        const checkedCheckboxes = $('.checkbox:checked:visible:not(#flexCheckDefault_)').length;
+        // Update the header checkbox based on selection
+        $('#flexCheckDefault_').prop('checked', totalCheckboxes === checkedCheckboxes);
+    });
+
+
+
+  function GetcategoryList() {
+    $.ajax({
+        url: '@Url.Action("GetcategoryList", "Master")',
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            var options = "<option value=''>Select</option>";
+            $.each(data, function (index, item) {
+                options += `<option value="${item.categoryId}">${item.categoryName}</option>`;
+            });
+
+            $('#categoryId').html(options);
+
+            // Ensure default selection after the dropdown is populated
+            var selectedCategory = $("#hdncategoryId").val();
+            if (selectedCategory) {
+                setTimeout(function () {
+                    $('#categoryId').val(selectedCategory).trigger('change');
+                }, 100);
+            }
+        },
+        error: function () {
+            Swal.fire({
+                title: 'Failed to fetch Category List.',
+                text: '',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        
+        }
+    });
+}
+
+    function GetMilestoneList() {
+        if ($('#categoryId').val() != "" && $('#categoryId').val()!=null) {
+            $.ajax({
+                url: '@Url.Action("GetMilestoneList", "Master")',
+                type: 'POST',
+                data: { CategoryId: $('#categoryId').val() },
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data == "") {
+                        $("#milestoneId").removeClass("is-valid");
+                    }
+                    var options = "<option value=''>Select</option>";
+                    if (data != "") {
+                        $.each(data, function (index, item) {
+                            options += `<option value="${item.milestoneId}">${item.milestoneName}</option>`;
+                        });
+                    }
+
+                    $('#milestoneId').html(options);
+
+                    // Ensure default selection after the dropdown is populated
+                    var selectedMilestone = $("#hdnmilestoneId").val();
+                    if (selectedMilestone) {
+                        setTimeout(function () {
+                            $('#milestoneId').val(selectedMilestone).trigger('change');
+                        }, 100);
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        title: 'Failed to fetch Milestone List.',
+                        text: '',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                   
+                }
+            });
+        } else {
+            $("#milestoneId").removeClass("is-valid");
+            $("#categoryId").removeClass("is-valid");
+            $('#milestoneId').html('');
+            $('#milestoneId').append('<option value="">Select</option>');
+        }
+     }
+
+    function RemoveWhiteSpace(e) {
+        debugger;
+        //alert(e);
+        e.value = $.trim(e.value);
+    }
+    //------Description Count Start---
+    $(document).ready(function () {
+        // Function to update the character count
+        function updateCharCount(textArea) {
+            var maxLength = $(textArea).attr("maxlength"); // Get maxlength from textarea
+            var currentLength = $(textArea).val().length; // Current text length
+            var remaining = maxLength - currentLength; // Remaining characters
+
+            var spanId = $(textArea).attr("targetid"); // Get target span ID
+            $('#' + spanId).text(remaining); // Update the count in the span
+
+            if (remaining < 0) {
+                Swal.fire({
+                    title: 'You have reached your maximum limit of characters allowed.',
+                    text: '',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+                $('#' + spanId).text(0); // Set to 0 when limit is exceeded
+            }
+        }
+
+        // Keyup event to update character count in real-time
+        $(document).on('keyup', '.LengthRemarks', function () {
+            updateCharCount(this);
+        });
+
+        // Blur event to validate character count when user leaves the textarea
+        $(document).on('blur', '.LengthRemarks', function () {
+            updateCharCount(this);
+        });
+    });
+    ///////-----Description Count End---
+    function lettersDigitValidate(event) {
+        var keyCode = event.which || event.keyCode;
+
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            // If not allowed, prevent the default action (key press)
+            event.preventDefault();
+        }
+    }
+
+
+    function encryptData(data) {
+        // Convert the integer data to a string
+        var dataString = String(data);
+
+        // Encrypt the data using CryptoJS
+        var encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data: dataString }), 'secret_key').toString();
+
+        return encryptedData;
+    }
+    function Get_M_SubMileStone_Master() {
+        debugger
+        $.ajax({
+            type: 'Get',
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            data: {},
+            url: "@Url.Action("Get_M_SubMileStone_Master", "Master")",
+            success: function (result) {
+                var data1 = JSON.parse(result);
+                if (data1.length > 0) {
+                    $('#tbl.tbody').empty();
+                    $.each(data1, function (i, data) {
+
+                        var encryptedID = encryptData(data.milestoneId);
+                        var trows = "<tr id='tr_" + data.submilestoneId +"'>";
+                        trows = trows + "<td><div class='form-check'><input class='form-check-input checkbox' type='checkbox' value='' id='flexCheckDefault_" + data.submilestoneId +"' /></div></td>";
+                        trows = trows + "<td style='display:none'>" + data.milestoneId + "</td>";
+                        trows = trows + "<td style='display:none'>" + data.submilestoneId + "</td>";
+                        trows = trows + "<td>" + (i + 1) + "</td>";
+                        trows = trows + "<td>" + data.categoryName + "</td>";
+                        trows = trows + "<td>" + data.milestoneName + "</td>";
+                        trows = trows + "<td>" + data.submilestoneName + "</td>";
+                        trows = trows + "<td>" + data.SubMilestoneDesc + "</td>";
+                        //trows = trows + "<td>" + "<a class='btn-primary' href='/Master/M_Project_Category_Master?strid=" + encryptedID + "'>Edit</a>&nbsp;<button class='btn-danger' onclick='Delete_M_SubMileStone_Master(" + data.categoryId + ")'>Delete</button>" + "</td>";
+                        trows = trows + "<td><button type='button' class='btn btn-outline-primary btn-sm' onclick='GetByID_M_SubMilestone_Master(" + data.submilestoneId + ")' title='Edit'><i class='bi bi-pencil'></i></button></td>";
+                        trows = trows + "</tr>";
+                        $('#tbl').append(trows);
+                    });
+                }
+            },
+            error: function (Message) {
+                Swal.fire({
+                    title: Message,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+    function Delete_M_SubMileStone_Master() {
+        debugger
+        if ($(".form-check-input:checked").length === 0) {
+            Swal.fire({
+                title: 'Please Select at least one checkbox.',
+                text: '',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var ids = '';
+
+                        var checkLength = $(".form-check-input:checked").length;
+
+                    var arrIds = [];
+                        if (checkLength > 0)
+                        {
+                            $(".form-check-input:checked").each(function () {
+                                let chkId = $(this).attr("id");
+
+                                let rowNo = chkId.split('_')[1];
+                                arrIds.push(rowNo)
+                               let rowId = 'tr_' + rowNo;
+                            });
+                           ids= arrIds.toString()
+                        }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "@Url.Action("Delete_M_SubMileStone_Master", "Master")",
+                        data: { "Id": ids },
+                        success: function (response) {
+                            debugger
+     
+        console.log("Response:", response);
+        Swal.fire(
+            'Deleted!',
+            response.responseMessage,
+            response.responseText
+        ).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "@Url.Action("SubMilestoneMaster", "Master")";
+            }
+        });
+}
+
+                    });
+
+                }
+                return false;
+            })
+        }
+
+    }
+    function Save_M_SubMilestone_Master() {
+        debugger
+        if ($("#form").valid()) {
+           // Save_M_SubMilestone_Master()
+            debugger
+            var M_Project_SubCategory_Master = {
+                hdnmilestoneId: $('#hdnmilestoneId').val(),
+                categoryId: $("#categoryId").val(),
+                milestoneId: $('#milestoneId').val(),
+                submilestoneId: $("#hdnsubmilestoneId").val()||0,
+                submilestoneName: $("#submilestoneName").val(),
+                SubMilestoneDesc: $("#SubMilestoneDesc").val(),
+
+            };
+            var submilestoneId = $('#hdnsubmilestoneId').val() || 0;
+            let dynamicMsg;
+            if (submilestoneId == 0) {
+                dynamicMsg = "Save";
+            } else {
+                dynamicMsg = "Update";
+            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+            }).then((result) => {
+                debugger
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("SubMileStoneMaster", "Master")",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                        data: M_Project_SubCategory_Master,
+                        content: 'application/json;charset=utf-8',
+                        dataType: "json",
+                        success: function (result) {
+                            debugger
+                            Swal.fire({
+                                    icon: result.sucess ? 'success' : 'error',
+                                title: result.responseText,
+                                text: result.responseMessage,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("SubMileStoneMaster", "Master")";
+                                }
+                            })
+                        },
+                        error: function (result) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: result.responseText,
+                                text: result.responseMessage,
+                            });
+                        },
+                    });
+                }
+            })
+        }
+    }
+    function GetByID_M_SubMilestone_Master(id) {
+        debugger
+        $.ajax({
+            type: "Get",
+            dataType: "json",
+            url: '@Url.Action("GetByID_M_SubMilestone_Master", "Master")',
+            data: { "Id": id },
+            success: function (Result) {
+                debugger
+                var data1 = JSON.parse(Result);
+                $("#hdnmilestoneId").val(data1.milestoneId);
+                $('#categoryId').val(data1.categoryId);
+                $('#milestoneId').val(data1.milestoneId);
+                $('#hdnsubmilestoneId').val(data1.submilestoneId);
+                $('#submilestoneName').val(data1.submilestoneName);
+                $('#SubMilestoneDesc').val(data1.SubMilestoneDesc);
+
+                $("#categoryId").parent().removeClass('error');
+                $("#categoryId").removeClass("is-invalid");
+                $("#categoryId").addClass("is-valid");
+
+                $("#milestoneId").parent().removeClass('error');
+                $("#milestoneId").removeClass("is-invalid");
+                $("#milestoneId").addClass("is-valid");
+
+                $("#submilestoneName").parent().removeClass('error');
+                $("#submilestoneName").removeClass("is-invalid");
+                $("#submilestoneName").addClass("is-valid");
+
+                $("#SubMilestoneDesc").parent().removeClass('error');
+                $("#SubMilestoneDesc").removeClass("is-invalid");
+                $("#SubMilestoneDesc").addClass("is-valid");
+
+                $("#form").validate().resetForm(); 
+               
+
+                if ($('#hdnmilestoneId').val() != "0") {
+                    GetMilestoneList();
+                }
+                $('.LengthRemarks').trigger('blur');
+                $("#addProjecttype").modal("show");
+                $('#subaddData').text('Update');
+                $('#DynamicButton').text('Cancel');
+
+            },
+            error: function (Message) {
+                Swal.fire({
+                    title: Message,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+    function Add_M_SubMileStone_Master() {
+        $('#categoryId').val('');
+        $("#milestoneId").val('');
+        $('#submilestoneName').val('');
+        $('#SubMilestoneDesc').val('');
+        RemoveHeight();
+
+        $("#addProjecttype").modal("show");
+        $('#subaddData').text('Submit');
+        $('#DynamicButton').text('Reset');
+    }
+    function reset() {
+        debugger
+        if ($('#DynamicButton').text() == "Reset") {
+                 $("#form").validate().resetForm();
+                      $("#form").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                $("#form").find(".error").removeClass("error");
+            $('#categoryId').val('');
+            $("#milestoneId").val('');
+            $('#submilestoneName').val('');
+            $('#SubMilestoneDesc').val('');
+                $('.LengthRemarks').trigger('blur');
+        } else {
+            $("#addProjecttype").modal("hide");
+        }
+    }
+    function RemoveHeight() {
+        $('.LengthRemarks').trigger('blur');
+        $("#categoryId").removeClass("is-invalid");
+        $("#categoryId").removeClass("is-valid");
+        $("#milestoneId").removeClass("is-invalid");
+        $("#milestoneId").removeClass("is-valid");
+        $("#submilestoneName").removeClass("is-invalid");
+        $("#submilestoneName").removeClass("is-valid");
+        $("#SubMilestoneDesc").removeClass("is-invalid");
+        $("#SubMilestoneDesc").removeClass("is-valid");
+        $("#form").validate().resetForm(); 
+    }
+</script>

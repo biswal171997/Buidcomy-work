@@ -1,0 +1,132 @@
+﻿<div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> New Tender </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+                <form autocomplete="off" id="AddTenderform">
+                    <input type="hidden" id="HdnTenderId" />
+                    <div class="row">
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                            <label> Project Name/ID </label>
+                            <div class="form-group">
+                                <input type="text" id="projectId" name="projectId" onchange="RemoveWhiteSpace(this); GetProjectDetails();" onkeypress="AllowAlphaNumeric(event)" class="form-control autocomplete" autocomplete="off">
+                                <input type="hidden" id="hiddenProjectId" />
+                            </div>
+                        </div>
+                        <div id="sectionPopUp">
+                           
+                            <div class="card bglight-primary">
+                                <div class="text-secondary fs-7 mb-2"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> <span class="Startdateid"></span> </div>
+                                <h6 class="fw-500 mb-3"><span class="projectDescId"></span> </h6>
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                                        <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                                        <p class="m-0"> <span class="ConstrId"></span> </p>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                                        <small class="text-secondary"> Length (Mtr.) </small>
+                                        <p class="m-0"><span class="LenthId"></span></p>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                                        <small class="text-secondary"> Estimated Amount </small>
+                                        <p class="m-0"> <span class="icon icon-rupee-indian Estimated" ></span> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Tender Number  </label>
+                            <div class="form-group">
+                                <input type="text" maxlength="50" class="form-control" name="tenderNo" onkeypress="AllowAlphaNumeric(event)" onchange="RemoveWhiteSpace(this);" id="tenderNo">
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Tender Subject </label>
+                            <div class="form-group">
+                                <textarea class="form-control LengthRemarks" onchange="RemoveWhiteSpace(this);" onkeypress="lettersDigitValidateRemarks(event)" cols="2" rows="2" name="tenderSubject" id="tenderSubject" maxlength="500" targetid="MaxSize"></textarea>
+                                <small class="text-danger d-block text-end mt-2">
+                                    Maximum <span id="txtchar"><strong id="MaxSize">500</strong></span> characters allowed
+                                </small>
+                            </div>
+
+                        </div>
+                    
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Tender Published </label>
+                            <div class="input-group form-group">
+                            <input type="text" class="form-control datepicker" name="publishedDate" id="publishedDate" placeholder="DD-MMM-YYYY" autocomplete="off">
+                            <span class="input-group-text">
+                            <i class="buidcoicon-calendar-day"></i>
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Tender Opening </label>
+                            <div class="input-group form-group">
+                            <input type="text" class="form-control datepicker" name="openingDate" id="openingDate" placeholder="DD-MMM-YYYY">
+                            <span class="input-group-text">
+                            <i class="buidcoicon-calendar-day"></i>
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Tender Last Submission</label>
+                            <div class="input-group form-group">
+                            <input type="text" class="form-control datepicker" name="submissionDate" id="submissionDate" placeholder="DD-MMM-YYYY">
+                            <span class="input-group-text">
+                            <i class="buidcoicon-calendar-day"></i>
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> EMD AMount </label>
+                            <div class="form-group">
+                            <input type="text" maxlength="50" name="emdAmount" id="emdAmount" onchange="RemoveWhiteSpace(this);" class="form-control decimal-input">
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Tender Processing Fee </label>
+                            <div class="form-group">
+                            <input type="text" onchange="RemoveWhiteSpace(this);" name="processingFee" id="processingFee" class="form-control decimal-input" maxlength="50">
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <label> Upload NIT Document  <span class="text-danger"> * </span></label>
+                            <div class="form-group m-0">
+                                <div class="custom__fileupload">
+                                    <input type="file" class="form-control file" name="nitDocFileName" id="nitDocFileName" />
+                                    <input type="hidden" class="hdnNITFile" />
+                                    <label>  <span> Browse  </span> </label>
+                                </div>
+                                <div class="col-lg-8 col-12">
+                                    <label class="form-control-plaintext">
+                                        <span class="Nitfile"></span>
+                                    </label>
+                                    </div>
+                                    <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                                </div>
+                            </div>
+
+                </form>
+
+        </div>
+
+   </div>
+
+   <div class="modal-footer lg__btn  justify-content-start">
+      <button type="button" class="btn btn-light-danger me-3" id="DynamicButton" onclick="Reset()">Reset</button>
+      <button type="button" class="btn btn-primary" id="subaddData" onclick="Save_M_Project_Tender()" >Submit</button>
+   </div>

@@ -1,0 +1,195 @@
+﻿<div class="modal-content">
+   <div class="modal-header">
+      <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> Add Pre-Bid Queries </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+       <form id="formaddprebid" autocomplete="off">
+           <div class="row">
+               <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                   <label> Project Name/ID or NIT Number </label>
+                   <div class="form-group">
+                       <input type="text" id="projectId" name="projectId" onkeypress="AllowAlphaNumeric(event);" onchange="GetProjectDetails(); RemoveWhiteSpace(event);" class="form-control autocomplete" autocomplete="off">
+                       <input type="hidden" id="hiddenProjectId" />
+                   </div>
+               </div>
+               <div id="sectionPopUp">
+                   <div class="card bglight-primary">
+                       <div class="text-secondary fs-7 mb-2"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> <span class="Startdateid"></span> </div>
+                       <h6 class="fw-500 mb-3"> <span class="projectDescId"></span> </h6>
+                       <div class="row">
+                           <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                               <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                               <p class="m-0"> <span class="ConstrId"></span> </p>
+                           </div>
+                           <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                               <small class="text-secondary"> Length (Mtr.) </small>
+                               <p class="m-0"> <span class="LenthId"></span> </p>
+                           </div>
+                           <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2">
+                               <small class="text-secondary"> Estimated Amount </small>
+                               <p class="m-0"><span class="Estimated"></span>  </p>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- Excel Upload -->
+               <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                   <label> Download Sample Excel Format <span class="text-danger"> * </span> </label>
+                   <div class="form-group">
+                       <div class="document-upload">
+                           <img src="~/images/svg/excel.svg" alt="Excel">
+                           <p>
+                               To Upload Pre-Bid Queries Document Please <br>
+                               Download <a href="#!" class="text-primary"> Sample Excel Format </a>
+                           </p>
+
+                           <button type="button" class="btn btn-outline-primary btn-sm uploadExcelBtn">
+                               <i class="bi bi-cloud-upload me-1"></i> Upload
+                           </button>
+                           <input type="file" class="file excelFile" style="display:none;">
+                           <input type="hidden" class="hdnexcelFile" />
+                       </div>
+                   </div>
+                   <span class="excelFilename"></span>
+                   <br />
+                   <small class="text-danger fs-8"> (file type .xlsx and max. file size upto 10 MB) </small>
+
+                   <div class="fileUploadStatus" style="display:none;">
+                       <div class="row mt-3 fileUploadList"></div>
+                   </div>
+               </div>
+               <!-- Div to show the uploaded file details -->
+               <!-- Div to show the uploaded file details -->
+               <!---Upload PDF file -->
+               <!-- PDF Upload -->
+               <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                   <label> Download Sample PDF Format <span class="text-danger"> * </span> </label>
+                   <div class="form-group">
+                       <div class="document-upload">
+                           <img src="~/images/svg/pdf.svg" style="height:35px; width:35px;" alt="PDF">
+                           <p>
+                               To Upload Pre-Bid Queries Document Please <br>
+                               Download <a href="#!" class="text-primary"> Sample PDF Format </a>
+                           </p>
+
+                           <button type="button" class="btn btn-outline-primary btn-sm uploadPdfBtn">
+                               <i class="bi bi-cloud-upload me-1"></i> Upload
+                           </button>
+                           <input type="file" class="file pdfFile" style="display:none;">
+                           <input type="hidden" class="hdnpdfFile" />
+                       </div>
+                   </div>
+                   <span class="pdfFilename"></span>
+                   <br />
+                   <small class="text-danger fs-8"> (file type .pdf and max. file size upto 10 MB) </small>
+                   <div class="fileUploadStatus" style="display:none;">
+                       <div class="row mt-3 fileUploadList"></div>
+                   </div>
+               </div>
+           </div>
+
+
+      </form>
+   </div>
+   <div class="modal-footer lg__btn  justify-content-start">
+      <button type="button" class="btn btn-light-danger me-3" id="Dynamicbtn" onclick="Reset()"> Reset </button>
+      <button type="button" class="btn btn-primary" onclick="Save_TENDER_PreBidQuriues()" id="DynmaicSubmit"> Submit </button>
+   </div>
+</div>
+</div>
+<input type="file" hidden="hidden" id="uploadexcelId" /> />
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".uploadExcelBtn, .uploadPdfBtn", function () {
+            $(this).siblings(".file").click();
+        });
+            $(".file").on("change", function (event) {
+            let files = event.target.files;
+            let fileInput = $(this);
+            let fileType = fileInput.hasClass("excelFile") ? "excel" : "pdf";
+            let allowedTypes = fileType === "excel" ? ["xlsx", "xls"] : ["pdf"];
+            let fileUploadList = fileInput.closest(".form-group").siblings(".fileUploadStatus").find(".fileUploadList");
+
+            fileUploadList.empty();
+
+            let validFiles = [];
+            $.each(files, function (index, file) {
+                let fileName = file.name;
+                let fileSize = (file.size / 1024).toFixed(1) + " KB";
+                let fileExtension = fileName.split('.').pop().toLowerCase();
+
+                if (allowedTypes.includes(fileExtension)) {
+                    validFiles.push(file);
+
+                    let fileItem = generateFileTemplate(index, fileName, fileSize, fileType);
+                    fileUploadList.append(fileItem);
+                    simulateFileUpload(index);
+                } else {
+                    Swal.fire("Invalid File!", `Only ${allowedTypes.join(", ")} files are allowed.`, "error");
+                    return false; 
+                }
+            });
+
+            if (validFiles.length > 0) {
+                fileUploadList.closest(".fileUploadStatus").fadeIn();
+            }
+        });
+        function generateFileTemplate(index, fileName, fileSize, fileType) {
+            let descriptionId = fileType === "excel" ? "documentinexcel" : "documentinpdf";
+            if (fileType === "excel") {
+                $(".excelFile")[0].files = event.target.files;
+            } else if (fileType === "pdf") {
+                $(".pdfFile")[0].files = event.target.files;
+            }
+            return `<div class="col-12 mb-2" id="file_${index}">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a href="#" id="fileName" name="fileName" value="${fileName}">${fileName}</a>
+                        <input type="file" name="${descriptionId}" value="${fileName}" hidden="hidden" id="${descriptionId}" />
+                        <span class="text-secondary ps-2">${fileSize}</span>
+                    </div>
+                    <div class="text-success">
+                        <i class="bi bi-check-circle-fill" id="fileStatus_${index}" style="display:none;"></i>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>`;
+        }
+        // Simulate Upload Progress
+        function simulateFileUpload(fileIndex) {
+            let progressBar = $(`#file_${fileIndex} .progress-bar`);
+            let fileStatus = $(`#fileStatus_${fileIndex}`);
+            let progress = 0;
+
+            let interval = setInterval(function () {
+                if (progress < 100) {
+                    progress += 10;
+                    progressBar.css("width", progress + "%");
+                } else {
+                    clearInterval(interval);
+                    fileStatus.show();
+                }
+            }, 500);
+        }
+    });
+
+      function AllowAlphaNumeric(event) {
+          var keyCode = event.which || event.keyCode;
+          var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+              .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+              .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+              .concat([58, 45, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+          if (allowedKeyCodes.indexOf(keyCode) === -1) {
+              event.preventDefault();
+          }
+      }
+
+    function RemoveWhiteSpace(e) {
+        let element = e.target;
+        element.value = element.value.trim();
+    }
+
+</script>

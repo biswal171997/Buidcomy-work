@@ -1,0 +1,77 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> New Ticket </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="formsearch" autocomplete="off">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_fyyear"> Bug Type </label>
+                    <div class="form-group">
+                        <select id="ddlsearch_fyyear" class="form-select">
+                            <option value="0" selected> Select Type </option>
+                            <option value="0"> Bug Type </option>
+                            <option value="0"> Bug Type </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtsearch_letterno"> Bug Name </label>
+                    <div class="form-group">
+                        <input type="text"  class="form-control" placeholder="" maxlength="50">
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_client"> Module </label>
+                    <div class="form-group">
+                        <select id="ddlsearch_client" class="form-select">
+                            <option value="0" selected> Select </option>
+                            <option value="0"> Module </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_subcategory"> Sub-Module </label>
+                    <div class="form-group">
+                        <select id="ddlsearch_subcategory" class="form-select">
+                            <option value="0" selected> Select </option>
+                             <option value="0" selected> Sub Module </option>
+                        </select>
+                    </div>
+                </div>
+
+                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_subcategory"> Upload Screenshort Image <span class="text-danger"> * </span></label>
+                        <div class="form-group">
+                            <div class="custom__fileupload">
+                                <input type="file" id="UploadLetter" name="UploadLetter" class="form-control" accept=".pdf" onchange="validatePDF()">
+                                <label> <span> Browse  </span> </label>
+                            </div>
+
+                            <small class="text-danger text-end mt-2 d-block fs-8"> (Only .jpg or .jpeg or .png file and size 1mb only) </small>
+                        </div>
+                </div>
+
+               
+
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_ulb"> Description </label>
+                    <div class="form-group">
+                        <textarea class="form-control" id="" rows="4" cols="4" name=""  maxlength="150"></textarea>
+                        <small class="text-danger text-end mt-2 d-block fs-8"> (Maximum 250 Charecters Allowed) </small>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button type="button" class="btn btn-light-danger me-3"> Reset </button>
+        <button type="button" class="btn btn-primary"> Submit </button>
+    </div>
+</div>

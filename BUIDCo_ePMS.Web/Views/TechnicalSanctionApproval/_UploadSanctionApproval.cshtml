@@ -1,0 +1,137 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">  Upload Technical Sanction Approval  </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="card bglight-primary">
+            <h6 class="fw-500 mb-3"> Birchandra Patel smarak Mahavidhyalaya, Desari, Vaishali ka chahardiwari nirman. </h6>
+            <ul>
+
+                <li>
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12 border-right pe-3 mb-1">
+                            <i class="bi bi-handbag"></i>  <span class="text-secondary"> Estimated : </span><span id="taEstimatedCost"> 7,99,300</span>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                            <i class="bi bi-handbag"></i>
+                            <span class="text-secondary"> Approval : </span> <span id="aaEstimatedCost">7,99,300</span>
+                        </div>
+
+                    </div>
+                </li>
+
+                <li>
+
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12 border-right pe-3 mb-1">
+                            <a id="a_taLetterPath" href="#" class="text-light-primary" title="Download Signed TA Letter">   <i class="bi bi-file-earmark-pdf pe-1 text-danger"> </i>  Download Signed TA Letter </a>
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                            <a id="a_aaLetterPath" href="#" class="text-light-primary" title="Download Signed AA Letter">   <i class="bi bi-file-earmark-pdf pe-1 text-danger"> </i>  Download Signed AA Letter </a>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <form id="formtsupload" autocomplete="off" enctype="multipart/form-data">
+            <input id="hdntsId" type="hidden" />
+            <input id="hdntaproposalId" type="hidden" />
+            <div class="row">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> TS Letter Number <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txttsLetterNo" name="txttsLetterNo" type="text" class="form-control" onkeypress="return /^[a-zA-Z0-9#_ -]+$/i.test(event.key)">
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> TS Letter Date <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="txttsLetterDate" name="txttsLetterDate" placeholder="DD-MM-YYYY"
+                                   aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="buidcoicon-calendar-day"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> Upload Signed TS Letter <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="futsLetterPath" name="futsLetterPath" type="file" class="form-control">
+                            <label for="">  <span> Browse  </span> </label>
+                        </div>
+                        <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                        <a id="atsLetterPath" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> Execution Mode <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlexecutionMode" name="ddlexecutionMode" class="form-select">
+                            <option value="0" selected> Select </option>
+                            <option value="1"> Department </option>
+                            <option value="2"> Tender </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> Upload BQQ Document <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="boqPath" name="boqPath" type="file" class="form-control">
+                            <label for="">  <span> Browse  </span> </label>
+                        </div>
+                        <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                        <a id="aboqPath" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> Skilled labour <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtskilledLabour" name="txtskilledLabour" type="text" class="form-control" maxlength="4" onkeypress="lettersNumberValidate(event)">
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for=""> UnSkilled labour <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtunskilledLabour" name="txtunskilledLabour" type="text" class="form-control" maxlength="4" onkeypress="lettersNumberValidate(event)">
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    <label for=""> Remarks <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <textarea id="txttsRemarks" name="txttsRemarks" class="form-control LengthRemarks" maxlength="200" onkeypress="lettersDigitValidate(event)" rows="4" cols="4" data-targetid="MaxSizeSubject"></textarea>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            Maximum <span><strong id="MaxSizeSubject">200</strong></span> characters allowed
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button type="button" class="btn btn-light-danger me-3" onclick="ResetTSUpload()"> Reset </button>
+        <button type="button" class="btn btn-primary" onclick="UploadTSInformation()"> Update </button>
+    </div>
+</div>

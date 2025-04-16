@@ -1,0 +1,597 @@
+﻿@Html.AntiForgeryToken()
+<div class="modal-content">
+   <div class="modal-header">
+      <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> Assign Project (Work Order) </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+  
+           <form autocomplete="off" id="form" method="post" enctype="multipart/form-data">
+               <div class="border-bottom mb-4">
+
+
+                   <div class="row">
+                       <!-- Label Column -->
+                       <div class="col-xxl-6 col-xl-6 col-lg-8 col-md-12 col-12">
+                           <label for="ProjectId">Project Name <span class="text-danger">*</span></label>
+                       </div>
+                       <!-- Dropdown Column -->
+                       <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12 form-group">
+
+                           <input type="text" id="projectId" name="projectId" onchange="GetAssignToList();" class="form-control autocomplete" autocomplete="off">
+                           <input type="hidden" id="hiddenProjectId" />
+                           <input type="hidden" id="hdnAssignProjectId" />
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                           <label> Assign To <span class="text-danger"> * </span></label>
+                           <div class="form-group">
+                               <input type="text" id="AssignTo" name="AssignTo" class="form-control" placeholder="Enter Assign To">
+                               <input type="hidden" id="HdnAssignTo" />
+                               <input type="hidden" id="BidderId" />
+                               <span class="text-danger"></span>
+                           </div>
+                       </div>
+                       <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                           <label> Agreement Amount <span class="text-danger"> * </span></label>
+                           <div class="form-group">
+                               <input type="text" id="AgreementAmount" name="AgreementAmount" class="form-control" maxlength="50" placeholder="Enter Agreement Amount">
+                               <input type="hidden" id="HdnAgreementAmount" />
+                               <span class="text-danger"></span>
+                           </div>
+                       </div>
+                   </div>
+
+
+
+
+                   <div class="card bglight-primary p-4">
+                           <h5 class="heading-color mb-4"> Payment Terms </h5>
+                                        <div class="row">
+                                            
+                                                    <div class="col-xl-3 col-lg-3 col-md-4 col-12">
+                                                       
+                                                       <div class="form-group mb-xl-0 mb-md-0 mb-3">
+                                                            <label> Component Type <span class="text-danger">*</span></label>
+                                                            <select class="form-select" id="componentType">
+                                                                @*<option value="">Select</option>
+                                                                <option value="Bank Guaranty">Bank Guaranty</option>
+                                                                <option value="Cheque">Cheque</option>*@
+                                                            </select>
+                                                           <input type="hidden" id="hdncomponentType" />
+                                                        </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-lg-3 col-md-4 col-12">
+                                                           <div class="form-group mb-xl-0 mb-md-0 mb-3">
+                                                            <label> Component Amount (₹) <span class="text-danger">*</span></label>
+                                                            <input type="text" id="ComponentAmount" maxlength="15" oninput="validateDecimal(this)" onkeyup="validateAgreementAmount()" class="form-control">
+                                                        </div>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-lg-3 col-md-4 col-12 d-flex align-items-center mt-xl-3 mt-lg-3 mt-md-3 mt-0">
+                                                             <button type="button" class="btn btn-outline-primary py-2 mt-xl-3 mt-lg-3 mt-md-3 mt-0" title="Add More" id="addMoreBtn"> 
+                                                                    <i class="bi bi-plus-circle me-2"></i> Add More  
+                                                             </button>
+                                                        </div>
+
+                                        </div>
+                     </div>
+
+
+                    <!-- show Payment Terms data items -->
+                            <div class="row mb-4" id="dataTableWrapper">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped m-0 border" id="tbl_bankComponent">
+                                            <thead>
+                                                <tr>
+                                                    <th width="30"> Sl# </th>
+                                                    <th width="300"> Component Type </th>
+                                                    <th width="150"> Component Amount (₹) </th>
+                                                    <th width="100"> Action </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="payementTypedata">
+                                                <!-- Dynamic rows will be added here -->
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td> &nbsp; </td>
+                                                    <td> <span class="fw-600"> Total </span> </td>
+                                                    <td colspan="2"> <span class="fw-600" id="totalAmount"> ₹ 0.00 </span> </td>
+                                                    
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <!-- show Payment Terms data items -->
+
+
+
+
+               </div>
+
+               <div class="row mb-3">
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> PAN  <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="panNo" name="panNo" class="form-control" maxlength="10">
+                           <span class="text-danger panError"></span>
+                       </div>
+                   </div>
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> GST Number<span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="gstNo" name="gstNo" class="form-control" maxlength="15" >
+                           <span class="text-danger gstError"></span>
+                       </div>
+                   </div>
+
+
+                    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                   <label> Insurance (Date of Expiry)  <span class="text-danger"> * </span></label>
+                                   <div class="input-group mb-3">
+                                       <input type="text" class="form-control fromdatepicker hasDatepicker" name="startDate" id="startDate" placeholder="DD-MM-YYYY">
+                                       <span class="input-group-text">
+                                           <i class="buidcoicon-calendar-day"></i>
+                                       </span>
+                                   </div>
+                               </div>
+
+                               <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                   <label> Labour License (Date of Expiry)  <span class="text-danger"> * </span></label>
+                                   <div class="input-group mb-3">
+                                       <input type="text" class="form-control fromdatepicker hasDatepicker" name="startDate" id="startDate" placeholder="DD-MM-YYYY">
+                                       <span class="input-group-text">
+                                           <i class="buidcoicon-calendar-day"></i>
+                                       </span>
+                                   </div>
+                               </div>
+
+
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> License/Registration Number  <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="licenseNo" name="licenseNo" class="form-control" maxlength="20">
+                           <span class="text-danger licenseError"></span>
+                       </div>
+                   </div>
+
+
+
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> Phone Number  <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="phoneNo" maxlength="10" name="phoneNo" class="form-control">
+                           <span class="text-danger errPhoneNo"></span>
+                       </div>
+                   </div>
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> FAX Number  <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="faxNo" name="faxNo" class="form-control"maxlength="15">
+                           <span class="text-danger faxError"></span>
+                       </div>
+                   </div>
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> Email ID   <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="emailId" name="emailId" class="form-control">
+                           <span class="text-danger"></span>
+                       </div>
+                   </div>
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> Mobile Number  <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="mobileNo" onkeypress="AllowOnlyDigit(event);" maxlength="10" name="mobileNo" class="form-control">
+                           <span class="text-danger mobileError"></span>
+                       </div>
+                   </div>
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> Contact Person  <span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="contactPerson"onkeypress="Allowalphabate(event);" maxlength="50" name="contactPerson" class="form-control" autocomplete="off">
+                           <span class="text-danger errContactPerson"></span>
+                       </div>
+                   </div>
+                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                       <label> Contact Person Mobile Number<span class="text-danger"> * </span></label>
+                       <div class="form-group">
+                           <input type="text" id="contactPersonMobileNumber" onkeypress="AllowOnlyDigit(event);" maxlength="10" name="contactPersonMobileNumber" class="form-control">
+                           <span class="text-danger contactPersonMobileError"></span>
+                       </div>
+                   </div>
+                  
+
+               <div class="col-xxl-9 col-xl-9 col-lg-12 col-md-6 col-12">
+                   <label for="address"> Address <span class="text-danger"> * </span></label>
+                   <div class="form-group">
+                       <textarea class="form-control LengthRemarks" rows="3" name="address" id="address"
+                                 onchange="removeWhiteSpace(this);"
+                                 onkeypress="lettersDigitValidate(event)"
+                                 onkeyup="updateCharCount(this);"
+                                 maxlength="200"></textarea>
+                       <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                           Maximum <span><strong id="maxSize">200</strong></span> characters allowed
+                       </small>
+                   </div>
+               </div>
+                   <div class="row">
+                       <div class="description">
+                           Performance Guarantee Submitted ?
+                       </div>
+                       <div class="d-flex gap-4 mb-4 mt-2">
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="radio" onchange="radioButton()" id="performYes" checked>
+                               <label for="performYes" class="ps-2 m-0"> Yes </label>
+                           </div>
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="radio" onchange="radioButton()" id="performNo">
+                               <label for="performNo" class="ps-2 m-0"> No </label>
+                           </div>
+                       </div>
+                   </div>
+                   @*<form id="Addmore">*@
+                   <div id="banksdtlsShowHide">
+                       <div class="card bglight-primary p-4">
+                           <h5 class="heading-color mb-4">Bank Details </h5>
+                           <div id="inputFields">
+                               <div class="row">
+                                   <div class="col-md-3">
+                                       <label>Instrument Type <span class="text-danger">*</span></label>
+                                       <select class="form-select" id="InstrumentType">
+                                           <option value="">Select</option>
+                                           <option value="Bank Guaranty">Bank Guaranty</option>
+                                           <option value="Cheque">Cheque</option>
+                                           <option value="DD">DD</option>
+                                           <option value="TD / NSC">TD / NSC</option>
+                                       </select>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <label>PG Amount (₹) <span class="text-danger">*</span></label>
+                                       <input type="text" id="PGAmount" maxlength="15" oninput="validateDecimal(this)" onkeyup="validateAgreementAmount()" class="form-control">
+                                   </div>
+                                   <div class="col-md-3">
+                                       <label>Bank Name <span class="text-danger">*</span></label>
+                                       <input type="text"name="BankName" id="BankName"onkeypress="Allowalphabate(event);"onchange="RemoveWhiteSpace(this);" maxlength="50" class="form-control">
+                                   </div>
+
+                                   <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                       <label> Valid Till <span class="text-danger"> * </span></label>
+                                       <div class="input-group mb-3">
+                                           <input type="text" class="form-control datepicker" name="ValidTill" id="ValidTill" placeholder="DD-MM-YYYY">
+                                           <span class="input-group-text">
+                                               <i class="buidcoicon-calendar-day"></i>
+                                           </span>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <label>Upload PG Document <span class="text-danger">*</span></label>
+                                       <input type="file" id="UploadPgDocuments" class="form-control">
+                                       <span class="text-danger pdfError"></span>
+                                       <small class="text-danger text-end mt-2 d-block fs-8"> (Upload pdf file only and max. file size upto 10 MB) </small>
+                                   </div>
+                   <div class="col-md-3 mt-4">
+                       <button type="button" class="btn btn-outline-primary py-2 mt-xl-2 mt-lg-2 mt-md-2 mt-0" title="Add More" id="addMorebtn"> 
+        <i class="bi bi-plus-circle me-2"></i> Add More  
+    </button>
+                   </div>
+               </div>
+
+               </div>
+
+                       <table class="table table-bordered mt-4" id="bankDetailsTable">
+                           <thead>
+                               <tr>
+                                   <th>#Sl</th>
+                                   <th>Instrument Type</th>
+                                   <th>PG Amount (₹)</th>
+                                   <th>Bank Name</th>
+                                   <th>Valid Till</th>
+                                   <th>PG Document</th>
+                                   <th>Action</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                       </table>
+                     
+
+                   </div>
+
+                     <div class="card bglight-primary p-4">
+                           <h5 class="heading-color mb-4"> Project Details </h5>
+                           <div class="row">
+                               <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                   <label> Project Duration(in Month) <span class="text-danger"> * </span></label>
+                                   <div class="form-group">
+                                       <input type="text" id="projectDuration" name="projectDuration" maxlength="2" onkeypress="AllowOnlyDigit(event);" class="form-control">
+                                   </div>
+                               </div>
+                               <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                   <label> Start Date  <span class="text-danger"> * </span></label>
+                                   <div class="input-group mb-3">
+                                       <input type="text" class="form-control fromdatepicker" name="startDate" id="startDate" placeholder="DD-MM-YYYY">
+                                       <span class="input-group-text">
+                                           <i class="buidcoicon-calendar-day"></i>
+                                       </span>
+                                   </div>
+                               </div>
+                               <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                   <label> End Date <span class="text-danger"> * </span></label>
+                                   <div class="input-group mb-3">
+                                       <input type="text" class="form-control Todatepicker" name="endDate" id="endDate" placeholder="DD-MM-YYYY">
+                                       <span class="input-group-text">
+                                           <i class="buidcoicon-calendar-day"></i>
+                                       </span>
+                                   </div>
+                               </div>
+                               <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
+                                   <label> Upload Letter <span class="text-danger"> * </span></label>
+                                   <div class="form-group">
+                                       <div class="custom__fileupload">
+                                           <input type="file" id="UploadLetter" name="UploadLetter"class="form-control" accept=".pdf" onchange="validatePDF()">
+                                           <label> <span> Browse  </span> </label>
+                                       </div>
+                                       <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                                       <span class="clsletterdoc" id="pdfError" ></span>
+                                       @*<label class="Letter" id="hdnlettter"></label>*@
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+
+               </div>
+                </div>
+           </form>
+           <div class="modal-footer lg__btn  justify-content-start">
+          
+               <button type="button" class="btn btn-light-danger me-3" id="DynamicButton" onclick="Reset()">Reset</button>
+               <button type="button" class="btn btn-primary" id="btnsubmit" onclick="SaveProject()"> Submit </button>
+           </div>
+   </div>
+
+
+   <script>
+       $(document).ready(function () {
+           $("#tbl_bankComponent").hide();
+    let counter = 1;
+    let totalAmount = 0;
+    $(document).on('click', '.delete-btn', function () {
+        let row = $(this).closest('tr');
+        let amountText = row.find('td:nth-child(3)').text();
+        let amount = parseInt(amountText.replace(/[^\d]/g, ''));
+
+        totalAmount -= amount;
+        row.remove();
+        $('#totalAmount').text(`₹ ${totalAmount.toLocaleString()}`);
+    });
+      GetBankComponentList();
+});
+
+       
+       $('#addMoreBtn').click(function () {
+           var rows = '';
+           var cont = $('#tbl_bankComponent tbody tr').length + 1; 
+           let componentAmount = parseFloat($("#ComponentAmount").val()) || 0; 
+          
+           rows += '<tr>';
+           rows += '<td>' + cont + '</td>';
+           rows += '<td style="display:none;">' + $("#componentType").val() + '</td>';
+           rows += '<td>' + $('#componentType option:selected').text() + '</td>';
+           rows += '<td class="amount">' + componentAmount.toFixed(2) + '</td>'; 
+           rows += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i></a></td>';
+           rows += '</tr>';
+
+           $('#tbl_bankComponent tbody').append(rows);
+           $('#tbl_bankComponent').show();
+           $('#componentType').val('');
+           $("#ComponentAmount").val('');
+
+           updateTotalAmount();
+       });
+
+       function updateTotalAmount() {
+           let total = 0;
+           $(".amount").each(function () {
+               total += parseFloat($(this).text()) || 0;
+           });
+           $("#totalAmount").text("₹ " + total.toFixed(2)); 
+       }
+
+       $(document).on("click", ".delete", function () {
+           //$(this).closest("tr").remove();
+           //updateTotalAmount();
+           Swal.fire({
+               title: 'Are you sure?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, Remove it!'
+           }).then((submit) => {
+               if (submit.isConfirmed) {
+                   $(this).parents('tr').remove();
+                   $('#tbl_bidderDetails tbody tr').each(function (i) {
+                       $($(this).find('td')[0]).html(i + 1);
+
+                   });
+                   updateTotalAmount();
+               }
+           });
+       });
+
+       function GetBankComponentList() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetBankComponentList", "AssignProject")',
+            dataType: "json",
+            traditional: true,
+            success: function (data) {
+                data = JSON.parse(data);
+                var options = "<option value=''>Select</option>";
+                $.each(data, function (index, item) {
+                    options += `<option value="${item.payCompId}">${item.PaymentComponent}</option>`;
+                });
+                $('#componentType').html(options);
+                if ($("#hdncomponentType").val()) {
+                    $('#componentType').val($("#hdncomponentType").val()).trigger('change');
+                }
+            },
+            error: function () {
+                swal("", "Failed to fetch Checklist Names.", "error");
+            }
+        });
+    }
+       function Allowalphabate(event) {
+           var keyCode = event.which || event.keyCode;
+           // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+           var allowedKeyCodes =
+               //   [...Array(10).keys()].map(i => i + 48) // 0-9
+               [...Array(26).keys()].map(i => i + 65) // A-Z
+                   .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+                   .concat([32]); // ., ,, :, -, (, ), \, / space
+           // Check if the pressed key is allowed
+           if (allowedKeyCodes.indexOf(keyCode) === -1) {
+               // If not allowed, prevent the default action (key press)
+               event.preventDefault();
+           }
+       }
+       function RemoveWhiteSpace(e) {
+      
+           //alert(e);
+           e.value = $.trim(e.value);
+       }
+       function validateAgreementAmount() {
+           var agreementAmount = $("#AgreementAmount").val();
+           var amountRegex = /^[0-9]+(\.[0-9]{1,2})?$/;  // Allows numbers with up to 2 decimal places
+
+           if (agreementAmount.length === 0) {
+               $("#amountError").text("Agreement Amount is required!").show();
+               $("#AgreementAmount").addClass("is-invalid");
+           } else if (!amountRegex.test(agreementAmount)) {
+               $("#amountError").text("Invalid amount! Please enter a valid number (e.g., 1000 or 1000.50).").show();
+               $("#AgreementAmount").addClass("is-invalid");
+           } else {
+               $("#amountError").hide();
+               $("#AgreementAmount").removeClass("is-invalid").addClass("is-valid");
+           }
+       }
+       function validateDecimal(input) {
+           // Allow only numbers and up to 2 decimal places
+           var value = input.value;
+
+           // Regular expression to match a decimal number with up to 2 decimal places
+           var decimalRegex = /^\d+(\.\d{0,2})?$/;
+
+           if (!decimalRegex.test(value)) {
+               $(".decimalError").text("Please enter a valid decimal number (up to 2 decimal places).");
+               input.value = value.slice(0, -1);  // Remove the last invalid character
+           } else {
+               $(".decimalError").text("");  // Clear error message
+           }
+       }
+       function AllowOnlyDigit(event) {
+            var keyCode = event.which || event.keyCode;
+
+            // Allow only numbers (0-9)
+            if (keyCode < 48 || keyCode > 57) {
+                event.preventDefault(); // Prevent invalid input
+            }
+        }
+       function validateContactPersonMobile() {
+           var mobileNo = $("#contactPersonMobileNumber").val();  // Corrected selector
+           var mobileRegex = /^[6-9]\d{9}$/;  // Starts with 6-9 and has 10 digits
+
+           if (mobileNo.length === 0) {
+               $(".contactPersonMobileError").text("Mobile Number is required!").show();
+               $("#contactPersonMobileNumber").addClass("is-invalid");
+           } else if (!mobileRegex.test(mobileNo)) {
+               $(".contactPersonMobileError").text("Invalid Mobile Number! Please enter a valid 10-digit number.").show();
+               $("#contactPersonMobileNumber").addClass("is-invalid");
+           } else {
+               $(".contactPersonMobileError").hide();
+               $("#contactPersonMobileNumber").removeClass("is-invalid").addClass("is-valid");
+           }
+       }
+       // Function to update the character count
+       function updateCharCount(textarea) {
+           const maxLength = textarea.maxLength;
+           const currentLength = textarea.value.length;
+           document.getElementById('maxSize').textContent = maxLength - currentLength;
+       }
+       // Keyup event to update character count in real-time
+       $(document).on('keyup', '.LengthRemarks', function () {
+           updateCharCount(this);
+       });
+       // Blur event to validate character count when user leaves the textarea
+       $(document).on('blur', '.LengthRemarks', function () {
+           updateCharCount(this);
+       });
+       function lettersDigitValidate(event) {
+           var keyCode = event.which || event.keyCode;
+
+           // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+           var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+               .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+               .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+               .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+           // Check if the pressed key is allowed
+           if (allowedKeyCodes.indexOf(keyCode) === -1) {
+               // If not allowed, prevent the default action (key press)
+               event.preventDefault();
+           }
+       }
+       function validateDates() {
+           var startDate = $("#startDate").val().trim();
+           var endDate = $("#endDate").val().trim();
+           var dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(20[2-9][0-9])$/; // MM/DD/YYYY from 2020+
+
+           $(".startDateError, .endDateError").text("").hide();
+           $("#startDate, #endDate").removeClass("is-invalid is-valid");
+
+           // Validate Start Date
+           if (startDate.length === 0) {
+               $(".startDateError").text("Start Date is required!").show();
+               $("#startDate").addClass("is-invalid");
+           } else if (!dateRegex.test(startDate)) {
+               $(".startDateError").text("Invalid format! Use MM/DD/YYYY.").show();
+               $("#startDate").addClass("is-invalid");
+           } else {
+               $("#startDate").addClass("is-valid");
+           }
+
+           // Validate End Date
+           if (endDate.length === 0) {
+               $(".endDateError").text("End Date is required!").show();
+               $("#endDate").addClass("is-invalid");
+           } else if (!dateRegex.test(endDate)) {
+               $(".endDateError").text("Invalid format! Use MM/DD/YYYY.").show();
+               $("#endDate").addClass("is-invalid");
+           } else if (new Date(startDate) > new Date(endDate)) {
+               $(".endDateError").text("End Date must be greater than Start Date!").show();
+               $("#endDate").addClass("is-invalid");
+           } else {
+               $("#endDate").addClass("is-valid");
+           }
+       }
+       function radioButton() {
+           if ($('#performYes').is(":checked", true)) {
+               $('#banksdtlsShowHide').show();
+               // $('#tbl_biddersList').show();
+           } else if ($('#performNo').is(":checked", true)) {
+               $('#banksdtlsShowHide').hide();
+               $('#bankDetailsTable').empty();
+
+           }
+       }
+   </script>

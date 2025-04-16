@@ -1,0 +1,282 @@
+﻿@{
+    ViewData["Title"] = "New Tender Details";
+}
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#!" title="Tender"> Tender </a></li>
+                <li class="breadcrumb-item active" title=" Technical Bid Process" aria-current="page">  Technical Bid Process </li>
+            </ul>
+        </nav>
+        @*<div class="col-right">
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>*@
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg table__body__text">
+            <div class="row">
+
+                <div class="col-xxl-8 col-xl-8 col-lg-12 col-md-12 col-12 mb-3">
+                    <div class="card h-100 m-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-12">
+                                    <h5 class="mb-3"> Letter Details  </h5>
+                                    <div class="badge bg-yellow mb-3">
+                                        <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span><span class="clsletterno"></span></div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-2">
+                                        <small class="text-secondary d-block"> Submitted By : </small>
+                                        <p class="m-0"> Department </p>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                        <small class="text-secondary d-block"> Proposed By : </small>
+                                        <p class="m-0"> <span class="clsproposeby"></span> </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-12">
+                                    <h5 class="mb-3"> Project Details  </h5>
+                                    <div class="mb-1">
+                                        <a href="#" class="fw-600 text-primary">
+                                           <span class="clsprojectcode"></span>
+                                        </a>
+                                    </div>
+                                    <p>
+                                        <span class="clsprojectName"></span>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                            <div class="form-group border-right mb-2">
+                                                <small class="mb-1 text-secondary">  Construction Area (Sq. Mtr)  </small>
+                                                <div class="description">
+                                                    <span class="clsconstarea"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                            <div class="form-group border-right mb-2">
+                                                <small class="mb-1 text-secondary">  Length (Mtr.):  </small>
+                                                <div class="description">
+                                                   <span class="clsLength"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                            <div class="form-group mb-2">
+                                                <small class="mb-1 text-secondary">  Estimated Amount </small>
+                                                <div class="description">
+                                                  <span class="esmtamt"></span> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="clearfix">
+                                    <hr>
+                                </div>
+
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <h5 class="mb-3"> Tender Details  </h5>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2 border-right">
+                                            <small class="text-secondary"> Opening </small>
+                                            <p class="m-0"> <span class="clsOpeningDate"></span></p>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2 border-right">
+                                            <small class="text-secondary"> Last Submission </small>
+                                            <p class="m-0"> <span class="clssubmissiondate"></span> </p>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2">
+                                            <div class="d-flex gap-2">
+                                                <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                                <div>
+                                                    <span class="clsnitFile"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="clearfix">
+                                    <hr>
+                                </div>
+
+
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <h5 class="mb-3"> Technical Bid Process  </h5>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-3 border-right">
+                                            <small class="text-secondary"> Evaluation Status </small>
+                                            <p class="m-0"><span class="ClsEvaluationstatus"></span> </p>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-3 border-right">
+                                            <small class="text-secondary"> Technical Bid Open Date </small>
+                                            <p class="m-0"> <span class="ClstechopeningDate"></span> </p>
+                                        </div>
+
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-3">
+                                            <small class="text-secondary"> Financial Bid Date </small>
+                                            <p class="m-0"><span class="clsfinancialDate"></span> </p>
+                                        </div>
+
+
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-3">
+                                            <div class="d-flex gap-2">
+                                                <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                                <div>
+                                                    <span class="technicalBidFile"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-4 col-lg-12 col-md-12 col-12 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header"> Bidder Details <span class="badge badge-primary fw-600 ms-3 fs-6"> 08  </span> </div>
+                        <div class="card-body">
+
+                            <div class="card__fixtbl">
+                                <div class="table-responsive">
+                                    <table class="table table-striped border" id="tbl_biddername">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%"> Sl# </th>
+                                                <th> Bidder Name </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td> 1  </td>
+                                                <td> RAMESH THAKUR  </td>
+                                            </tr>
+                                            <tr>
+                                                <td> 2  </td>
+                                                <td> MANOJ KUMAR RAY  </td>
+                                            </tr>
+                                            <tr class="active">
+                                                <td> 3  </td>
+                                                <td>
+
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div> SULEKHA JHA  </div>
+
+                                                        <div class="badge light-green fs-8"> WON </div>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4  </td>
+                                                <td> SAMIR KUMAR SINGH </td>
+                                            </tr>
+                                            <tr class="active">
+                                                <td> 3  </td>
+                                                <td>
+
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div> SULEKHA JHA  </div>
+
+                                                        <div class="badge light-green fs-8"> WON </div>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+</div>
+<script>
+    $(document).ready(function () {
+        var id = getUrlVars()["Id"];
+        // alert(id);
+        GettechnicalBidDetailsById(id);
+    });
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = decodeURIComponent(value);
+        });
+        return vars;
+    }
+
+    function GettechnicalBidDetailsById(ele) {
+     $.ajax({
+         type: 'Get',
+         url: "@Url.Action("GettechnicalBidDetailsById", "TechnicalBid")" + "?Id=" + ele,
+         contentType: false,
+         processData: false,
+         dataType: "json",
+         success: function (result) {
+             $('.clsletterno').text(result[0].letterNo);
+             $('.clsproposeby').text(result[0].clientName);
+             $('.clsprojectcode').text(result[0].projectCode);
+             $('.clsprojectName').text(result[0].projectName);
+             $('.clsconstarea').text(result[0].constructionArea);
+             $('.clsLength').text(result[0].length);
+             $('.esmtamt').text("₹" + result[0].emdAmount);
+             $('.clsOpeningDate').text(result[0].openingDate);
+             $('.clssubmissiondate').text(result[0].submissionDate);
+           $('.clsnitFile').html('<a href="@Url.Action("DownloadPdf", "Tender")?fileName=' + result[0].nitDocFileName + '" class="description" data-bs-toggle="tooltip" title="Download"> NIT Document </a><small class="text-secondary d-block"> 214 kb </small>');
+             $('.ClsEvaluationstatus').text(result[0].technicalStatus);
+             $('.ClstechopeningDate').text(result[0].technicalDate);
+             $('.clsfinancialDate').text(result[0].finanicalDate);
+             $('.technicalBidFile').html('<a href="@Url.Action("DownloadPdf", "TechnicalBid")?fileName=' + result[0].technicalDocPath + '" class="description" data-bs-toggle="tooltip" title="Download"> Techniacal Document </a><small class="text-secondary d-block"> 214 kb </small>');
+
+             $("#tbl_biddername tbody").empty(); 
+             debugger
+             if (result.length > 0) {
+                 var rows = '';
+                 var serialNo = 1;
+                 $.each(result, function (index, item) {
+                     var bidderNames = item.bidderName.split(',');
+                     $.each(bidderNames, function (i, bidder) {
+                         if (bidder.trim() !== '') { 
+                             rows += '<tr>';
+                             rows += '<td>' + serialNo + '</td>';
+                             rows += '<td>' + bidder.trim() + '</td>';
+                             rows += '</tr>';
+                             serialNo++; 
+                         }
+                     });
+                 });
+
+                 $("#tbl_biddername tbody").append(rows);
+             } else {
+                 $("#tbl_biddername tbody").append('<tr><td colspan="2" class="text-center">No Data Found</td></tr>');
+             }
+         },
+         error: function (Message) {
+             alert(Message);
+         }
+      });
+    }
+</script>

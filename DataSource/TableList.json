@@ -1,0 +1,62 @@
+[
+  {
+    "TableName": "M_Application_Status_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Assembly_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Assembly_Tagging",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Client_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Constituency_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Financial_Year",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_MileStone_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Module_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Project_Category_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Project_Part",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Project_Subcategory_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Project_Type_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Scheme_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_SubMileStone_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  },
+  {
+    "TableName": "M_Unit_Master",
+    "DataBase_Name": "Db_BUIDCo_PMS"
+  }
+]

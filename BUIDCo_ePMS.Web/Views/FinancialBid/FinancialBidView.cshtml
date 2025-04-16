@@ -1,0 +1,487 @@
+﻿@model IEnumerable<BUIDCo_ePMS.Model.Entities.ProjectTender.ViewFinancialBidModelEF>
+@{
+    ViewData["Title"] = "Financial Bid";
+}
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#!" title="Tender"> Tender </a></li>
+                <li class="breadcrumb-item active" title=" Financial Bid Process" aria-current="page">  Financial Bid Process </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" onclick="Reset();" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addFinanceBid">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+            @*<button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>*@
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table-responsive">
+                <table class="table table-striped" id="basic-2">
+                    <thead>
+                        <tr>
+                            <th width="4%"> Sl# </th>
+                            <th width="30%"> Project Details </th>
+                            <th width="12%"> Tender Details </th>
+                            <th width="12%"> Bidder Name </th>
+                            <th width="12%"> Bid Amount </th>
+                            <th width="12%"> Assign Project </th>
+                            <th width="12%"> Status </th>
+                            <th width="10%"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Count() > 0)
+                            {
+                                int Count = 0;
+                                foreach (var item in Model)
+                                {
+
+                                    Count++;
+                                    <tr>
+                                        <td> @Count </td>
+                                        <td>
+                                            <div class="table__body__text">
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-6 mb-2">
+                                                        <a href="#" class="fw-600 text-primary" title="Download Document">
+                                                            @item.projectCode
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-xl-5 col-5 mb-2">
+                                                        <div class="badge bg-yellow ">
+                                                            <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> @item.letterNo </div>
+                                                        </div>
+                                                    </div>
+                                                    <p>
+                                                        @item.projectName
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-2">
+                                                <small class="text-secondary d-block"> Opening : </small>
+                                                <p class="m-0"> @item.openingDate </p>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                                <small class="text-secondary d-block"> Last Submission : </small>
+                                                <p class="m-0"> @item.submissionDate </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.bidderName
+                                        </td>
+                                        <td>
+                                            ₹ @item.bidAmount
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-outline-primary btn-sm" id="" title="Assign" data-bs-toggle="modal"
+                                               data-bs-target="#financialAddproject">
+                                                Assign
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="badge badge-warning">
+                                                Pending
+                                            </div>
+                                            <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                                        </td>
+                                        <td>
+                                            <div class="table__icon">
+                                                <a href="~/FinancialBid/FinancialBidDetails?ID=@item.ID" title="View" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-eye text-success "></i>
+                                                </a>
+                                                <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip" onclick="Edit_FinancialBid(@item.ID)">
+                                                    <i class="buidcoicon-edit"></i>
+                                                </a>
+                                                <a href="#!" title="Delete" onclick="DeleteFinancialBid(@item.ID)" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-trash text-orange "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" style="color:red; text-align:center;">Record Not Available</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- add pre-bid query Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addFinanceBid">
+        <div class="modal-dialog modal-xl custom-modal">
+            @Html.Partial("_AddFinancialBid.cshtml")
+        </div>
+    </div>
+    <!-- add pre-bid query Modal -->
+    <!-- assign financial bid Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="financialAddproject">
+        <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+            @Html.Partial("_AssignFinancialBid.cshtml")
+        </div>
+    </div>
+    <!-- assign financial bid Modal -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+</div>
+<input type="hidden" id="hdnfinancialBidId" />
+<script>
+    $(document).ready(function () {
+        $(".decimal-input").on("keypress", function (event) {
+            var value = $(this).val();
+            var key = String.fromCharCode(event.which);
+            if (!/[\d.]/.test(key) || (key === "." && value.includes("."))) {
+                event.preventDefault();
+                return false;
+            }
+            var newValue = value + key;
+            if (newValue.includes(".") && newValue.split(".")[1].length > 2) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $(".decimal-input").on("input", function () {
+            var value = $(this).val();
+            value = value.replace(/[^0-9.]/g, "");
+            var parts = value.split(".");
+            if (parts.length > 2) {
+                value = parts[0] + "." + parts.slice(1).join("");
+            }
+            if (parts.length === 2) {
+                value = parts[0] + "." + parts[1].substring(0, 2);
+            }
+            $(this).val(value);
+        });
+    });
+    function Reset() {
+        if ($('#dynamicReset').text("") == "Reset") {
+            $('#dynamicReset').text("Reset");
+            $("#dynamicSave").text("Submit");
+            $("#formId").validate().resetForm();
+            $("#formId").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formId").find(".error").removeClass("error");
+            $("#formId")[0].reset();
+            $("#projectId").prop("readonly", false).css("cursor", "text");
+            $('#sectionPopUp').hide();
+            $('#tbl_technicalbidders').hide();
+        } else {
+            $('#dynamicReset').text("Reset");
+            $("#dynamicSave").text("Submit");
+            $("#formId").validate().resetForm();
+            $("#formId").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formId").find(".error").removeClass("error");
+            $("#formId")[0].reset();
+            $("#projectId").prop("readonly", false).css("cursor", "text");
+            $('#sectionPopUp').hide();
+            $('#tbl_technicalbidders').hide();
+        }
+    }
+   function Save_FinancialBid() {
+
+       var selectedRadio = $('.checkbox:checked');
+       if (selectedRadio.length <= 0) {
+           Swal.fire("Warning!", "Please Select any one LOA Bidder", "warning");
+           return;
+       }
+       var valid = true;
+       var errorMsg = "";
+    $("#tbl_technicalbidders tbody tr").each(function (index) {
+        var financialAmount = $(this).find('.financialAmount').val();
+        var bidAmount = $(this).find('.BidAmount').val();
+        var financialBidDoc = $(this).find('.financialBidDoc')[0]?.files[0];
+        var loaDocument = $(this).find('.LOADocument')[0]?.files[0];
+
+        if (!financialAmount || financialAmount == undefined) {
+            errorMsg = "Please enter Financial Score in row " + (index + 1);
+            valid = false;
+            return false;
+        }
+        if (!bidAmount || bidAmount == undefined) {
+            errorMsg = "Please enter Bid Amount in row " + (index + 1);
+            valid = false;
+            return false;
+        }
+        var hdnfinancialBidDocFile = $('#hdnfinancialBidDocFile').val();
+        if (!financialBidDoc && financialBidDoc == undefined && hdnfinancialBidDocFile == null) {
+            errorMsg = "Please upload Financial Bid Document in row " + (index + 1);
+            valid = false;
+            return false;
+        }
+        if ($('.checkbox:checked').length <= 0) {
+            var hdnloaDocFile = $("#hdnloaDocFile").val();
+            if (!loaDocument && loaDocument == undefined && hdnloaDocFile == null) {
+                errorMsg = "Please upload LOA Document in row " + (index + 1);
+                valid = false;
+                return false;
+            }
+        }
+    });
+    if (!valid) {
+        Swal.fire("Warning!", errorMsg, "warning");
+        return;
+    }
+
+    if ($('.checkbox:checked').length <= 0) {
+        Swal.fire("Warning!", "Please select any one LOA Bidder", "warning");
+        return;
+    }
+    var formData = new FormData();
+    var techId = $("#hdntechId").val();
+    var tenderId = $("#HdnTenderId").val();
+    var projectId = $("#hiddenProjectId").val();
+    var technicalStatus = $("#hdntechnicalStatus").val();
+    var financialBidId = $("#hdnfinancialBidId").val();
+    formData.append("technicalBidID", techId || 0);
+    formData.append("tenderId", tenderId || 0);
+    formData.append("projectId", projectId || 0);
+       formData.append("technicalStatus", technicalStatus || 0);
+       formData.append("ID", financialBidId||0);
+
+    // Loop through each table row to append row data.
+    $("#tbl_technicalbidders tbody tr").each(function (index) {
+        var bidderID = $(this).find('.checkbox').val();
+        var isChecked = $(this).find('.checkbox').is(':checked');
+        var rowFinancialAmount = $(this).find('.financialAmount').val();
+        var rowBidAmount = $(this).find('.BidAmount').val();
+        var hdnFinancialBidDoc = $(this).find('#hdnfinancialBidDocFile').val();
+        var rowFinancialBidDoc = "";
+        if (hdnFinancialBidDoc == null || hdnFinancialBidDoc == undefined) {
+             rowFinancialBidDoc = $(this).find('.financialBidDoc')[0]?.files[0];
+        } else {
+            rowFinancialBidDoc = $(this).find('#hdnfinancialBidDocFile').val();
+        }
+        var rowLoaDocument = "";
+        var hdnloaDocFile = $(this).find("#hdnloaDocFile").val();
+        if (hdnloaDocFile == null && hdnloaDocFile == undefined) {
+            rowLoaDocument = $(this).find('.LOADocument')[0]?.files[0];
+
+        } else {
+            rowLoaDocument = $(this).find("#hdnloaDocFile").val();
+        }
+        formData.append("FiancialBidList[" + index + "].bidderID", bidderID || 0);
+        formData.append("FiancialBidList[" + index + "].financialScore", rowFinancialAmount || 0);
+        formData.append("FiancialBidList[" + index + "].bidAmount", rowBidAmount || 0);
+        formData.append("FiancialBidList[" + index + "].winnerStatus", isChecked ? 1 : 0);
+        if (rowFinancialBidDoc) {
+            formData.append("FiancialBidList[" + index + "].IformfinancialBidDocFile", rowFinancialBidDoc);
+            formData.append("FiancialBidList[" + index + "].financialBidDocFile", rowFinancialBidDoc);
+        }
+        if (rowLoaDocument) {
+            formData.append("FiancialBidList[" + index + "].IformloaDocFile", rowLoaDocument);
+            formData.append("FiancialBidList[" + index + "].loaDocFile", rowLoaDocument);
+        }
+    });
+
+       var hdnfinancialBidId = $("#hdnfinancialBidId").val();
+       var dynamicMsg;
+       if (hdnfinancialBidId > 0) {
+           dynamicMsg = "Update";
+       } else {
+           dynamicMsg = "Submit";
+       }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, ' + dynamicMsg +' it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+               url: "@Url.Action("SaveFinancialBid", "FinancialBid")",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    debugger
+                    Swal.fire({
+                        icon: result.sucess ? 'success' : 'error',
+                        title: result.responseText,
+                        text: result.responseMessage,
+                    }).then((res) => {
+                        if (res.isConfirmed) {
+                            window.location.href = "@Url.Action("FinancialBidView", "FinancialBid")";
+                        }
+                    });
+                },
+                error: function (result) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: result.responseText || "Error",
+                        text: result.responseMessage || "Something went wrong",
+                    });
+                }
+            });
+        }
+    });
+}
+    function Edit_FinancialBid(ele) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: '@Url.Action("EditFinancialBid", "FinancialBid")',
+        data: { "Id": ele },
+        success: function (result) {
+            console.log(result);
+            $('#HdnTenderId').val(result[0].tenderId);
+            $('#hiddenProjectId').val(result[0].projectId);
+            //$("#hdntechnicalStatus").val(result[0].int_technicalStatus);
+            $("#projectId").val(result[0].projectName + "/" + result[0].projectCode);
+            $("#projectId").prop("readonly", true).css("cursor", "not-allowed");
+            $('.Startdateid').text(result[0].createdOn);
+            $("#hdnfinancialBidId").val(result[0].id);
+            $('.projectDescId').text(result[0].projectName);
+            $('.ConstrId').text(result[0].constructionArea);
+            $('.LenthId').text(result[0].length);
+            $('.Estimated').text("₹" + result[0].projectAmount);
+
+            $("#projectId").removeClass("is-invalid");
+            $("#projectId").addClass("is-valid");
+            //$('#vchtechnicalStatus').val(result[0].technicalStatus);
+            //$('#sectionPopUp').show();
+           // GetTechincalBidders(data[0].tenderId);
+            $('#dynamicReset').text("Cancel");
+            $("#dynamicSave").text("Update");
+            var rows = '';
+            $('#tbl_technicalbidders tbody').empty();
+            for (var i = 0; i < result.length; i++) {
+
+                var isWinner = result[i].winnerStatus == 1;
+                var radioChecked = isWinner ? 'checked' : '';
+                var loaDisabled = isWinner ? '' : 'disabled';
+                rows += '<tr>';
+                rows += '<input type="hidden" id="hdntechId" value="' + result[0].id + '">';
+                rows += '<td><div class="form-check">';
+                rows += '<input class="form-check-input checkbox" name="radioBidder" value="' + result[i].bidderID + '" type="radio" id="checkbox_' + i + '" data-index="' + i + '" ' + radioChecked + '>';
+                rows += '</div></td>';
+                rows += '<td>' + result[i].bidderName + '</td>';
+                rows += '<td><input type="text" class="form-control decimal-input financialAmount" id="input1_' + i + '" value="' + (result[i].financialScore || '') + '"></td>';
+                rows += '<td><input type="text" class="form-control decimal-input BidAmount" id="input_' + i + '" value="' + (result[i].bidAmount || '') + '"></td>';
+
+
+                rows += '<td><div class="form-group">';
+                rows += '<div class="custom__upload">';
+                rows += '<input type="file" class="form-control financialBidDoc" id="file-upload1_' + i + '">';
+                rows += '<label><span> Browse Files </span></label>';
+                // If there's an existing PDF file, display it in a span.
+
+                rows += '</div>';
+                  if (result[i].financialBidDocFile && result[i].financialBidDocFile !== "N/A") {
+                      rows += '<span class="pdfFile"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i><a href="@Url.Action("DownloadPdf","FinancialBid")?fileName=' + result[i].financialBidDocFile + '" id="IdfinancialBidDocFile">Download</a></span><input type="hidden" id="hdnfinancialBidDocFile" value="' + result[i].financialBidDocFile +'">';
+                  }
+                rows += '<small class="text-end text-danger mt-2 d-block w-100 fs-8">(Multiple file upload allowed file type .jpg .png)</small>';
+                rows += '</div></td>';
+
+                // LOA Document cell
+                rows += '<td><div class="form-group">';
+                rows += '<div class="custom__upload">';
+                rows += '<input type="file" class="form-control LOADocument" id="file-upload_' + i + '" ' + loaDisabled + '>';
+                rows += '<label><span> Browse Files </span></label>';
+                // If there's an existing LOA document, display its name.
+                rows += '</div>';
+                 if(result[i].loaDocFile && result[i].loaDocFile !== "N/A") {
+                     rows += '<span class="pdfFile"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i><a href="@Url.Action("DownloadPdf","FinancialBid")?fileName=' + result[i].loaDocFile + '" id="IdloaDocFile">Download</a></span><input type="hidden" id="hdnloaDocFile" value="' + result[i].loaDocFile + '">';
+ }
+                rows += '<small class="text-end text-danger mt-2 d-block w-100 fs-8">(Multiple file upload allowed file type .jpg .png)</small>';
+                rows += '</div></td>';
+                rows += '</tr>';
+            }
+
+            $('#tbl_technicalbidders tbody').append(rows);
+            $('#tbl_technicalbidders').show();
+            $("#addFinanceBid").modal("show");
+            // Radio Button Click Event: When a radio is selected, disable all LOA inputs and enable only for the selected row.
+            $('.checkbox').on('click', function () {
+                var selectedIndex = $(this).data('index');
+                $('.checkbox').prop('checked', false);
+                $(this).prop('checked', true);
+
+                $('.checkbox').each(function () {
+                    var index = $(this).data('index');
+                    $('#file-upload_' + index).prop('disabled', true).val('');
+                });
+
+                if ($(this).prop('checked')) {
+                    $('#file-upload_' + selectedIndex).prop('disabled', false);
+                }
+            });
+        },
+        error: function (Message) {
+            Swal.fire("Error!", "Something went wrong. Please try again later.", "error");
+        }
+    });
+}
+    function DeleteFinancialBid(ids) {
+       debugger
+           Swal.fire({
+               title: 'Are you sure?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   $.ajax({
+                       type: "POST",
+                       dataType: "json",
+                       url: "@Url.Action("DeleteFinancialBid", "FinancialBid")",
+                       data: { "Id": ids },
+                       success: function (response) {
+                           debugger
+                           console.log("Response:", response);
+                           Swal.fire(
+                               'Deleted!',
+                               response.responseMessage,
+                               response.responseText
+                           ).then((result) => {
+                               if (result.isConfirmed) {
+                                   location.href = "@Url.Action("FinancialBidView", "FinancialBid")";
+                               }
+                           });
+                         }
+
+                   });
+               }
+               return false;
+           })
+   }
+</script>

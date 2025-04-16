@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "BUIDCo_ePMS.Web\\BUIDCo_ePMS.Web.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "BUIDCo_ePMS.API\\BUIDCo_ePMS.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

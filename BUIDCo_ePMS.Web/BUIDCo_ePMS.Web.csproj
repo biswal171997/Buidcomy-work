@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <Content Remove="wwwroot\AdminConsole\js\Emailvalidator.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\AdminConsole\js\Emailvalidator.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\AdminConsole\js\Emailvalidator.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BUIDCo_ePMS.Repository\BUIDCo_ePMS.Repository.csproj" />
+    <ProjectReference Include="..\BUIDCo_ePMS.Model\BUIDCo_ePMS.Model.csproj" />
+    <ProjectReference Include="..\BUIDCo_ePMS.Core\BUIDCo_ePMS.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="7.5.3" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
+    <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IIS" Version="2.2.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="5.3.4" />
+    <PackageReference Include="NLog.Database" Version="5.3.4" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.15" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="System.DirectoryServices" Version="9.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Folder Include="wwwroot\FileUpload\Doc\" />
+	<Folder Include="wwwroot\Upload\Proposal\ProposalLetter\" />
+	<Folder Include="wwwroot\Upload\Tender\CorrigendumDoc\" />
+	<Folder Include="wwwroot\Upload\Tender\AddendumDoc\" />
+	<Folder Include="wwwroot\Upload\Tender\FinancialBid\" />
+	<Folder Include="wwwroot\Upload\Tender\TechnicalBid\" />
+	<Folder Include="wwwroot\Upload\Tender\PreBidQueriesDoc\" />
+    <Folder Include="wwwroot\Upload\Tender\NIT\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

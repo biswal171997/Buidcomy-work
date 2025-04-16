@@ -1,0 +1,409 @@
+﻿@Html.AntiForgeryToken()
+<style>
+    .error
+    {
+        color:red;
+    }
+</style>
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Master"> Master </a></li>
+                <li class="breadcrumb-item active" title="Project Type" aria-current="page">FinancialYear </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" onclick="Add_M_Financial_Year_Master()">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" title="Delete" data-bs-toggle="tooltip" onclick="Delete_M_Financial_Year()"> <i class="bi bi-trash"></i> </button>
+            @*<button type="button" class="btn btn-outline-secondary btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>*@
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table__fixed">
+                <div class="table-responsive border">
+                    <table id="tbl" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">
+                                    <div class="form-check">
+                                        <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault">
+                                    </div>
+                                </th>
+                                <th style="display:none"></th>
+                                <th style="width:5%"> Sl# </th>
+                                <th style="width:85%"> Financial Year </th>
+                                <th style="width:5%"> Edit </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                            <td>
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            </div>
+                            </td>
+                            <td> 1 </td>
+                            <td> Project </td>
+                            <td> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet ex at magna dignissim, congue laoreet eros porttitor </td>
+                            <td>
+                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="Edit">
+                            <i class="bi bi-pencil"></i>
+                            </button>
+                            </td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add project type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProjecttype" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Add Financial Year </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                            <label class="control-label" for="txtProjectType">Financial Year <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input type="text" id="fyName" name="fyName" onkeypress="lettersDigitValidate(event)" placeholder="yyyy-yy" class="form-control" autocomplete="off">
+                                <input id="hdnM_Financial_Year" type="hidden" value="0" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer lg__btn border-0 justify-content-start">
+                    <button type="button" class="btn btn-light-danger me-3" id="dynamicbtn" onclick="reset()">Reset</button>
+                    <button type="button" class="btn btn-primary" id="subaddData" onclick="Save_M_Financial_Year()"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.form-control').bind('copy paste cut', function (e) {
+            e.preventDefault();
+         
+
+        });
+        $('#splayoutheader').text('Financial Year');
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["strid"];
+        if (id != undefined || id != null) {
+            Edit_M_Project_Financial_Year_Master(decryptData(id));
+        }
+        Get_M_Financial_Year();
+        // $.validator.addMethod("noSpecialChars", function (value, element) {
+        //     return this.optional(element) || /^[0-9\s-]+$/.test(value);
+        // }, "Special characters like  $, &, ; are not allowed");
+        jQuery.validator.addMethod("validateFinancialYear", function (value, element) {
+            // Regex: Matches years like 2024-25
+            const regex = /^(19|20)\d{2}-(\d{2})$/;
+            if (regex.test(value)) {
+                const years = value.split('-');
+                const startYear = parseInt(years[0], 10);
+                const endYear = parseInt(years[1], 10);
+
+                return endYear === (startYear + 1) % 100; // Ensure consecutive years
+            }
+            return false;
+        }, "Please enter a valid Financial Year in the format YYYY-YY");
+        $("#form").validate({
+            rules: {
+                fyName: {
+                    required: true,
+                    validateFinancialYear: true
+                    // noSpecialChars: true
+                },
+            },
+            messages: {
+                fyName: {
+                    required: "Please enter Financial Year",
+                    validateFinancialYear: "Enter a valid Financial Year (e.g., 2024-25)"
+                    // noSpecialChars: "Special characters like  $, &, ; are not allowed"
+
+                }
+            },
+
+            highlight: function (element) {
+                $(element).removeClass("is-valid");
+                $(element).parent().addClass('error');
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error');
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid");
+            }
+        });
+        $(".checkbox").change(function () {
+            var isChecked = $(this).prop("checked");
+            $(".checkbox").prop("checked", $(this).prop("checked"));
+        });
+
+        $('#tblbody').on('change', '.checkbox', function () {
+            const totalCheckboxes = $('.checkbox:visible:not(#flexCheckDefault)').length;
+            const checkedCheckboxes = $('.checkbox:checked:visible:not(#flexCheckDefault)').length;
+            // Update the header checkbox based on selection
+            $('#flexCheckDefault').prop('checked', totalCheckboxes === checkedCheckboxes);
+        });
+    });
+    function encryptData(data) {
+        // Convert the integer data to a string
+        var dataString = String(data);
+
+        // Encrypt the data using CryptoJS
+        var encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data: dataString }), 'secret_key').toString();
+
+        return encryptedData;
+    }
+    function Get_M_Financial_Year() {
+      
+      
+        $.ajax({
+            type: 'Get',
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            xhrFields: {
+                withCredentials: true // Ensures cookies are sent
+            },
+            data: {},
+            url: "@Url.Action("Get_M_Financial_Year", "Master")",
+            success: function (result) {
+                var data1 = JSON.parse(result);
+                if (data1.length > 0) {
+                    $('#tbl.tbody').empty();
+                    $.each(data1, function (i, data) {
+                        var encryptedID = encryptData(data.fyId);
+                        var trows = "<tr>";
+                        trows = trows + "<td><div class='form-check'><input class='form-check-input checkbox' type='checkbox' value='' id='flexCheckDefault'></div></td>";
+                        trows = trows + "<td style='display:none'>" + data.fyId + "</td>";
+                        trows = trows + "<td>" + (i + 1) + "</td>";
+                        trows = trows + "<td>" + data.fyName + "</td>";
+                        //trows = trows + "<td>" + "<a class='btn-primary' href='/Master/M_Project_Category_Master?strid=" + encryptedID + "'>Edit</a>&nbsp;<button class='btn-danger' onclick='Delete_M_Project_Category_Master(" + data.categoryId + ")'>Delete</button>" + "</td>";
+                        trows = trows + "<td><a href='#!'  class='btn btn-outline-primary btn-sm' onclick='Edit_M_Financial_Year(" + data.fyId + ")' title='Edit'><i class='buidcoicon-edit'></i></a></td>";
+                        trows = trows + "</tr>";
+                        $('#tbl').append(trows);
+                    });
+                }
+            },
+            error: function (Message) {
+                Swal.fire({
+                    title: Message,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+
+    function Delete_M_Financial_Year(id) {
+        if ($(".form-check-input:checked").length === 0) {
+            Swal.fire({
+                title: 'Please Select at least one checkbox.',
+                text: '',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var ids = '';
+                    $('#tbl tbody tr').each(function (i) {
+                        debugger
+                        var row = $(this);
+                        var checkboxValue = $(row).find('input[type="checkbox"]').prop('checked');
+                        if (checkboxValue) {
+                            ids += row.find('td:eq(1)').html() + ',';
+                        }
+                    });
+                    debugger
+                    ids = ids.slice(0, -1);
+                    $.ajax({
+                        type: "Get",
+                        dataType: "json",
+                        url: "@Url.Action("Delete_M_Financial_Year", "Master")",
+
+                        data: { "Id": ids },
+                        success: function (response) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.responseMessage,
+                                response.responseText
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("FinancialYearMaster", "Master")";
+                                }
+                                else if (result.isDenied) {
+                                    Swal.fire('Changes are not saved', '', 'info')
+                                }
+                            })
+                        }
+                    });
+
+                }
+                return false;
+            })
+        }
+    }
+    function Edit_M_Financial_Year(id) {
+        reset();
+        $.ajax({
+            type: "Get",
+            dataType: "json",
+            url: '@Url.Action("GetByID_M_Financial_Year", "Master")',
+            data: { "Id": id },
+            success: function (Result) {
+                debugger
+                var data1 = JSON.parse(Result);
+                $("#hdnM_Financial_Year").val(data1.fyId);
+                $('#fyName').val(data1.fyName);
+                $("#fyName").addClass("is-valid");
+
+                $('#subaddData').text('Update');
+                $('#dynamicbtn').text('Cancel');
+                $("#addProjecttype").modal("show");
+            },
+            error: function (Message) {
+                Swal.fire({
+                    title: Message,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+
+    function Save_M_Financial_Year() {
+        if ($("#form").valid()) {
+
+            var M_Financial_Year = {
+                fyId: $.trim($("#hdnM_Financial_Year").val()),
+                fyName: $.trim($("#fyName").val())
+            };
+            var FinancialId = $('#hdnM_Financial_Year').val() || 0;
+            let dynamicMsg;
+            if (FinancialId == 0) {
+                 dynamicMsg = "Save";
+            } else {
+                dynamicMsg = "Update";
+            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, ' + dynamicMsg +' it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("M_Financial_Year", "Master")",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                        data: M_Financial_Year,
+                        content: 'application/json;charset=utf-8',
+                        dataType: "json",
+                        success: function (result) {
+                            Swal.fire({
+                                  icon: result.sucess ? 'success' : 'error',
+                                title: result.responseText,
+                                text: result.responseMessage,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("FinancialYearMaster", "Master")";
+                                }
+                            })
+                        },
+                        error: function (result) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: result.responseText,
+                                text: result.responseMessage,
+                            });
+                        },
+                    });
+                }
+                return false;
+            })
+        }
+    }
+    function Add_M_Financial_Year_Master() {
+        reset();
+        $("#addProjecttype").modal("show");
+        $('#subaddData').text('Submit');
+        $('#dynamicbtn').text('Reset');
+    }
+    function reset() {
+        if ($('#dynamicbtn').text() == "Reset") {
+            $('#fyName').val('');
+            $("#form").validate().resetForm();
+            // Remove validation classes
+            $("#form").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form").find(".error").removeClass("error");
+            // Optional: Clear the input fields
+            $("#form")[0].reset();
+        } else {
+            $('#fyName').val('');
+            $("#addProjecttype").modal("hide");
+            $("#form").validate().resetForm();
+            // Remove validation classes
+            $("#form").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form").find(".error").removeClass("error");
+            // Optional: Clear the input fields
+            $("#form")[0].reset();
+        }
+    }
+    function lettersDigitValidate(event) {
+        var keyCode = event.which || event.keyCode;
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = 
+            
+                [...Array(10).keys()].map(i => i + 48) // 0-9
+                .concat([45]); // ., ,, :, -, (, ), \, / space
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            // If not allowed, prevent the default action (key press)
+            event.preventDefault();
+        }
+    }
+</script>

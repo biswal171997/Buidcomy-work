@@ -1,0 +1,485 @@
+﻿@model IEnumerable<BUIDCo_ePMS.Model.Entities.ProjectTender.PreBidQueriesModelEF>
+@{
+    ViewData["Title"] = "Pre Bid Queries";
+}
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#!" title=" Tender"> Tender </a></li>
+                <li class="breadcrumb-item active" title=" Pre-Bid Queries" aria-current="page">  Pre-Bid Queries </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" onclick="Reset()" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addTenders">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+            @*<button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>*@
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table-responsive">
+                <table class="table table-striped" id="basic-2">
+                    <thead>
+                        <tr>
+                            <th width="4%"> Sl# </th>
+                            <th width="13%"> Letter Details </th>
+                            <th width="32%"> Project Details </th>
+                            <th width="24%"> Tender Details </th>
+                            <th width="14%"> Query Management </th>
+                            <th width="10%"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Count() > 0)
+                            {
+                                int count = 0;
+                                foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td> @count</td>
+                                        <td>
+                                            <div class="badge bg-yellow mb-3">
+                                                <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> @item.letterNo </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-2">
+                                                <small class="text-secondary d-block"> Submitted By : </small>
+                                                <p class="m-0"> Department </p>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                                <small class="text-secondary d-block"> Proposed By : </small>
+                                                <p class="m-0"> @item.clientName </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="table__body__text">
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-6 d-flex column-gap-4 mb-2">
+                                                        <a href="#" class="fw-600 text-primary" title="Download Document">
+                                                            @item.projectCode
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-xl-6 col-6 text-start text-xl-end">
+                                                        <small class="text-secondary me-2"> Amount : </small>   ₹ @item.projectAmount
+                                                    </div>
+                                                    <p>
+                                                        @item.projectName
+                                                    </p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-6 border-end ">
+                                                        <div class="d-block">
+                                                            <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                                                            <p class="m-0"> @item.constructionArea </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-3">
+                                                        <div class="d-block">
+                                                            <small class="text-secondary"> Length (Mtr.) </small>
+                                                            <p class="m-0"> @item.length </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 border-end">
+                                                    <small class="text-secondary"> Opening </small>
+                                                    <p class="m-0"> @item.openingDate </p>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-4">
+                                                    <small class="text-secondary"> Last Submission </small>
+                                                    <p class="m-0"> @item.submissionDate </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 border-end">
+                                                    <small class="text-secondary"> Bid Amount </small>
+                                                    <p class="m-0 fw-600">  ₹ @item.emdAmount </p>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-4 pt-2">
+                                                    <small class="text-secondary">  NIT Document : </small>
+                                                    <a href="@Url.Action("DownloadPdf","PreBidQueries")?fileName=@item.nitDocFileName" title="Download" data-bs-toggle="tooltip"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i> </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+
+                                                <div>
+                                                    @if (item.preBidexcelDoc != null && item.preBidexcelDoc != "" && item.preBidpdfDoc != "" && item.preBidpdfDoc != null)
+                                                    {
+                                                        <div> <img src="~/images/svg/excel.svg" alt="Excel" class="me-1" height="20"> </div>
+                                                        <a href="@Url.Action("DownloadPdf", "PreBidQueries")?fileName=@item.preBidexcelDoc" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download Excel"> Pre-Bid Query</a>
+                                                        <small class="text-secondary d-block"> 214 kb </small>
+                                                        <br />
+                                                        <div> <img src="/BUIDCo_ePMS.Web/images/svg/pdf.svg" style="height:20px; width:20px;" alt="PDF"> </div>
+                                                        <a href="@Url.Action("DownloadPdf", "PreBidQueries")?fileName=@item.preBidpdfDoc" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download PDF"> Pre-Bid Query </a>
+                                                        <small class="text-secondary d-block"> 214 kb </small>
+                                                    }
+                                                    else if (item.preBidexcelDoc != null && item.preBidexcelDoc != "")
+                                                    {
+                                                        <div> <img src="~/images/svg/excel.svg" alt="Excel" class="me-1" height="20"> </div>
+                                                        <a href="@Url.Action("DownloadPdf", "PreBidQueries")?fileName=@item.preBidexcelDoc" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download Excel"> Pre-Bid Query </a>
+                                                        <small class="text-secondary d-block"> 214 kb </small>
+                                                    }
+                                                    else if (item.preBidpdfDoc != null && item.preBidpdfDoc != "")
+                                                    {
+                                                        <div> <img src="/BUIDCo_ePMS.Web/images/svg/pdf.svg" style="height:20px; width:20px;" alt="PDF"> </div>
+                                                        <a href="@Url.Action("DownloadPdf", "PreBidQueries")?fileName=@item.preBidpdfDoc" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download PDF"> Pre-Bid Query</a>
+                                                        <small class="text-secondary d-block"> 214 kb </small>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="table__icon">
+                                                <a href="@Url.Action("PreBidQueryDetails","PreBidQueries")?Id=@item.Id" onclick="GetPreBidQueries(@item.Id)" title="View" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-eye text-success "></i>
+                                                </a>
+                                                <a class="text-primary" href="#!" onclick="editPreBidQueries(@item.Id)" title="Edit" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-edit"></i>
+                                                </a>
+                                                <a href="#!" title="Delete" onclick="Delete_PreBidQueries(@item.Id)" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-trash text-orange "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" style="text-align:center; color:red;">Record Not Found</td>
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- add pre-bid query Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addTenders">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddPrebidQuery.cshtml")
+        </div>
+    </div>
+    <!-- add pre-bid query Modal -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+</div>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<input type="hidden" id="HdnTenderId" />
+<input type="hidden" id="hdnprebidqueryId" />
+<script>
+    $(document).ready(function () {
+        $('#sectionPopUp').hide();
+        $("#formaddprebid").validate({
+            rules: {
+                projectId: { required: true },
+               fileName: { required: true },
+            },
+            messages: {
+                projectId: {
+                    required: "Please Select Project Name/ID!"
+                },
+                fileName: { required:"upload Any one File" },
+            },
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element.closest(".form-group"));
+            },
+            highlight: function (element) {
+                $(element).removeClass("is-valid")
+                $(element).parent().addClass('error')
+                $(element).addClass("is-invalid")
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid")
+            }
+        });
+    });
+       $(".autocomplete").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetProjectName","Tender")',
+            data: JSON.stringify(request.term),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (!data || data.length === 0 || data.message === "No record found") {
+                    response([{ label: "No record found", value: "" }]); // Show message
+                } else {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.projectName || item.projectCode,
+                            value: item.projectId
+                        };
+                    }));
+                }
+            },
+            error: function () {
+                response([]);
+            }
+        });
+    },
+    minLength: 3,
+    focus: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+        } else {
+            $("#projectId").val(ui.item.label);
+        }
+        return false;
+    },
+    select: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+            $("#projectId").val(""); // Clear TextBox Value
+            $("#projectId").attr("placeholder", "Record Not Found"); // Set Placeholder
+            $("#hiddenProjectId").val(""); // Reset Hidden Value
+        } else {
+            $("#projectId").val(ui.item.label);
+            $("#hiddenProjectId").val(ui.item.value);
+        }
+        return false;
+    }
+});
+      function GetProjectDetails() {
+       var ProjectId= $('#hiddenProjectId').val();
+    if (ProjectId !== "" && ProjectId != undefined) {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("GetProjectDetailsById", "Tender")',
+        data: { 'PId': ProjectId },
+        dataType: "json",
+        traditional: true,
+        success: function (data) {
+            $('#HdnTenderId').val(data.tenderId);
+                $('.Startdateid').text(data.createdOn);
+                $('.projectDescId').text(data.projectName);
+                $('.ConstrId').text(data.constructionArea);
+                $('.LenthId').text(data.length);
+                $('.Estimated').text("₹" + data.projectAmount);
+                $('#sectionPopUp').show();
+        }
+    });
+    } else {
+        $('#sectionPopUp').hide();
+    }
+}
+    function Save_TENDER_PreBidQuriues() {
+
+      if ($("#formaddprebid").valid()) {
+        var formData = new FormData();
+        var excelinputfile = $('.excelFile')[0]?.files[0];
+        var pdfinputfile = $('.pdfFile')[0]?.files[0];
+        var HdnTenderId = $('#HdnTenderId').val();
+
+        formData.append("tenderId", HdnTenderId || 0);
+        formData.append("Id", $("#hdnprebidqueryId").val() || 0);
+        formData.append("projectId", $('#hiddenProjectId').val()|| 0);
+        if (excelinputfile) {
+            formData.append("PreBidExcelDoc", excelinputfile);
+        }
+        if (pdfinputfile) {
+            formData.append("PreBidpdfDoc", pdfinputfile);
+          }
+
+          var hdnexcelFile = $(".hdnexcelFile").val();
+          var hdnpdf = $('.hdnpdfFile').val();
+          var dynamicBtn;
+          if ( hdnexcelFile != "" || hdnpdf!="") {
+              dynamicBtn = "Update";
+          } else {
+              dynamicBtn = "Submit";
+          }
+         Swal.fire({
+             title: 'Are you sure?',
+             text: "You won't be able to revert this!",
+             icon: 'warning',
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'Yes, ' + dynamicBtn +' it!'
+         }).then((result) => {
+             if (result.isConfirmed) {
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("Save_TENDER_PreBidQuriues", "PreBidQueries")",
+                     beforeSend: function (xhr) {
+                         xhr.setRequestHeader("XSRF-TOKEN",
+                             $('input:hidden[name="__RequestVerificationToken"]').val());
+                     },
+                     data: formData,
+                     contentType: false,
+                     processData: false,
+                     dataType: "json",
+                     success: function (result) {
+                         Swal.fire({
+                             icon: result.sucess ? 'success' : 'error',
+                             title: result.responseText,
+                             text: result.responseMessage,
+                         }).then((result) => {
+                             if (result.isConfirmed) {
+                                 location.href = "@Url.Action("PreBidQueryView", "PreBidQueries")";
+                             }
+                         })
+                     },
+                     error: function (result) {
+                         Swal.fire({
+                             icon: reset.responseText,
+                             title: result.responseText,
+                             text: result.responseMessage,
+                         });
+                     },
+                 });
+
+             }
+             return false;
+         })
+
+    }
+  }
+  function editPreBidQueries(ele) {
+  $.ajax({
+    type: "Get",
+    dataType: "json",
+    url: '@Url.Action("GetPreBidQueriesById", "PreBidQueries")',
+      data: { "Id": ele },
+    success: function (Result) {
+        var data = JSON.parse(Result);
+        $("#projectId").val(data.projectName + "/" + data.projectCode);
+        $("#projectId").prop("readonly", true).css("cursor", "not-allowed");
+        $('.Startdateid').text(data.createdOn);
+        $('.projectDescId').text(data.projectName);
+        $('.ConstrId').text(data.constructionArea);
+        $('.LenthId').text(data.length);
+        $('.Estimated').text("₹" + data.projectAmount);
+        $('#hdnprebidqueryId').val(data.Id);
+        if (data.preBidexcelDoc != "" && data.preBidexcelDoc != null) {
+            $('.hdnexcelFile').val(data.preBidexcelDoc);
+            $('.excelFilename').html('<a href="DownloadPdf?fileName=' + data.preBidexcelDoc + '" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>Download </a>');
+            $('.excelFilename').show();
+        }
+        if (data.preBidpdfDoc != "" && data.preBidpdfDoc != null) {
+            $('.hdnpdfFile').val(data.preBidpdfDoc);
+            $('.pdfFilename').html('<a href="DownloadPdf?fileName=' + data.preBidpdfDoc + '" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>Download </a>');
+            $('.pdfFilename').show();
+        }
+        $('#sectionPopUp').show();
+        $("#Dynamicbtn").text("Cancel");
+        $("#DynmaicSubmit").text("Update");
+        $('#addTenders').modal("show");
+    },
+    error: function (Message) {
+        alert(Message);
+    }
+});
+
+    }
+    function Reset() {
+        if ($("#Dynamicbtn").text() == "Reset") {
+            $('#sectionPopUp').hide();
+            $("#projectId").prop("readonly", false).css("cursor", "text");
+            $("#formaddprebid").validate().resetForm();
+            $("#formaddprebid").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formaddprebid").find(".error").removeClass("error");
+            $("#formaddprebid")[0].reset();
+            $(".excelFilename").val('');
+            $(".excelFilename").hide();
+            $(".hdnexcelFile").val('');
+            $('.hdnpdfFile').val('');
+            $('.pdfFilename').val('');
+            $('.pdfFilename').hide('');
+            $('#Dynamicbtn').text("Reset");
+            $("#DynmaicSubmit").text("Submit");
+        } else {
+            $('#sectionPopUp').hide();
+            $("#projectId").prop("readonly", false).css("cursor", "text");
+            $("#formaddprebid").validate().resetForm();
+            $("#formaddprebid").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formaddprebid").find(".error").removeClass("error");
+            $("#formaddprebid")[0].reset();
+            $(".excelFilename").val('');
+            $(".excelFilename").hide();
+            $('.pdfFilename').val('');
+            $('.pdfFilename').hide('');
+            $('#addTenders').modal("hide");
+            $('#Dynamicbtn').text("Reset");
+            $(".hdnexcelFile").val('');
+            $('.hdnpdfFile').val('');
+            $("#DynmaicSubmit").text("Submit");
+        }
+    }
+
+ function Delete_PreBidQueries(ids) {
+        debugger
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "@Url.Action("DeletePreBidQueries", "PreBidQueries")",
+                        data: { "Id": ids },
+                        success: function (response) {
+                            debugger
+                            console.log("Response:", response);
+                            Swal.fire(
+                                'Deleted!',
+                                response.responseMessage,
+                                response.responseText
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("NewTenderView", "Tender")";
+                                }
+                            });
+                          }
+
+                    });
+                }
+                return false;
+            })
+    }
+</script>

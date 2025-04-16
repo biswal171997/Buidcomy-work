@@ -1,0 +1,1013 @@
+﻿@using BUIDCo_ePMS.Model.Entities.TAapproval
+@model List<TAViewEF>
+
+@{
+    ViewData["Title"] = "TA APPROVAL";
+}
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <input type="hidden" name="hdnProposalId" />
+    <input type="hidden" name="hdnTAId" />
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/Proposal/CreateProposal" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Construction Steps"> Construction Steps </a></li>
+                <li class="breadcrumb-item active" title="Technical Approval" aria-current="page"> Technical Approval </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="dashboard__tab">
+            <div class="flex__tab">
+                <div class="card card__bg flex-20">
+                    <div class="card-body">
+                        <div class="left__card">
+                            <div class="icon__circle">
+                                <i class="buidcoicon-application"></i>
+                            </div>
+                            <div class="card__text">
+                                <p> Total Application </p>
+                                <h4 class="flex-1"> 1254 </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-80 bg-transparent">
+                    <div class="card-body p-0">
+                        <div class="custom__pilltab" id="pill-navtab">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-justified" role="tablist">
+                                <li class="nav-item">
+
+                                    <a class="nav-link" data-bs-toggle="tab" href="#application" role="tab" aria-selected="true">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-primary">
+                                                <i class="buidcoicon-edit-document"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> New Application </p>
+                                                <h4 class="flex-1 text-primary"> 542 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#progress" role="tab" aria-selected="false">
+
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-warning">
+                                                <i class="buidcoicon-in-progress"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> In-Progress </p>
+                                                <h4 class="flex-1 text-warning"> 89 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#approved" role="tab" aria-controls="contact"
+                                       aria-selected="false">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-success">
+                                                <i class="buidcoicon-approved"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> Approved </p>
+                                                <h4 class="flex-1 text-success"> 431 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="setting-tab" data-bs-toggle="tab" href="#cancelled" role="tab"
+                                       aria-selected="false">
+                                        <div class="tab__icons">
+                                            <div class="icon__circle bg-orange">
+                                                <i class="buidcoicon-cancelled"></i>
+                                            </div>
+                                            <div class="tab__text">
+                                                <p> Cancelled </p>
+                                                <h4 class="flex-1 text-orange"> 43 </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Nav tabs -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+
+            <div class="tab-pane fade" id="application" role="tabpanel">
+                applciation view
+            </div>
+
+
+
+            <div class="tab-pane fade show active" id="progress" role="tabpanel">
+
+                <div class="body__bg">
+
+                    <!-- filter details -->
+                    <div class="card filter__datas">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3 justify-content-between flex-wrap">
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                        <label class="m-0"> <span class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600" id="spsearchletterno"> </span>  </label>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right">
+                                        <label class="m-0"> Financial Year :  <span class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2" id="spsearchfy"> </span>  </label>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label class="m-0"> Proposal Submitted By :  <span class="pe-xl-4 pe-lg-4 pe-md-4 description fw-600 ps-xl-2 ps-lg-2 ps-md-2" id="spsearchclient">  </span>  </label>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge badge-warning" id="spsearchprojecttype">  Type </span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                        <label class="m-0"> Category : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500" id="spsearchcategory">
+                                        </span>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label class="m-0"> Sub-Category : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500" id="spsearchsubcategory">
+                                            
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center column-gap-4 flex-wrap">
+                                    <div class="mb-xl-0 mb-lg-0 mb-2 border-right pe-xl-4 pe-lg-4">
+                                        <label class="m-0">  District : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500" id="spsearchdistrict">
+                                           
+                                        </span>
+                                    </div>
+                                    <div class="mb-xl-0 mb-lg-0 mb-2">
+                                        <label class="m-0">  Urban Local Body : </label>
+                                        <span class=" ps-xl-2 ps-lg-2 fw-500" id="spsearchulb">
+                                       
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- filter details -->
+
+
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th width="50"> Sl# </th>
+                                        <th width="100"> District </th>
+                                        <th width="100"> Proposal <span class="d-block"> Submitted By </span> </th>
+                                        <th width="150">
+                                            <div> Category </div>
+                                            <small class="text-secondary"> Sub-Category </small>
+                                        </th>
+                                        <th width="340"> Letter Details </th>
+                                        <th width="180"> TA Letter Details </th>
+                                        <th width="70"> Action </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tableBodyId">
+
+                                  
+                                </tbody>
+                            
+                            
+
+
+
+
+
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="tab-pane fade" id="approved" role="tabpanel">Approved</div>
+            <div class="tab-pane fade" id="cancelled" role="tabpanel">Cancelled</div>
+
+
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+
+        </div>
+    </div>
+    <!-- search filter Modal -->
+    <!-- upload technical approval Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="uploadTech" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("_UploadTechnicalApproval.cshtml")
+        </div>
+    </div>
+    <!-- upload technical approval Modal -->
+    <script src="@Url.Content("~/js/forms/encryptdecrypt.js")"></script>
+    <!-- below script for search filter -->
+    <script src="~/js/forms/searchproposal.js"></script>
+    <script>
+        var baseUrl = "@Url.Content("~/")";
+        //FOR BINDING THE RECORDS IN VIEW PAGE
+        function bindTAData()
+        {
+            var formData = new FormData();
+            formData.append("TAId", "0");
+            formData.append("ProposalId", "0");
+            formData.append("fyId", "0");
+            formData.append("submittedByid", "0");
+            formData.append("categoryid", "0");
+            formData.append("subCategoryid", "0");
+            formData.append("projectTypeid", "0");
+            formData.append("districtid", "0");
+            formData.append("ulbId", "0");
+            formData.append("letterNo", "");
+            $.ajax
+                ({
+                    type: "POST",
+                    url: baseUrl + "TechnicalApproval/SearchApproval",
+                    beforeSend: function (xhr) {
+                    },
+                    data: formData,
+                    processData: false, // **Important for FormData**
+                    contentType: false, // **Important for FormData**
+                    success: function (result) {
+                        bindResultToTable(result);
+
+                    },
+
+                    error: function (result) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: result.responseText,
+                            text: result.responseMessage,
+                        });
+                    }
+                });
+        }
+        //FOR BINDING THE RECORDS IN AS PER FILTER OPTION
+        function SearchProposal() {
+            if (true) {
+                resetDatatable();
+                var formData = new FormData();
+                formData.append("TAId", "0");
+                formData.append("ProposalId", "0");
+                formData.append("fyId", $.trim($("#ddlsearch_fyyear").val()));
+                formData.append("submittedByid", $.trim($("#ddlsearch_client").val()));
+                formData.append("categoryid", $.trim($("#ddlsearch_category").val()));
+                formData.append("subCategoryid", $.trim($("#ddlsearch_subcategory").val()));
+                formData.append("projectTypeid", $.trim($("#ddlsearch_projecttype").val()));
+                formData.append("districtid", $.trim($("#ddlsearch_district").val()));
+                formData.append("ulbId", $.trim($("#ddlsearch_ulb").val()));
+                formData.append("letterNo", $.trim($("#txtsearch_letterno").val()));
+                $.ajax({
+                    type: "POST",
+                    url: baseUrl + "TechnicalApproval/SearchApproval",
+                    beforeSend: function (xhr) {
+                        //$('#hdnsearch').val(1);
+                        ////$('#tblviewproposal tbody').empty();
+                        //$('#htotalapplication').text('0');
+                        //$('#hnewapplication').text('0');
+                        //$('#hinprogress').text('0');
+                        //$('#happroved').text('0');
+                        $('#hcancelled').text('0');
+                        $('#searchFilter').modal('hide');
+                        $('#dvfilterdata').show();
+                        $('#spsearchletterno').text($('#txtsearch_letterno').val() == '' ? 'All' : $('#txtsearch_letterno').text('#' + $('#txtsearch_letterno').val()));
+                        $('#spsearchclient').text($('#ddlsearch_client').val() == 0 ? 'All' : $('#ddlsearch_client option:selected').text());
+                        $('#spsearchfy').text($('#ddlsearch_fyyear').val() == 0 ? 'All' : $('#ddlsearch_fyyear option:selected').text());
+                        $('#spsearchcategory').text($('#ddlsearch_category').val() == 0 ? 'All' : $('#ddlsearch_category option:selected').text());
+                        $('#spsearchsubcategory').text($('#ddlsearch_subcategory').val() == 0 ? 'All' : $('#ddlsearch_subcategory option:selected').text());
+                        $('#spsearchprojecttype').text($('#ddlsearch_projecttype').val() == 0 ? 'All' : $('#ddlsearch_projecttype option:selected').text());
+                        $('#spsearchdistrict').text($('#ddlsearch_district').val() == 0 ? 'All' : $('#ddlsearch_district option:selected').text());
+                        $('#spsearchulb').text($('#ddlsearch_ulb').val() == 0 ? 'All' : $('#ddlsearch_ulb option:selected').text());
+
+                    },
+                    data: formData,
+                    processData: false, // **Important for FormData**
+                    contentType: false, // **Important for FormData**
+                    success: function (result) {
+                        bindResultToTable(result);
+
+                    },
+
+                    error: function (result) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: result.responseText,
+                            text: result.responseMessage,
+                        });
+                    }
+                });
+            }
+        }
+        //FOR BINDING THE DIV OF VIEW PAGE
+        function bindResultToTable(result) {
+            if (!result || result.success === false || !result.length) {
+                $('#tableBodyId').html(`
+            <tr>
+                <td colspan="7" class="text-center text-danger fw-bold">
+                    ${result?.responseMessage || "No records found."}
+                </td>
+            </tr>
+        `);
+                return;
+            }
+
+            let htmlContent = '';
+            console.log(result);
+
+            $.each(result, function (index, item) {
+                const url = `TechnicalApproval/TAGenerateLetter?Id=${item.proposalId}`;
+                const url1 = `TakeAction/TakeAction?Id=${item.proposalId}&Moduleid=2`;
+                const downloadtaurl = baseUrl + `TechnicalApproval/DownloadPdf?fileName=${encodeURIComponent(item.tAletterPath)}&foldername=TALetter`;
+                const downloadletterurl = baseUrl + `TechnicalApproval/DownloadPdf?fileName=${encodeURIComponent(item.proposalLetter)}&foldername=ProposalLetter`;
+
+                htmlContent += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${item.district}</td>
+            <td>${item.proposalSubmittedBy}
+                <input type="hidden" name="ProposalId" value="${item.proposalId}" />
+            </td>
+            <td>
+                <label class="fw-600">${item.proposalcategory}</label>
+                <p class="text-secondary">${item.proposalsubcategory}</p>
+            </td>
+            <td>
+                <div class="table__body__text">
+                    <div class="row mb-3">
+                        <div class="col-xl-8 col-12 d-flex align-items-center column-gap-4 mb-2">
+                            <div class="badge bg-yellow fw-600">
+                                <span class="text-solid-black">${item.proposalLetterNo}</span>
+                            </div>
+                            <div class="text-secondary">
+                                <i class="text-light-primary buidcoicon-calendar-day me-2"></i>${item.letterDate}
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-12 text-start text-xl-end">
+                            <a href="${downloadletterurl}" class="text-danger" data-bs-toggle="tooltip" aria-label="View Document" data-bs-original-title="View Document">
+                                <i class="bi bi-file-earmark-pdf" title="Download PDF"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p data-bs-toggle="tooltip" title="${item.proposalSubject}" class="text-truncate"
+       style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        
+                            ${item.proposalSubject}
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                ${item.generateStatus == 0
+                        ? `<a href="#" class="btn btn-outline-success btn-sm generate-link" data-url="${url}" title="Upload">
+                         <i class="buidcoicon-file me-2"></i> Generate
+                      </a>`
+                        : item.generateStatus == 1
+                            ? `<div class="row">
+                            <div class="border-end pe-3 mb-3 col-9">
+                                <small class="text-secondary">Generated On</small>
+                                <p class="m-0">${item.taDate}</p>
+                            </div>
+                            <div class="col-3">
+                                <a href="${downloadtaurl}" class="text-danger" data-bs-toggle="tooltip" aria-label="View Document" data-bs-original-title="View Document">
+                                    <i class="bi bi-file-earmark-pdf" title="Download PDF"></i>
+                                </a>
+                            </div>
+                            <div class="border-end pe-3 mb-3 col-12">
+                                <button type="button" class="btn btn-outline-primary btn-sm" title="Upload" data-bs-toggle="modal" onclick="GetTADetails(${item.taId})" data-bs-target="#uploadTech">
+                                    <i class="bi bi-cloud-upload me-2"></i> Upload
+                                </button>
+                            </div>
+                        </div>`
+                            : `<div class="row">
+                            <div class="border-end pe-3 mb-3 col-9">
+                                <small class="text-secondary">Generated On</small>
+                                <p class="m-0">${item.taDate}</p>
+                            </div>
+                            <div class="col-3">
+                                <a href="${downloadtaurl}" class="text-danger" data-bs-toggle="tooltip" aria-label="View Document" data-bs-original-title="View Document">
+                                    <i class="bi bi-file-earmark-pdf" title="Download PDF"></i>
+                                </a>
+                            </div>
+                            <div class="border-end pe-3 mb-3 col-12">
+                                <small class="text-secondary">TA Uploaded On</small>
+                                <p class="m-0">${item.taUploadedDate}</p>
+                            </div>
+                        </div>`}
+            </td>
+            <td>
+                <div class="table__icon">
+                    ${item.generateStatus == 2
+                        ? `<a class="text-primary" onclick="EditDetails(${item.taId})" title="Edit" data-bs-toggle="tooltip">
+                               <i class="buidcoicon-edit"></i>
+                           </a>`
+                        : ''}
+                    <a href="#" class="generate-link" data-url="${url1}" title="View" data-bs-toggle="tooltip">
+                        <i class="buidcoicon-eye text-success"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>`;
+            });
+
+            $('#tableBodyId').html(htmlContent);
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl, { container: 'body' });
+            });
+        }
+
+
+        // Initialize Bootstrap tooltip
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("tableBodyId").addEventListener("click", function (e) {
+                const element = e.target.closest(".generate-link");
+                if (!element) return;
+
+                var unencryptedUrl = element.getAttribute("data-url");
+                if (!unencryptedUrl) return;
+
+                try {
+                    var absoluteUrl = unencryptedUrl.startsWith('http')
+                        ? new URL(unencryptedUrl)
+                        : new URL(unencryptedUrl, window.location.origin);
+
+                    var proposalId = absoluteUrl.searchParams.get("Id");
+                    var moduleId = absoluteUrl.searchParams.get("Moduleid");
+
+                    var encryptedId = proposalId ? encryptData(proposalId) : "";
+                    var encryptedModuleid = moduleId ? encryptData(moduleId) : "";
+
+                    // Construct the new URL
+                    var finalUrl = baseUrl+ unencryptedUrl;
+
+                    // Replace or append `Id=`
+                    finalUrl = finalUrl.replace(/Id=[^&]+/i, "Id=" + encryptedId) ||
+                        (finalUrl.includes("?") ? `${finalUrl}&Id=${encryptedId}` : `${finalUrl}?Id=${encryptedId}`);
+
+                    // Replace or append `Moduleid=`
+                    finalUrl = finalUrl.replace(/Moduleid=[^&]+/i, "Moduleid=" + encryptedModuleid) ||
+                        (finalUrl.includes("?") ? `${finalUrl}&Moduleid=${encryptedModuleid}` : `${finalUrl}?Moduleid=${encryptedModuleid}`);
+                    window.location.href = finalUrl;
+                } catch (error) {
+                    console.error("URL Processing Error:", error);
+                }
+            });
+
+            // Tooltip Initialization
+           
+        });
+
+
+        //FOR BINDING THE UPLOAD TA DETAILS DATA
+        function GetTADetails(TAID) {
+            console.clear();
+            $('#hdnTAId').val(TAID);
+
+            var url = '@Url.Action("GetProposalDetails", "TechnicalApproval")' + "?Id=" + encodeURIComponent(TAID);
+            Reset();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url, // Use constructed URL
+                success: function (response) {
+                    if (response.success) {
+                        var data1 = response.data;
+                    console.log('AA'+data1);
+
+                    $("#hdnTAUplaodid").val(data1.taId);
+                        $("#hdnUploadProposalid").val(data1.proposalId);
+                        $("#hdngenerateStatus").val(data1.generateStatus);
+
+                    $('.ProposalSubject').text(data1.proposalSubject);
+                    $('.ProposalDistrict').text(data1.district);
+                    $('.CreatedBy').text(data1.createdBy);
+                    $('.CreatedOn').text(data1.createdon);
+                        $('.Area').text(data1.proposalArea);
+                        $('.LetterDate').val(data1.taDate);
+                    $('#btnSubmit').text('Submit');
+                        $('#btnReset').text('Reset');
+
+                        $("#taDate").addClass("is-valid");
+                        $('#aTAPath')
+                            .attr('href', '@Url.Action("DownloadPdf", "TechnicalApproval")?fileName=' + encodeURIComponent(data1.tAletterPath) + '&foldername=TALetter')
+                            .show();
+                        $('#hdnTAPath').val(data1.tAletterPath);
+                    $('#aTAPath').show();
+                    } else {
+                        console.warn("No data found:", response.message);
+                        alert("No data available for this TA ID.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    alert("Failed to load details. Please try again.");
+                }
+            });
+        }
+        //FOR BINDING THE UPLOAD TA DETAILS IN EDIT MODE
+        function EditDetails(TAID) {
+            $('#hdnTAId').val(TAID);
+
+            var url = '@Url.Action("GetProposalDetails", "TechnicalApproval")' + "?Id=" + encodeURIComponent(TAID);
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (response) {
+                    if (response.success && response.data) {
+                        var data1 = response.data;
+                        Reset();
+                        console.log(data1);
+                        $("#hdnTAUplaodid").val(data1.taId || '');
+                        $("#hdnUploadProposalid").val(data1.proposalId || '');
+                        $("#hdngenerateStatus").val(data1.generateStatus);
+                        $('.ProposalSubject').text(data1.proposalSubject || 'N/A');
+                        $('.ProposalDistrict').text(data1.district || 'N/A');
+                        $('.CreatedBy').text(data1.createdBy || 'N/A');
+                        $('.CreatedOn').text(data1.createdon || 'N/A');
+                        $('.Area').text(data1.proposalArea || 'N/A');
+                        $('.LetterDate').val(data1.taDate || '').parent().removeClass('error').end().removeClass("is-invalid");
+                        $(".LetterNo").val(data1.tAletterNo || '').addClass("is-valid").parent().removeClass('error').end().removeClass("is-invalid");
+                        $(".EstimattedCost").val(data1.tAestimattedcost || '').addClass("is-valid").parent().removeClass('error').end().removeClass("is-invalid");
+
+                        if (data1.taNazariMap) {
+                            $("#aTANazari").attr('href', '@Url.Action("DownloadPdf", "TechnicalApproval")?fileName=' + encodeURIComponent(data1.taNazariMap) + '&foldername=TANazari').show();
+                            $("#hdnTANazari").val(data1.taNazariMap);
+                        }
+
+                        if (data1.taDrawingPath) {
+                            $("#aTADrawing").attr('href', '@Url.Action("DownloadPdf", "TechnicalApproval")?fileName=' + encodeURIComponent(data1.taDrawingPath) + '&foldername=TADesign').show();
+                            $("#hdnTADrawing").val(data1.taDrawingPath);
+                        }
+
+                        if (data1.taOtherDocPath) {
+                            $("#aTAOtherDoc").attr('href', '@Url.Action("DownloadPdf", "TechnicalApproval")?fileName=' + encodeURIComponent(data1.taOtherDocPath) + '&foldername=TAOtherDoc').show();
+                            $("#hdnTAOtherDoc").val(data1.taOtherDocPath);
+                        }
+
+                        $("#Remarks").val(data1.tAremarks || '').addClass("is-valid").parent().removeClass('error').end().removeClass("is-invalid");
+
+                        $('#btnSubmit').text('Update');
+                        $('#btnReset').text('Cancel');
+                        $("#taDate").addClass("is-valid");
+                        $('.LetterDate').addClass("is-valid");
+                        if (data1.tAletterPath) {
+                            $('#aTAPath').attr('href', '@Url.Action("DownloadPdf", "TechnicalApproval")?fileName=' + encodeURIComponent(data1.tAletterPath) + '&foldername=TALetter').show();
+                            $('#hdnTAPath').val(data1.tAletterPath);
+                        }
+
+                        $("#TALetter").addClass("is-valid").parent().removeClass('error').end().removeClass("is-invalid");
+
+                        $('#uploadTech').modal('show');
+                        $('.LengthRemarks').trigger('blur');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error: ", error);
+                    alert("An error occurred while fetching proposal details.");
+                }
+            });
+        }
+
+        // FOR RESET THE FORM
+        function resetform() {
+            if ($('#btnReset').text() == "Reset") {
+                $("#form1").validate().resetForm();
+                $('.LetterDate').val('');
+                $(".LetterNo").val('');
+                $("#TAOtherDoc").val('');
+                $("#TADrawaing").val('');
+                $("#TANazri").val('');
+                $(".EstimattedCost").val('');
+                $("#Remarks").val('');
+
+                $("#form1").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                $("#form1").find(".error").removeClass("error");
+                $('.LengthRemarks').trigger('blur');
+            }
+            else {
+                $('#uploadTech').modal("hide");
+            }
+        }
+        // FOR REST THE CONTROL
+        function Reset() {
+            $("#form1").validate().resetForm();
+            $('.LetterDate').val('');
+            $(".LetterNo").val('');
+            $("#TAOtherDoc").val('');
+            $("#TADrawaing").val('');
+            $("#TANazri").val('');
+            $(".EstimattedCost").val('');
+            $("#Remarks").val('');
+
+            $("#form1").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form1").find(".error").removeClass("error");
+            $('.LengthRemarks').trigger('blur');
+            $("#TALetter").parent().removeClass('error');
+            $("#TALetter").removeClass("is-invalid");
+            $(".LetterNo").parent().removeClass('error');
+            $(".LetterNo").removeClass("is-invalid");
+            $(".EstimattedCost").parent().removeClass('error');
+            $(".EstimattedCost").removeClass("is-invalid");
+            $("#TANazri").parent().removeClass('error');
+            $("#TANazri").removeClass("is-invalid");
+            $("#TADrawaing").parent().removeClass('error');
+            $("#TADrawaing").removeClass("is-invalid");
+            $("#TAOtherDoc").parent().removeClass('error');
+            $("#TAOtherDoc").removeClass("is-invalid");
+            $("#Remarks").parent().removeClass('error');
+            $("#Remarks").removeClass("is-invalid");
+           // $("#form1").validate().resetForm();
+            $('.LengthRemarks').trigger('blur');
+        }
+        //FOR SAVING THE RECORDS OF TA DETAILS
+        function Save_TA_Details() {
+            debugger;
+            if ($("#form1").valid()) {
+                var formData = new FormData();
+                formData.append("TAid", $('#hdnTAUplaodid').val());
+                formData.append("ProposalID", $('#hdnUploadProposalid').val());
+            formData.append("TAletterPath", $('#hdnTAPath').val());
+            formData.append("TAletterNo", $("#TALetterNo").val());
+            formData.append("TAletterDate", $("#TALetterDate").val());
+                formData.append("EstimattedCost", $("#TAEstimattedCost").val());
+                formData.append("NazariMap", $("#hdnTANazari").val());
+                formData.append("DrawingPath", $("#hdnTADrawing").val());
+                formData.append("OtherDocPath", $("#hdnTAOtherDoc").val());
+                formData.append("Remarks", $("#Remarks").val());
+                formData.append("Status", $("#hdngenerateStatus").val());
+            if ($('#TALetter')[0].files.length > 0) {
+                formData.append("LetterUpload", $('#TALetter')[0].files[0]);
+            }
+            if ($('#TANazri')[0].files.length > 0) {
+                formData.append("NazariMapUpload", $('#TANazri')[0].files[0]);
+            }
+            if ($('#TADrawaing')[0].files.length > 0) {
+                formData.append("DrawingUpload", $('#TADrawaing')[0].files[0]);
+            }
+            if ($('#TAOtherDoc')[0].files.length > 0) {
+                formData.append("OtherDocUpload", $('#TAOtherDoc')[0].files[0]);
+            }
+                let dynamicMsg;
+
+                if ($('#hdngenerateStatus').val()  == 2)
+                dynamicMsg = "Update";
+            else
+                dynamicMsg = "Save";
+                //if (projecttypeId == 0) {
+
+                //} else {
+                //    dynamicMsg = "Update";
+                //}
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("SaveTA", "TechnicalApproval")",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                    $('input:hidden[name="__RequestVerificationToken"]').val());
+                            },
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            dataType: "json",
+                            success: function (result) {
+                                Swal.fire({
+                                    icon: result.sucess ? 'success' : 'error',
+                                    title: result.responseText,
+                                    text: result.responseMessage,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $('#uploadTech').modal("hide");
+                                        SearchProposal();
+                                    }
+                                })
+                            },
+                            error: function (result) {
+                                Swal.fire({
+                                    icon: result.responseText,
+                                    title: result.responseText,
+                                    text: result.responseMessage,
+                                });
+                            },
+                        });
+
+                    }
+                    return false;
+                });
+
+
+            }
+        }
+
+
+        // FOR REMOVING THE WHITE SPACE
+        function RemoveWhiteSpace(e) {
+            debugger;
+            //alert(e);
+            e.value = $.trim(e.value);
+        }
+        $(document).ready(function () {
+            bindTAData();
+            $(".datepicker").datepicker({
+                dateFormat: 'dd-M-yy'
+            }).on('keydown', function (event) {
+                event.preventDefault();
+            });
+            $('.file').bind('change', function () {
+                filesize = this.files[0].size;
+                var val = $(this).val().toLowerCase();
+                var label = $(this).siblings('.custom-file-label');
+                regex = new RegExp("(.*?)\.(pdf)$");
+                if (!(regex.test(val))) {
+                    /* swal("", capitalizeString(".docx, .tif,.xls  type is not an allowed file type. You can use only .jpg, .jpeg, .png, .pdf types of file(s). "), "warning");*/
+                    // alert("Allow only .pdf file");
+                    Swal.fire("Invalid File!", "Only pdf files are allow.", "error")
+                    this.value = '';
+                    label.html('Choose files');
+                    return false;
+                }
+                else if (filesize > 10485760) {
+                    //alert("File size must less than 10 MB!");
+                    Swal.fire("Invalid File!", "File size must less than 10 MB.", "error")
+                    this.value = '';
+                    label.html('Choose files');
+                    return false;
+                }
+                else {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                    $(this).next('.lblfilename5').html(fileName);
+                }
+                return false;
+            });
+            $('.kfile').bind('change', function () {
+                filesize = this.files[0].size;
+                var val = $(this).val().toLowerCase();
+                var label = $(this).siblings('.custom-file-label');
+                regex = new RegExp("(.*?)\.(kml)$");
+                if (!(regex.test(val))) {
+                    /* swal("", capitalizeString(".docx, .tif,.xls  type is not an allowed file type. You can use only .jpg, .jpeg, .png, .pdf types of file(s). "), "warning");*/
+                    // alert("Allow only .pdf file");
+                    Swal.fire("Invalid File!", "Only kml files are allow.", "error")
+                    this.value = '';
+                    label.html('Choose files');
+                    return false;
+                }
+                else if (filesize > 10485760) {
+                    //alert("File size must less than 10 MB!");
+                    Swal.fire("Invalid File!", "File size must less than 10 MB.", "error")
+                    this.value = '';
+                    label.html('Choose files');
+                    return false;
+                }
+                else {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                    $(this).next('.lblfilename5').html(fileName);
+                }
+                return false;
+            });
+            $('.dfile').bind('change', function () {
+                filesize = this.files[0].size;
+                var val = $(this).val().toLowerCase();
+                var label = $(this).siblings('.custom-file-label');
+                 regex = new RegExp("(.*?)\\.(dwg|dxf|dwf)$", "i");
+
+
+                if (!(regex.test(val))) {
+                    /* swal("", capitalizeString(".docx, .tif,.xls  type is not an allowed file type. You can use only .jpg, .jpeg, .png, .pdf types of file(s). "), "warning");*/
+                    // alert("Allow only .pdf file");
+                    Swal.fire("Invalid File!", "Only dwg/dxf/dwf files are allow.", "error")
+                    this.value = '';
+                    label.html('Choose files');
+                    return false;
+                }
+                else if (filesize > 10485760) {
+                    //alert("File size must less than 10 MB!");
+                    Swal.fire("Invalid File!", "File size must less than 10 MB.", "error")
+                    this.value = '';
+                    label.html('Choose files');
+                    return false;
+                }
+                else {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                    $(this).next('.lblfilename5').html(fileName);
+                }
+                return false;
+            });
+
+            function updateCharCount(textArea) {
+                debugger;
+                var maxLength = $(textArea).attr("maxlength"); // Get maxlength from textarea
+                var currentLength = $(textArea).val().length; // Current text length
+                var remaining = maxLength - currentLength; // Remaining characters
+
+                var spanId = $(textArea).attr("targetid"); // Get target span ID
+                $('#' + spanId).text(remaining); // Update the count in the span
+
+                if (remaining < 0) {
+                    Swal.fire({
+                        title: 'You have reached your maximum limit of characters allowed.',
+                        text: '',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                    $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+                    $('#' + spanId).text(0); // Set to 0 when limit is exceeded
+                }
+            }
+
+            // Keyup event to update character count in real-time
+            $(document).on('keyup', '.LengthRemarks', function () {
+                debugger;
+                updateCharCount(this);
+            });
+
+            // Blur event to validate character count when user leaves the textarea
+            $(document).on('blur', '.LengthRemarks', function () {
+                debugger;
+                updateCharCount(this);
+            });
+            $.validator.addMethod("fileExtension", function (value, element, param) {
+                if (element.files.length === 0) return true; // No file, so skip validation
+                var extension = value.split('.').pop().toLowerCase();
+                return $.inArray(extension, param) !== -1;
+            }, "Invalid file type.");
+
+            $.validator.addMethod("fileSize", function (value, element, param) {
+                if (element.files.length === 0) return true; // No file, so skip validation
+                return element.files[0].size <= param;
+            }, "File size must be less than 10MB");
+
+            $("#form1").validate({
+
+
+
+                rules: {
+                    letterNo: {
+                        required: true
+                    },
+                    letterPath: {
+                        required: function () {
+                            return $('#hdnTAPath').val() == "";
+                        },
+                        fileExtension: ["pdf"],
+                        fileSize: 10 * 1024 * 1024
+                    },
+                    letterDate: {
+                        required: true
+                    },
+                    estimattedCost: {
+                        required: true
+                    },
+                    NazariMap: {
+                        required: function () {
+                            return $('#hdnTANazari').val() == "";
+                        },
+                        fileExtension: ["kml"],
+                        fileSize: 10 * 1024 * 1024
+                    },
+                    DrawingPath: {
+                        required: function () {
+                            return $('#hdnTADrawing').val() == "";
+                        },
+                        fileExtension: ["dwg", "dxf", "dwf"],
+                        fileSize: 10 * 1024 * 1024
+                    },
+                    OtherDocPath: {
+                        required: function () {
+                            return $('#hdnTAOtherDoc').val() == "";
+                        },
+                        fileExtension: ["pdf"],
+                        fileSize: 10 * 1024 * 1024
+                    },
+                    remarks: {
+                        required: true
+                    }
+                },
+                messages: {
+                    letterNo: {
+                        required: "Please enter TA Letter Number"
+                    },
+                    letterPath: {
+                        required: "Please upload TA Letter",
+                        fileExtension: "Only PDF files are allowed",
+                        fileSize: "File size must be less than 10MB"
+                    },
+                    letterDate: {
+                        required: "Please enter TA Letter Date"
+                    },
+                    estimattedCost: {
+                        required: "Please enter Estimated Cost"
+                    },
+                    NazariMap: {
+                        required: "Please upload Nazari letter",
+                        fileExtension: "Only KML files are allowed",
+                        fileSize: "File size must be less than 10MB"
+                    },
+                    DrawingPath: {
+                        required: "Please upload Drawing file",
+                        fileExtension: "Only DWG, DXF, or DWF files are allowed",
+                        fileSize: "File size must be less than 10MB"
+                    },
+                    OtherDocPath: {
+                        required: "Please upload Other Document",
+                        fileExtension: "Only PDF files are allowed",
+                        fileSize: "File size must be less than 10MB"
+                    },
+                    remarks: {
+                        required: "Please enter Remarks"
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.css("color", "red");
+                    error.insertAfter(element.closest(".form-group"));
+                },
+                highlight: function (element) {
+                    $(element).removeClass("is-valid")
+                    $(element).parent().addClass('error')
+                    $(element).addClass("is-invalid")
+                },
+                unhighlight: function (element) {
+                    $(element).parent().removeClass('error')
+                    $(element).removeClass("is-invalid");
+                    $(element).addClass("is-valid")
+                }
+            });
+        });
+
+
+        function lettersDigitValidate(event) {
+            var keyCode = event.which || event.keyCode;
+
+            // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+            var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+                .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+                .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+                .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+            // Check if the pressed key is allowed
+            if (allowedKeyCodes.indexOf(keyCode) === -1) {
+                // If not allowed, prevent the default action (key press)
+                event.preventDefault();
+            }
+        }
+    </script>
+
+
+</div>

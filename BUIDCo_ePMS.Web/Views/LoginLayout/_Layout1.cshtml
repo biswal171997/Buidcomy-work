@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BUIDCO Website">
+    <meta name="keywords" content="BUIDCO Website">
+    <meta name="author" content="BUIDCO Website">
+    <title>@ViewData["Title"] </title>
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pristina&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+    
+
+</head>
+<body>
+    @RenderBody()
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/animation/wow/wow.min.js"></script>
+    <script src="~/js/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    @* <script src="~/js/script.js"></script> *@
+<script>
+        /*** Password Show/Hide ***/
+        const $showHideWrapper = $(".show-hide");
+        const $passwordInput = $('input[name="login[password]"]');
+
+        $showHideWrapper.show();
+        $showHideWrapper.find("span").addClass("show").on("click", function () {
+            if ($(this).hasClass("show")) {
+                $passwordInput.attr("type", "text"); // Show password
+                $(this).removeClass("show");
+            } else {
+                $passwordInput.attr("type", "password"); // Hide password
+                $(this).addClass("show");
+            }
+        });
+
+        // Reset password field to "password" type on form submit
+        $('form button[type="submit"]').on("click", function () {
+            $showHideWrapper.find("span").addClass("show");
+            $passwordInput.attr("type", "password");
+        });
+
+        new WOW().init();
+        $(document).ready(function () {
+            // Generate a random captcha
+            @*function generateCaptcha() {
+                //const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                //let captcha = "";
+                //for (let i = 0; i < 5; i++) {
+                //    captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+                //}
+                let captcha=    $.post("@Url.Action("GenerateCaptcha", "CodeGenLogin")");
+                return captcha;
+            }*@
+
+            // Refresh the captcha
+
+
+            // Toggle password visibility
+            $("#passwordView").click(function () {
+                const passwordInput = $("#userPassword");
+                const eyeSlash = $(".bi-eye-slash");
+                const eye = $(".bi-eye");
+
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    eyeSlash.hide();
+                    eye.show();
+                } else {
+                    passwordInput.attr("type", "password");
+                    eyeSlash.show();
+                    eye.hide();
+                }
+            });
+
+            // Validate login form
+            $("#loginForm").submit(function (event) {
+                event.preventDefault(); // Stop form submission
+
+                const userCaptcha = $("#userCaptcha").val();
+
+                // Ensure validatecaptcha() returns a Promise
+                validatecaptcha(userCaptcha).then(function (isValidCaptcha) {
+                    if (!isValidCaptcha) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Captcha Error',
+                            text: 'Invalid captcha, please try again.'
+                        });
+                        $("#userCaptcha").val('');  // Clear the captcha input field
+                        refreshCaptcha(); // Refresh the captcha
+                        return; // STOP further execution
+                    }
+                    debugger;
+                    // CAPTCHA is valid, proceed with login
+                    const userName = $("#userName").val();
+                    const userPassword = $("#userPassword").val();
+
+                  
+
+                    var TBL_UserMaster = {
+                        UserName: SubmitsEncry('userName'),
+                        Password: SubmitsEncry('userPassword'),
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("UserLogin", "CodeGenLogin")",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                       
+                        data: JSON.stringify(TBL_UserMaster),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.responseText === "success") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Login Successful',
+                                    text: result.responseMessage,
+                                }).then((res) => {
+                                    if (res.isConfirmed) {
+                                        location.href = '@Url.Action("DashboardLanding", "Dashboard")';
+                                    }
+                                });
+                            } else {
+                                $("#userName").val('');
+                                $("#userPassword").val('');
+                                $("#userCaptcha").val('');
+                                refreshCaptcha();
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Login Failed',
+                                    text: result.responseMessage,
+                                });
+                            }
+                        },
+                        error: function (result) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Login Error',
+                                text: result.responseMessage,
+                            });
+                        },
+                    });
+                }).catch(function (error) {
+                    console.error("CAPTCHA validation error:", error);
+                });
+            });
+
+
+
+            // Validate login form
+        });
+</script>
+<script>
+    function refreshCaptcha() {
+        debugger;
+        var captchaImage = $("#captchaImage");
+
+            captchaImage.attr("src", "@Url.Action("GenerateCaptcha", "CodeGenLogin")" + "?t=" + new Date().getTime());
+
+    }
+    function SubmitsEncry(strCntrol) {
+        debugger;
+        var strData = $('#' + strCntrol).val();
+        if (!strData) return "";  // Handle empty values safely
+
+        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+
+        var encryptedlogin = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(strData), key, {
+            keySize: 128 / 8,
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        }).toString(); // Ensure encryption result is a string
+
+        $('#' + strCntrol).val(encryptedlogin); // Still update the input field if needed
+
+        return encryptedlogin; // 🔥 Return the encrypted value!
+    }
+        function validatecaptcha(userCaptcha) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "@Url.Action("ValidateCaptcha", "CodeGenLogin")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ UserCaptcha: userCaptcha }),
+            success: function (response) {
+                if (response.success) {
+                    resolve(true);  // ✅ CAPTCHA is correct
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    $("#userCaptcha").val('');
+                    refreshCaptcha();
+                    resolve(false); // ❌ CAPTCHA is incorrect
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: 'An error occurred while validating the Captcha.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                refreshCaptcha();
+                resolve(false); // ❌ AJAX request failed
+            }
+        });
+    });
+}
+
+    function validatecaptcha1(userCaptcha)
+    {
+        $.ajax({
+            url: "@Url.Action("ValidateCaptcha", "CodeGenLogin")", //"/CodeGenLogin/ValidateCaptcha",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ UserCaptcha: userCaptcha }),
+            success: function (response) {
+                if (response.success) {
+                    return true; // ✅ CAPTCHA correct
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: '',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+
+                    refreshCaptcha();
+                    return false;
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: 'An error occurred while validating the Captcha.',
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                refreshCaptcha();
+                return false;
+            }
+        });
+
+    }
+</script>
+
+
+
+
+
+
+    <script>
+        // Function to move to the next OTP field
+        function moveToNext(currentInput) {
+            if (currentInput < 4) {
+                const nextInput = document.getElementById('otp' + (currentInput + 1));
+                if (nextInput) nextInput.focus();
+            }
+        }
+
+        // Function to move to the previous OTP field when Backspace or Delete is pressed
+        function moveToPrevious(currentInput) {
+            if (currentInput > 1) {
+                const prevInput = document.getElementById('otp' + (currentInput - 1));
+                if (prevInput) prevInput.focus();
+            }
+        }
+
+
+        let countdownTime = 30; // 30 seconds
+        const timerElement = document.getElementById("timer");
+        const resendElement = document.getElementById("show-resend");
+
+        function startTimer() {
+            let timerInterval = setInterval(function () {
+                if (countdownTime <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.style.display = 'none';
+                    resendElement.style.display = 'block';
+                    return;
+                }
+                countdownTime--;
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60; // Get seconds
+                timerElement.querySelector("span").textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+            }, 1000);
+        }
+
+        //document.getElementById('otpForgot').addEventListener('shown.bs.modal', function () {
+        //    startTimer();
+        //});
+
+        // OTP verify function
+        function verifyOtp() {
+            // Show success alert when OTP is verified
+            Swal.fire({
+                icon: 'success',
+                title: '',
+                text: 'Your Mobile No has been successfully verified.',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Hide OTP modal
+                    $('#otpForgot').modal('hide');
+
+                    $('#getOtpBtn').hide();
+                    $('#loginForm').hide();
+                    $('#passwordSet').show();
+                }
+            });
+        }
+
+        // Adding event listeners to handle Backspace and Delete key events
+        document.querySelectorAll('.otp-input').forEach(input => {
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Backspace' || e.key === 'Delete') {
+                    const currentInputId = parseInt(this.id.replace('otp', ''));
+                    this.value = '';
+                    moveToPrevious(currentInputId);
+                }
+            });
+        });
+
+        // Handle the Resend OTP button click
+        //document.getElementById("resendOtpBtn").addEventListener("click", function () {
+        //    // Simulate OTP Resend success
+        //    Swal.fire({
+        //        icon: 'success',
+        //        title: '',
+        //        text: 'A new OTP has been sent to your mobile number.',
+        //        confirmButtonText: 'OK'
+        //    }).then(() => {
+        //        countdownTime = 1 * 60; // Reset the countdown to 1 minute
+        //        timerElement.style.display = 'block'; // Show the timer
+        //        resendElement.style.display = 'none'; // Hide the resend option
+        //        startTimer(); // Restart the timer
+        //    });
+        //});
+
+
+
+    </script>
+
+
+
+
+
+ 
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

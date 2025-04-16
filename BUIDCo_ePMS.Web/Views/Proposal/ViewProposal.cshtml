@@ -1,0 +1,760 @@
+﻿@using Microsoft.Extensions.Configuration;
+@inject IConfiguration Configuration
+@{
+    var proposalLetterPath = Configuration.GetSection("Path").GetValue<string>("ProposalLetter");
+    var encodedPath = Uri.EscapeDataString(proposalLetterPath!);
+}
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <input type="hidden" id="hdnsubmitproposalid" value="0" />
+    <input type="hidden" id="hdnvfdrid" />
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Construction Steps"> Construction Steps </a></li>
+                <li class="breadcrumb-item active" title="Upload Proposal" aria-current="page">View Proposal</li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-secondary btn-sm me-3" title="Back" onclick="GoBack()">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <h5 class="mb-3"> Proposal Details </h5>
+            <div class="card table__body__text">
+                <div class="card-body">
+
+                    <div class="row mb-0 mb-xl-2 mb-lg-3 mb-md-3">
+
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-12 pe-0 pe-xl-4 pe-lg-4 pe-md-4">
+                            <div class="row">
+                                <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-7 col-12 d-flex align-items-center column-gap-4 mb-3 flex-wrap">
+                                    <div class="badge bg-yellow fw-600">
+                                        <span id="spletterNo" class="text-solid-black">  </span>
+                                    </div>
+                                    <div><i class="text-light-primary buidcoicon-calendar-day me-2"></i><span id="spproposalLetterDate">   </span> </div>
+                                </div>
+                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-12 text-start text-xl-end mb-3">
+                                    <span id="spstatus" class="badge badge-primary"> </span>
+                                </div>
+                            </div>
+                            <p id="psubject"></p>
+                            <div class="d-flex align-items-center column-gap-3 flex-wrap mb-3">
+                                <div class="border-right pe-3">
+                                    Category & Sub Category :  <span id="spcategoryName" class="fw-600 mt-2 mt-xl-0 mt-lg-0 mt-md-0"></span>
+                                </div>
+                                <label id="spsubCategoryName" for="" class="mb-0"></label>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-left ps-xl-4 ps-lg-4 ps-md-4">
+                            <div class="form-group">
+                                <label for="dvsubmittedBy" class="mb-1">  Proposal Submitted By : </label>
+                                <div id="dvsubmittedBy" class="description">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="spproposalName" class="mb-1">  Proposer Name : </label>
+                                <div id="dvproposalName" class="description">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="border-top pt-3">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-8 col-md-7 col-12">
+                                <div class="row">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="dvdistrict" class="mb-1">  District :  </label>
+                                            <div id="dvdistrict" class="description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="dvulbname" class="mb-1">  Urban Local Body (ULB) : </label>
+                                            <div id="dvulbname" class="description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @* <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="dvsubject" class="mb-1">  Subject : </label>
+                                            <div id="dvsubject" class="description">
+                                            </div>
+                                        </div>
+                                    </div> *@
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label class="mb-1" for="">  Remark : </label>
+                                            <div id="dvremarks" class="description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-5 col-12">
+                                <div class="form-group">
+                                    <label class="mb-1" for="">  Director Name : </label>
+                                    <div id="dvdirectorname" class="description">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- final detail report -->
+            <div class="row project__site">
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-12 table__body__text">
+
+                    <div class="row mt-4">
+                        <div class="col-xxl-10 col-xl-10 col-lg-8 col-md-10 col-12">
+                            <div class="d-flex align-items-center column-gap-4 flex-wrap">
+                                <h5 class="fw-600 mb-3"> Detailed Project Report (DPR)  </h5>
+                                @* <div class="custom__toggle__check">
+                                    <span class="form-check-label" for="switch-id"> No </span>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="switch-id" checked>
+                                    </div>
+                                    <span class="form-check-label" for="switch-id"> Yes </span>
+                                </div> *@
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-2 col-12">
+                            <div class="text-start text-xl-end text-lg-end mb-3">
+                                <button id="btnveditfdr" onclick="vieweditfdr()" title="Edit Proposal" type="button" class="btn btn-primary btn-sm">
+                                    <i class="buidcoicon-edit me-2"></i> Edit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="dvpreparedBy" class="mb-1">  DPR Prepared By :  </label>
+                                    <div id="dvpreparedBy" class="description">
+                                        N/A
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="dvsubmittedOn" class="mb-1">  DPR Submitted / Approved Date :  </label>
+                                    <div id="dvsubmittedOn" class="description">
+                                        N/A
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="apptPath" class="mb-1">  Loa Letter :  </label>
+                                    <div class="d-block">
+                                        <a id="aloaLetterPath" href="" class="description">  <i class="bi bi-filetype-pptx text-danger me-2"></i> Download </a>
+                                        @* <span class="text-secondary border-start ps-3 ms-3">  254 kb </span> *@
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="apptPath" class="mb-1">  Presentation PPT :  </label>
+                                    <div class="d-block">
+                                        <a id="apptPath" href="" class="description">  <i class="bi bi-filetype-pptx text-danger me-2"></i> Download </a>
+                                        @* <span class="text-secondary border-start ps-3 ms-3">  254 kb </span> *@
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="afdrPath" class="mb-1">  PDF of Estimation and DPR :  </label>
+                                    <div class="d-block">
+                                        <a id="afdrPath" href="#" class="description">  <i class="bi bi-file-earmark-pdf text-danger me-2"></i> Download </a>
+                                        @* <span class="text-secondary border-start ps-3 ms-3">  254 kb </span> *@
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="amapPath" class="mb-1">  Map Layout  :  </label>
+                                    <div class="d-block">
+                                        <a id="amapPath" href="#" class="description">  <i class="bi bi-file-earmark-pdf text-danger me-2"></i> Download </a>
+                                        @* <span class="text-secondary border-start ps-3 ms-3">  5 mb </span> *@
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                    <label for="" class="mb-1">  Design Layout :  </label>
+                                    <div class="d-block">
+                                        <a id="adesignLayout" href="#" class="description">  <i class="bi bi-file-earmark-pdf text-danger me-2"></i> Download </a>
+                                        @* <span class="text-secondary border-start ps-3 ms-3">  10 mb </span> *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-xxl-10 col-xl-10 col-lg-8 col-md-10 col-12">
+                            <div class="d-flex align-items-center column-gap-4 flex-wrap">
+                                <h5 class="fw-600 mb-3"> Project site information  </h5>
+                                @* <div class="custom__toggle__check">
+                                    <span class="form-check-label" for="switch-id"> No </span>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="switch-id" checked>
+                                    </div>
+                                    <span class="form-check-label" for="switch-id"> Yes </span>
+                                </div> *@
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-2 col-12">
+                            <div class="text-start text-xl-end text-lg-end mb-3">
+                                <button title="Add Project Site" type="button" onclick="viewaddsite()" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus-circle me-2"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div class="table-responsive">
+                                <table id="tblpropsalsite" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px"> Sl# </th>
+                                            <th style="width:160px"> Construction Area <br> (In Sq. Mtr) </th>
+                                            <th style="width:360px"> Address </th>
+                                            <th style="width:200px"> Documents </th>
+                                            <th style="width:70px"> Action </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> 1 </td>
+                                            <td> 214,223 </td>
+                                            <td>
+                                                <div class="site__information">
+                                                    <p>
+                                                        Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram.
+                                                    </p>
+                                                    <div class="khata__section">
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Latitude </small>
+                                                            <p class="fw-500 m-0">  2541.3 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Longitude </small>
+                                                            <p class="fw-500 m-0">  1254.32 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Khata No. </small>
+                                                            <p class="fw-500 m-0">  245 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Khesara No. </small>
+                                                            <p class="fw-500 m-0">  142 </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-2">
+                                                    <a href="#" class="bg__grey fs-7" title="NOC Document">
+                                                        <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i>
+                                                        NOC Document
+                                                    </a>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <small class="d-block text-secondary mb-2"> Other Documents </small>
+
+                                                    <div class=" d-flex align-items-center gap-2 flex-wrap">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                                <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                                <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            </div>
+                                                            <a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#shoMoredocs" title="+5 More"> +5 More </a>
+                                                        </div>
+
+                                                        <div class="collapse" id="shoMoredocs">
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 4"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 5"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="table__icon">
+                                                    <a href="#!" class="text-primary" title="Edit" data-bs-toggle="modal" data-bs-target="#projectSite">
+                                                        <i class="buidcoicon-edit"></i>
+                                                    </a>
+                                                    <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                        <i class="bi bi-trash text-orange "></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 2 </td>
+                                            <td> 220,23 </td>
+                                            <td>
+                                                <div class="site__information">
+                                                    <p>
+                                                        Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram.
+                                                    </p>
+                                                    <div class="khata__section">
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Latitude </small>
+                                                            <p class="fw-500 m-0">  2541.3 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Longitude </small>
+                                                            <p class="fw-500 m-0">  1254.32 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Khata No </small>
+                                                            <p class="fw-500 m-0">  245 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Khesara No. </small>
+                                                            <p class="fw-500 m-0">  142 </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-2">
+                                                    <a href="#" class="bg__grey fs-7" title="NOC Document">
+                                                        <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i>
+                                                        NOC Document
+                                                    </a>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <small class="d-block text-secondary mb-2"> Other Documents </small>
+                                                    <div class=" d-flex align-items-center gap-2 flex-wrap">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                                <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                                <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            </div>
+                                                            <a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#shoMoredocs2" title="+5 More"> +5 More </a>
+                                                        </div>
+
+
+                                                        <div class="collapse" id="shoMoredocs2">
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 4"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 5"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="table__icon">
+                                                    <a href="#!" class="text-primary" title="Edit" data-bs-toggle="modal" data-bs-target="#projectSite">
+                                                        <i class="buidcoicon-edit"></i>
+                                                    </a>
+                                                    <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                        <i class="bi bi-trash text-orange "></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 3 </td>
+                                            <td> 25,223 </td>
+                                            <td>
+                                                <div class="site__information">
+                                                    <p>
+                                                        Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram.
+                                                    </p>
+                                                    <div class="khata__section">
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Latitude </small>
+                                                            <p class="fw-500 m-0">  2541.3 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Longitude </small>
+                                                            <p class="fw-500 m-0">  1254.32 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Khata No </small>
+                                                            <p class="fw-500 m-0">  245 </p>
+                                                        </div>
+                                                        <div class="khata__list">
+                                                            <small class="d-block text-secondary mb-1"> Khesara No. </small>
+                                                            <p class="fw-500 m-0">  142 </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-2">
+                                                    <a href="#" class="bg__grey fs-7" title="NOC Document">
+                                                        <i class="bi bi-file-earmark-pdf pe-2 text-danger"></i>
+                                                        NOC Document
+                                                    </a>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <p class="d-block text-secondary mb-2"> Other Documents </p>
+                                                    <div class=" d-flex align-items-center gap-2 flex-wrap">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                                <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                                <a href="#" data-bs-toggle="tooltip" title="View"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            </div>
+                                                            <a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#shoMoredocs3" title="+4 More"> +4 More </a>
+                                                        </div>
+
+                                                        <div class="collapse" id="shoMoredocs3">
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                                            <a href="#" data-bs-toggle="tooltip" title="Document 4"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="table__icon">
+                                                    <a href="#!" class="text-primary" title="Edit" data-bs-toggle="modal" data-bs-target="#projectSite">
+                                                        <i class="buidcoicon-edit"></i>
+                                                    </a>
+                                                    <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                                        <i class="bi bi-trash text-orange "></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="action__log">
+                                <h5 class="heading-color"> Action Logs </h5>
+                            </div>
+                            <div class="about__stepper">
+                                <div class="step-list">
+
+                                    <div class="counter-area"> Project site information updated </div>
+                                    <div class="step-details">
+                                        <small class="d-block text-secondary"> 24 May,2024 at 10.30AM</small>
+                                        <div class="stepper__profile">
+                                            <div class="icon"> pr </div>
+                                            <div class="d-block">
+                                                <h6 class="mb-1"> Mahesh Tripathy </h6>
+                                                <small class="text-secondary"> Officer, PWD Department </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-list">
+
+                                    <div class="counter-area"> DPR Updated </div>
+                                    <div class="step-details">
+                                        <small class="d-block text-secondary"> 24 May,2024 at 10.30AM</small>
+                                        <div class="stepper__profile">
+                                            <div class="icon"> pr </div>
+                                            <div class="d-block">
+                                                <h6 class="mb-1"> Abhishek Porel </h6>
+                                                <small class="text-secondary"> Officer, PWD Department </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-list">
+
+                                    <div class="counter-area"> DPR Updated </div>
+                                    <div class="step-details">
+                                        <small class="d-block text-secondary"> 22 MArch,2024 at 08.00AM </small>
+                                        <div class="stepper__profile">
+                                            <div class="icon"> pr </div>
+                                            <div class="d-block">
+                                                <h6 class="mb-1"> Manoj Sharma </h6>
+                                                <small class="text-secondary"> Officer, PWD Department </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- final detail report -->
+        </div>
+        <div class="col-middle">
+            <button type="button" onclick="SubmitProposalLetter()" class="btn btn-success btn-sm me-3" title="Submit">
+                <i class="bi bi-check-circle me-1"></i> Submit Proposal
+            </button>
+
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- add form Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProposal" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddProposal")
+        </div>
+    </div>
+    <!-- add form Modal -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+    <!-- add project site -->
+    <div class="modal fade right custom-view-modal-medium" id="projectSite" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddProjectSite")
+        </div>
+    </div>
+    <!-- add project site -->
+    <!-- add fdr Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="fdrmodal" tabindex="-1">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddProposalFdr")
+        </div>
+    </div>
+    <!-- add fdr Modal -->
+</div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    let map; // Declare map in a higher scope
+    let marker;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const initialPosition = [25.0961, 85.3131]; // Bihar
+
+        map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView(initialPosition, 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        marker = L.marker(initialPosition, { draggable: true }).addTo(map);
+
+        // Set initial input values
+        document.getElementById('txtsitelattitude').value = initialPosition[0];
+        document.getElementById('txtsitelongitude').value = initialPosition[1];
+
+        // Marker drag event
+        marker.on('dragend', function () {
+            const position = marker.getLatLng();
+            updateInputs(position.lat, position.lng);
+        });
+
+        // Map click event
+        map.on('click', function (e) {
+            marker.setLatLng(e.latlng);
+            updateInputs(e.latlng.lat, e.latlng.lng);
+        });
+
+        // Input fields events
+        const latInput = document.getElementById('txtsitelattitude');
+        const lngInput = document.getElementById('txtsitelongitude');
+
+        latInput.addEventListener('change', updateMapFromInputs);
+        lngInput.addEventListener('change', updateMapFromInputs);
+
+        function updateInputs(lat, lng) {
+            latInput.value = lat.toFixed(6);
+            lngInput.value = lng.toFixed(6);
+        }
+
+        function updateMapFromInputs() {
+            const lat = parseFloat(latInput.value);
+            const lng = parseFloat(lngInput.value);
+            if (!isNaN(lat) && !isNaN(lng)) {
+                const newPosition = [lat, lng];
+                marker.setLatLng(newPosition);
+                map.setView(newPosition, 13);
+            }
+        }
+
+        // Call invalidateSize() after a short delay to ensure proper rendering
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 300);
+    });
+</script>
+<script src="~/js/forms/addproposal.js"></script>
+<script src="~/js/forms/proposalfdr.js"></script>
+<script src="~/js/forms/addproposalsite.js"></script>
+<script src="~/js/forms/encryptdecrypt.js"></script>
+<script>
+    var baseUrl = "@Url.Content("~/")";
+    var _encodedpath = '@encodedPath';
+    $(document).ready(function () {
+        $('#splayoutheader').text('View Proposal');
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["Id"];
+        if (id != undefined || id != null) {
+            GetProposalInformationByID(decryptData(id));
+        }
+    });
+    function GetProposalInformationByID(proposalid) {
+        $('#hdnsubmitproposalid').val(proposalid)
+        $.ajax({
+            type: 'Get',
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            data: { proposalid: proposalid },
+            url: "@Url.Action("GetProposalInformationByID", "Proposal")",
+            success: function (result) {
+                
+                console.log(result);
+                var data = JSON.parse(result);
+                var data1 = JSON.parse(data.data)
+                console.log(data1);
+                debugger
+                $('#hdnsubmitproposalid').val(proposalid);
+                $('#spstatus').text(data1.proposal.status);
+                $('#spletterNo').text(data1.proposal.letterNo);
+                $('#spproposalLetterDate').text(formatDate(data1.proposal.proposalLetterDate));
+                $('#psubject').text(data1.proposal.subject);
+                $('#spcategoryName').text(data1.proposal.categoryName);
+                $('#spsubCategoryName').text(data1.proposal.subCategoryName);
+                $('#dvproposalName').text(data1.proposal.proposalName);
+                $('#dvsubmittedBy').text(data1.proposal.submittedBy);
+                $('#dvdistrict').text(data1.proposal.district);
+                $('#dvulbname').text(data1.proposal.ulb); 
+                $('#dvremarks').text(data1.proposal.remarks);
+                $('#dvdirectorname').text(data1.proposal.officername);
+                if (data1.proposalfdr) {
+                    $('#hdnvfdrid').val(data1.proposalfdr.fdrId);
+                    $('#dvpreparedBy').text(data1.proposalfdr.preparedByName);
+                    $('#dvsubmittedOn').text(formatDate(data1.proposalfdr.submittedOn));
+                    var urlpptPath = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data1.proposalfdr.pptPath + '&filepath=@encodedPath';
+                    $('#apptPath').prop("href", urlpptPath);
+                    var urlfdrPath = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data1.proposalfdr.fdrPath + '&filepath=@encodedPath';
+                    $('#afdrPath').prop("href", urlfdrPath);
+                    var urlmapPath = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data1.proposalfdr.mapPath + '&filepath=@encodedPath';
+                    $('#amapPath').prop("href", urlmapPath);
+                    var urldesignLayout = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data1.proposalfdr.designLayout + '&filepath=@encodedPath';
+                    $('#adesignLayout').prop("href", urldesignLayout);
+                    var urlloaLetterPath = '@Url.Action("DownloadFiles", "Proposal")' + '?filename=' + data1.proposalfdr.loaLetterPath + '&filepath=@encodedPath';
+                    $('#aloaLetterPath').prop("href", urlloaLetterPath);
+                }
+                else { 
+                    $('#btnveditfdr').empty();
+                    $('#btnveditfdr').append("<i class='bi bi-plus-circle me-2'></i> Add");
+                    $('#btnveditfdr').attr('onclick', 'AddFDR(' + $('#hdnsubmitproposalid').val() + ', 0)');
+
+                    $('#aloaLetterPath').empty();
+                    $('#aloaLetterPath').text('N/A');
+                    $('#apptPath').empty();
+                    $('#apptPath').text('N/A');
+                    $('#afdrPath').empty();
+                    $('#afdrPath').text('N/A');
+                    $('#amapPath').empty();
+                    $('#amapPath').text('N/A');
+                    $('#adesignLayout').empty();
+                    $('#adesignLayout').text('N/A');
+                }
+                console.log(data1.proposalsite);
+                $('#tblpropsalsite tbody').empty();
+                if (data1.proposalsite.length==0) { 
+                    $('#tblpropsalsite tbody').append("<tr><td colspan='5' align='center'><span style='font-size: 16px; font-weight: bold; color: #E6775A;'>No Records found!</span></td></tr>");
+                }
+                
+                $.each(data1.proposalsite, function (i, sitedata) {
+                    var trows = "<tr>";
+                    trows = trows + "<td>" + (i + 1) + "</td>";
+                    trows = trows + "<td>" + sitedata.area + "</td>";
+                    trows = trows + "<td>";
+                    trows = trows + "<div class='site__information'>";
+                    trows = trows + "<p>" + sitedata.address + "</p>";
+                    trows = trows + "<div class='khata__section'>";
+                    trows = trows + "<div class='khata__list'><small class='d-block text-secondary mb-1'> Latitude </small><p class='fw-500 m-0'>  " + sitedata.lattitude + " </p></div>";
+                    trows = trows + "<div class='khata__list'><small class='d-block text-secondary mb-1'> Longitude </small><p class='fw-500 m-0'>  " + sitedata.longitude + " </p></div>";
+                    trows = trows + "<div class='khata__list'><small class='d-block text-secondary mb-1'> Khata No </small><p class='fw-500 m-0'>  " + sitedata.khataNo + " </p></div>";
+                    trows = trows + "<div class='khata__list'><small class='d-block text-secondary mb-1'> Khesara No. </small><p class='fw-500 m-0'>  " + sitedata.khesraNo + " </p></div>";
+                    trows = trows + "</div></div></td>";
+
+                    trows = trows + "<td>";
+                    trows = trows + '<div class="mb-2" > <a href="@Url.Action("DownloadFiles", "Proposal")?filename=' + sitedata.nocPath + '&filepath=@encodedPath" class="bg__grey fs-7" title = "NOC Document" > <i class="bi bi-file-earmark-pdf pe-2 text-danger" > </i> NOC Document</a > </div>';
+                    trows = trows + "<div class='mt-3'>";
+                    trows = trows + "<small class='d-block text-secondary mb-2'> Other Documents </small>";
+                    trows = trows + "<div class=' d-flex align-items-center gap-2 flex-wrap'>";
+                    trows = trows + "<div class='d-flex align-items-center'>";
+                    trows = trows + "<div>";
+                    $.each(sitedata.proposalsitedocs, function (i, sitedocdata) {
+                        trows = trows + "<a href='@Url.Action("DownloadFiles", "Proposal")?filename=" + sitedocdata.docPath + "&filepath=@encodedPath' data-bs-toggle='tooltip' title='Download'><i class='bi bi-file-earmark-pdf me-2 text-danger'></i></a>";
+                    });
+                    trows = trows + "</div>";
+                    trows = trows + "</div>";
+                    trows = trows + "</div></div></td>";
+
+                    trows = trows + "<td>";
+                    trows = trows + "<div class='table__icon'>";
+                    trows = trows + "<a href='#!' onclick='EditProposalSite(" + sitedata.landId + ")' class='text-primary' title='Edit'><i class='buidcoicon-edit'></i></a>";
+                    trows = trows + "<a href='#!' onclick='DeleteProposalSite(" + sitedata.landId + ")' title='Delete' data-bs-toggle='tooltip'><i class='bi bi-trash text-orange'></i></a>";
+                    trows = trows + "</div></td>";
+
+                    trows = trows + "</tr>";
+
+                    $('#tblpropsalsite tbody').append(trows);
+
+                });
+            },
+            error: function (Message) {
+                alert(Message);
+            }
+        });
+    }
+    function viewaddsite() {
+        AddProposalSite($('#hdnsubmitproposalid').val(), 0);
+    }
+    function vieweditfdr() {
+        EditFDR($('#hdnsubmitproposalid').val(), $('#hdnvfdrid').val());
+    }
+    function formatDate(inputDate) {
+        const date = new Date(inputDate); // Convert input to Date object
+
+        const day = date.getDate().toString().padStart(2, '0'); // Get day with leading zero
+        const monthAbbr = date.toLocaleString('en-US', { month: 'short' }); // Get short month name
+        const year = date.getFullYear();
+
+        return `${day}-${monthAbbr}-${year}`;
+    }
+    function GoBack() {
+        window.history.back();
+    }
+</script>

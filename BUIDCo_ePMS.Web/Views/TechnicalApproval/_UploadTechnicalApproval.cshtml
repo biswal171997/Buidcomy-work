@@ -1,0 +1,201 @@
+﻿ <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">  Upload Technical Approval </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="bglight-primary">
+
+                        <h6 class="fw-500 mb-3"> <span class="ProposalSubject"></span> </h6>
+
+
+                        <ul>
+                            <li>  <i class="bi bi-geo-alt"></i> District: <span class="ProposalDistrict"></span>  </li>
+                            <li> <i class="bi bi-person"></i>  <span class="text-secondary"> Created By : </span> <span class="CreatedBy"></span>  </li>
+
+                            <li>
+
+                                <div class="row">
+
+                                    <div class="col-xl-6 border-right pe-3 mb-1">
+                                        <i class="buidcoicon-calendar-day"></i>
+                                        <span class="text-secondary"> Created : </span>
+                                        <span class="CreatedOn"></span>
+
+                                    </div>
+
+
+                                    <div class="col-xl-6 mb-1">
+                                        <i class="bi bi-pin-map"></i>
+
+                                        <span class="text-secondary"> Area : </span>
+                                        <span class="Area"></span> Sq.Mtr.
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </li>
+                        </ul>
+
+
+
+                    </div>
+
+
+                    <form autocomplete="off" id="form1" enctype="multipart/form-data">
+                        <input type="hidden" id="hdnUploadProposalid" />
+                        <input type="hidden" id="hdnTAUplaodid" />
+                        <div class="row">
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> TA Letter Number <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control LetterNo" id="TALetterNo" name="letterNo" maxlength="20" onchange="RemoveWhiteSpace(this);" onkeypress="lettersDigitValidate(event)">
+                                </div>
+                            </div>
+
+
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> TA Letter Date <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                       
+                                        <input type="text" class="form-control datepicker LetterDate" name="LetterDate" id="TALetterDate" placeholder="DD-MMM-YYYY" autocomplete="off" readonly>
+
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <i class="buidcoicon-calendar-day"></i>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> Estimated Cost <span class="text-danger "> * </span></label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control EstimattedCost" maxlength="10" name="estimattedCost" id="TAEstimattedCost">
+                                </div>
+                            </div>
+
+
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> Signed TA Letter <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <div class="custom__fileupload">
+                                        <input type="file" class="form-control file" id="TALetter" name="letterPath">
+                                        <label>  <span> Browse  </span> </label>
+                                    </div>
+
+                                    <a id="aTAPath" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> </a> <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                                    <input type="hidden" id="hdnTAPath" />
+                                    <input type="hidden" id="hdngenerateStatus" />
+                                </div>
+                            </div>
+
+
+                            @*<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                <label> TA Approved By <span class="text-danger"> * </span></label>
+                <div class="form-group">
+                    <div class="custom__fileupload">
+                        <input type="file" class="form-control">
+                        <label>  <span> Browse  </span> </label>
+                    </div>
+                </div>
+            </div>*@
+
+
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> Nazri Map <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <div class="custom__fileupload">
+                                        <input type="file" class="form-control kfile" id="TANazri"
+                                               name="NazariMap">
+                                        <label>  <span> Browse  </span> </label>
+                                    </div>
+                                    <small class="text-danger text-end mt-2 d-block fs-8"> (.KML Google Map File and max. file size upto 10 MB) </small>
+                                    <a id="aTANazari" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> </a> @*<small class="text-danger text-end mt-2 d-block fs-8"> </small>*@
+                                    <input type="hidden" id="hdnTANazari" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> Upload Design Drawing <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <div class="custom__fileupload">
+                                        <input type="file" class="form-control dfile" id="TADrawaing"
+                                               name="DrawingPath">
+                                        <label>  <span> Browse  </span> </label>
+                                    </div>
+                                    <small class="text-danger text-end mt-2 d-block fs-8">
+                                        (Upload dwg/dxf/dwf
+                                        AutoCAD File and max. file size upto 10 MB)
+                                    </small>
+                                    <a id="aTADrawing" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> </a> 
+                                    <input type="hidden" id="hdnTADrawing" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                <label> Upload Other Document <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <div class="custom__fileupload">
+                                        <input type="file" class="form-control file" id="TAOtherDoc"
+                                               name="OtherDocPath">
+                                        <label>  <span> Browse  </span> </label>
+                                    </div>
+                                    <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                                    <a id="aTAOtherDoc" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> </a> 
+                                    <input type="hidden" id="hdnTAOtherDoc" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                <label> Remarks <span class="text-danger"> * </span></label>
+                                <div class="form-group">
+                                    <textarea class="form-control LengthRemarks" rows="4" cols="4" id="Remarks" maxlength="200"
+                                              onchange="RemoveWhiteSpace(this);" onkeypress="lettersDigitValidate(event)"
+                                              name="remarks" targetid="MaxSize"></textarea>
+                                    <small class="text-danger d-block text-end mt-2">
+                                        Maximum <span id="txtchar"><strong id="MaxSize">200</strong></span> characters allowed
+                                    </small>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer lg__btn  justify-content-start">
+                    <button type="button" id="btnReset" class="btn btn-light-danger me-3" 
+                            onclick="resetform()"> Reset </button>
+                    <button type="button" id="btnSubmit" class="btn btn-primary" onclick="Save_TA_Details()"> Submit </button>
+                </div>
+     
+</div>
+<script>
+    $(document).ready(function () {
+        $("#TAEstimattedCost").on("input", function () {
+            var value = $(this).val();
+
+            // Allow only numbers with up to two decimal places
+            var validValue = value.match(/^\d*\.?\d{0,2}$/);
+
+            // If the value is valid, keep it; otherwise, remove the last character
+            $(this).val(validValue ? value : value.slice(0, -1));
+        });
+        $("#TAEstimattedCost").on("blur", function () {
+            var value = parseFloat($(this).val()).toFixed(2);
+            $(this).val(isNaN(value) ? '' : value);
+        });
+    });
+  
+</script>

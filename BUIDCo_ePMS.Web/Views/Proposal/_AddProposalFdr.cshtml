@@ -1,0 +1,143 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">
+            <i class="bi bi-plus-circle me-1"></i> Add Detailed Project Report (DPR)
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="formfdr" autocomplete="off">
+            <input type="hidden" id="hdnfdrproposalid" value="0" />
+            <input type="hidden" id="hdnfdrId" value="0" />
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlfdrpreparedby"> DPR Prepared by <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlfdrpreparedby" name="ddlfdrpreparedby" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtfdrSubmitteddate"> DPR submitted/Approved Date <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="txtfdrSubmitteddate" name="txtfdrSubmitteddate" placeholder="DD-MM-YYYY" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="buidcoicon-calendar-day"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtfdragencyname"> Name of Agency/Consultant <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtfdragencyname" name="txtfdragencyname" type="text" class="form-control" onkeypress="return /^[a-zA-Z ]+$/i.test(event.key)">
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtfdrloaDate"> LOA Date <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="txtfdrloaDate" name="txtfdrloaDate" placeholder="DD-MM-YYYY" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="buidcoicon-calendar-day"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtfdrloaNo"> LOA Letter No. <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtfdrloaNo" name="txtfdrloaNo" type="text" class="form-control" onkeypress="return /^[a-zA-Z0-9#_/ -]+$/i.test(event.key)">
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtfdrduration"> Work duration (In days) <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtfdrduration" name="txtfdrduration" type="text" class="form-control" onkeypress="return /^[0-9]+$/i.test(event.key)">
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="fufdrloaletter"> Upload LOA letter <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fufdrloaletter" name="fufdrloaletter" type="file" class="form-control">
+                            <label for="fufdrloaletter"> <span> Browse </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            (.ppt file only and max. file size upto
+                            10mb)
+                        </small>
+                        <a id="afdrloaletterfile" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrfdrloaletterfile" />
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="fufdrppt"> Presentation PPT <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fufdrppt" name="fufdrppt" type="file" class="form-control">
+                            <label for="fufdrppt"> <span> Browse </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            (.ppt file only and max. file size upto
+                            10mb)
+                        </small>
+                        <a id="afdrpptfile" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrfdrpptfile" />
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="fufdrestimate"> PDF of Estimation and FDR <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fufdrestimate" name="fufdrestimate" type="file" class="form-control">
+                            <label for="fufdrestimate"> <span> Browse </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            (.ppt file only and max. file size upto
+                            10mb)
+                        </small>
+                        <a id="afdrestimatefile" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrfdrestimatefile" />
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="fufdrmap"> Map Layout <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fufdrmap" name="fufdrmap" type="file" class="form-control">
+                            <label for="fufdrmap"> <span> Browse </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            (.ppt file only and max. file size upto
+                            10mb)
+                        </small>
+                        <a id="afdrmapfile" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrfdrmapfile" />
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="fufdrdesign"> Design Layout <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fufdrdesign" name="fufdrdesign" type="file" class="form-control">
+                            <label for="fufdrdesign"> <span> Browse </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            (.ppt file only and max. file size upto
+                            10mb)
+                        </small>
+                        <a id="afdrdesignfile" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrfdrdesignfile" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button type="button" id="btnfdrreset" class="btn btn-light-danger me-3" onclick="ResetFDR(this)"> Reset </button>
+        <button type="button" id="btnfdrsubmit" class="btn btn-primary" onclick="SaveFDR()"> Submit </button>
+    </div>
+</div>

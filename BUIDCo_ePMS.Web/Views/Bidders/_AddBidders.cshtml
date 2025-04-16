@@ -1,0 +1,128 @@
+﻿<div class="modal-content">
+   <div class="modal-header">
+      <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> Add Bidders </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+       <form id="formproject">
+       <div class="row">
+           <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+               <label> Project Name/ID or NIT Number </label>
+               <div class="form-group">
+                   <input type="text" id="projectId" name="projectId" onchange="GetProjectDetails();" class="form-control autocomplete" autocomplete="off">
+                   <input type="hidden" id="hiddenProjectId" name="hiddenProjectId" />
+               </div>
+           </div>
+       </div>
+        </form>
+       <div id="sectionPopUp">
+           <div class="card bglight-primary">
+               <div class="text-secondary fs-7 mb-2"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> <span class="Startdateid"></span> </div>
+               <h6 class="fw-500 mb-3"> <span class="projectDescId"></span> </h6>
+               <div class="row">
+                   <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                       <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                       <p class="m-0"> <span class="ConstrId"></span> </p>
+                   </div>
+                   <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-right mb-2">
+                       <small class="text-secondary"> Length (Mtr.) </small>
+                       <p class="m-0"> <span class="LenthId"></span> </p>
+                   </div>
+                   <div class="col-xl-4 col-lg-4 col-md-4 col-12 mb-2">
+                       <small class="text-secondary"> Estimated Amount </small>
+                       <p class="m-0"><span class="Estimated"></span>  </p>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <form id="formbidder">
+       <div class="row mb-3">
+           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+               <label> Bidder Name </label>
+               <div class="form-group">
+                   <input type="text" class="form-control" onchange="RemoveWhiteSpace(event);" onkeypress="AllowAlphaNumeric(event);" maxlength="50" name="bidderName" id="bidderName">
+               </div>
+           </div>
+           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+               <label> Email ID </label>
+               <div class="form-group">
+                   <input type="text" class="form-control" onchange="RemoveWhiteSpace(event);" maxlength="50" name="emailId" id="emailId">
+               </div>
+           </div>
+           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+               <label> Contact Number </label>
+               <div class="form-group">
+                   <input type="text" class="form-control" onkeypress="AllowOnlydigit(event);" onchange="RemoveWhiteSpace(event);" maxlength="10" name="contactNumber" id="contactNumber">
+               </div>
+           </div>
+           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+               <label> Bank Name </label>
+               <div class="form-group">
+                   <input type="text" class="form-control" onkeypress="AllowAlphaNumeric(event);" onchange="RemoveWhiteSpace(event);" maxlength="50" name="bankName" id="bankName">
+               </div>
+           </div>
+           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+               <label> Amount </label>
+               <div class="form-group">
+                   <input type="text" class="form-control decimal-input" onchange="RemoveWhiteSpace(event);" maxlength="15" name="amount" id="amount">
+               </div>
+           </div>
+
+           <div class="col-12 d-flex align-items-center justify-content-end gap-3">
+               <div class="mt-1 flex-1">
+                   <hr>
+               </div>
+               <button type="button" class="btn btn-outline-primary" onclick="AddTenderDetails()"> <i class="bi bi-plus-circle me-2"></i> Add More  </button>
+           </div>
+       </div>
+      </form>
+           <div class="row">
+           <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-4 mt-3">
+               <div class="table-responsive">
+                   <table class="table table-striped m-0" id="tbl_bidderDetails">
+                       <thead>
+                           <tr>
+                               <th width="30"> Sl# </th>
+                               <th width="180"> Bidder Name </th>
+                               <th width="150"> Email ID </th>
+                               <th width="150"> Contact Number </th>
+                               <th width="150"> Bank Name </th>
+                               <th width="150"> Amount</th>
+                               <th width="80"> Action </th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="modal-footer lg__btn  justify-content-start">
+      <button type="button" class="btn btn-light-danger me-3" id="btnReset" onclick="Reset()">Reset</button>
+      <button type="button" class="btn btn-primary" onclick="Save_BidderDetails()" id="btnSave"> Submit </button>
+   </div>
+</div>
+<script>
+    function AllowAlphaNumeric(event) {
+        var keyCode = event.which || event.keyCode;
+        var allowedKeyCodes = [...Array(26).keys()].map(i => i + 65) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([58, 45, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            event.preventDefault();
+        }
+    }
+    function AllowOnlydigit(event) {
+        var keyCode = event.which || event.keyCode;
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48);
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            event.preventDefault();
+        }
+    }
+
+    function RemoveWhiteSpace(e) {
+        let element = e.target; 
+        element.value = element.value.trim(); 
+    }
+</script>

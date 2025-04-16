@@ -1,0 +1,240 @@
+﻿
+@model BUIDCO.Domain.AdminConsole.ButtonMaster.CreateButtonMaster
+
+@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "EditActiveButton";
+
+}
+@section Scripts {
+    @*<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>*@
+
+    <script type="text/javascript" language="javascript">
+        function validateForm() {
+            var x = document.forms["frmCreateButton"]["NVCHBUTTON"].value;
+
+            if ($("#ddlFunction").val() == 0) {
+                $("#ddlFunction").focus();
+                alert("Please Select Function  Name.");
+
+                return false;
+            }
+            else if ($("#txtButtonName").val() == "") {
+                $("#txtButtonName").focus();
+                alert(" Button  Name Can't be blank.");
+
+                return false;
+
+            }
+            else if ($("#txtButtonURL").val() == "") {
+                $("#txtButtonURL").focus();
+                alert("Button URL Can't be blank.");
+
+                return false;
+            }
+            else if ($("#txtbuttondescription").val() == "") {
+                $("#txtbuttondescription").focus();
+                alert("Button Description Can't be blank.");
+
+                return false;
+
+            }
+            else {
+                return confirm('Are you sure you want to  create this?');
+            }
+        }
+
+        function inputLimiter(e, allow) {
+            var AllowableCharacters = '';
+
+            if (allow == 'NameCharactersymbol') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz./&';
+            }
+            if (allow == 'NameCharacters') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.\'';
+            }
+            if (allow == 'Email') {
+                AllowableCharacters = '1234567890@ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz_.';
+            }
+            if (allow == 'Description') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.,()/';
+            }
+            if (allow == 'NameCharactersAndNumbers') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-,/.\&';
+            }
+            if (allow == 'Numbers') {
+                AllowableCharacters = '1234567890';
+            }
+            if (allow == 'Decimal') {
+                AllowableCharacters = '1234567890.';
+            }
+            if (allow == 'Filename') {
+                AllowableCharacters = '1234567890ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz/';
+            }
+            var k;
+            k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
+            if (k != 13 && k != 8 && k != 0) {
+                if ((e.ctrlKey == false) && (e.altKey == false)) {
+                    return (AllowableCharacters.indexOf(String.fromCharCode(k)) != -1);
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+
+        $(function () {
+            $("#btnReset").bind("click", function () {
+                $("#ddlFunction")[0].selectedIndex = 0;
+                document.forms["EditActiveButton"]["NVCHBUTTON"].value = "";
+            });
+        });
+    </script>
+
+    @*<script>
+            $(document).ready(function () {
+                $("#lblslno").text(@Model.BMAxid);
+                $("#hfID").text(@Model.BMAxid);
+
+            });
+        </script>*@
+
+}
+
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            <h4>Add Button Master</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Button Master</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Button Master</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="ButtonMaster" asp-action="ButtonTab">Add</a>
+                        <a class="nav-item nav-link active" asp-controller="ButtonMaster" asp-action="ViewActiveButton">Active</a>
+                        <a class="nav-item nav-link" asp-controller="ButtonMaster" asp-action="ButtonTab">InActive</a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="ml-2 text-danger">(*) Indicates mandatory </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="frmupdateButtonMaster" data-parsley-validate novalidate method="post" asp-action="EditButton" asp-controller="ButtonMaster" asp-area="" asp-antiforgery="true" onsubmit="return validateForm()">
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Function Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <select id="ddlFunction" asp-for="INTFUNCTIONID" asp-items="@(new SelectList(Model.FunctionList,"INTFUNCTIONID","VCHFUNCTION"))" class="form-control">
+                                    <option value="0">--Select Function Name --</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Button  Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="NVCHBUTTON" id="txtButtonName" class="form-control" placeholder="Enter Button Name" autocomplete="off" maxlength="100" Onkeypress="return inputLimiter(event,'NameCharactersymbol')" />
+
+                                <input asp-for="INTCREATEDBY" type="hidden" value='@ViewBag.CREATEDBY' />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Button  URL
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="VCHURL" id="txtButtonURL" class="form-control" placeholder="Enter Button URL" autocomplete="off" maxlength="100" />
+
+                                <input type="hidden" id="hdnparentid" />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Button  Description
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="NVCHDESCRIPTION" id="txtbuttondescription" class="form-control" placeholder="Enter Button Description" autocomplete="off" maxlength="100" Onkeypress="return inputLimiter(event,'NameCharactersymbol')" />
+
+                                <input type="hidden" id="hdnparentid" />
+                                <input asp-for="INTBUTTONID" type="hidden" value="@Model.INTBUTTONID" />
+                            </div>
+
+
+                        </div>
+
+
+                        @*<div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input">Permission <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                @Html.CheckBox("CheckBoxAdd", (bool)ViewData["FAdd"])<span> Add </span>
+                                @Html.CheckBox("CheckBoxView", (bool)ViewData["FView"])<span> View </span>
+                                @Html.CheckBox("CheckBoxManage", (bool)ViewData["FManage"])<span> Manage </span>
+
+                            </div>
+                        </div>*@
+
+
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Button  Sortnum
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="text" asp-for="intSortNum" id="txtbuttonsortnum" class="form-control" placeholder="Enter Button Sortnum" autocomplete="off" maxlength="100" Onkeypress="return inputLimiter(event,'Numbers')" />
+                            
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input"><span class="text-danger"></span></label>
+
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon"></span>
+                                <button type="submit" name="submit" id="btnsubmit" class="btn btn-primary mb-1t white-text" title="Submit" value="Submit">Update</button>
+                                <input type="button" id="btnReset" value="Reset" class="btn btn-danger" title="Reset" />
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

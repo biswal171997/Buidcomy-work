@@ -1,0 +1,204 @@
+﻿@{
+    ViewData["Title"] = "Fund Allotment";
+}
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Master"> Master </a></li>
+                <li class="breadcrumb-item active" title="Fund Allotment" aria-current="page"> Fund Allotment </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addAllotment">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table__fixed">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="basic-2">
+                        <thead>
+                            <tr>
+                                <th width="5%"> Sl# </th>
+                                <th width="10%"> Financial Year </th>
+                                <th> Scheme </th>
+                                <th> Proposal Submitted By </th>
+                                <th> Proposal Name </th>
+                                <th> Allotment Amount </th>
+                                <th> Document </th>
+                                <th width="10%"> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> 1 </td>
+                                <td> 2023-24 </td>
+                                <td> MMKVY </td>
+                                <td> Department </td>
+                                <td> MD Farooq </td>
+                                <td>
+                                    <div> <i class="bi bi-currency-rupee"></i> 7,99,300   </div>
+                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal"
+                                            data-bs-target="#addFund" title="Add Fund">
+                                        <i class="bi bi-plus-circle me-1"></i>  Add
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                        <div>
+                                            <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                                            <small class="text-secondary d-block"> 214 kb  </small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table__icon">
+                                        <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-edit"></i>
+                                        </a>
+                                        <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-trash text-orange "></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 2 </td>
+                                <td> 2023-24 </td>
+                                <td> MMKVY </td>
+                                <td> Department </td>
+                                <td> MD Farooq </td>
+                                <td>
+                                    <div> <i class="bi bi-currency-rupee"></i> 7,99,300   </div>
+                                    <button type="button" title="Add Fund" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal"
+                                            data-bs-target="#addFund">
+                                        <i class="bi bi-plus-circle me-1"></i>  Add
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                        <div>
+                                            <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                                            <small class="text-secondary d-block"> 214 kb  </small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table__icon">
+                                        <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-edit"></i>
+                                        </a>
+                                        <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-trash text-orange "></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 3 </td>
+                                <td> 2023-24 </td>
+                                <td> MMKVY </td>
+                                <td> Department </td>
+                                <td> MD Farooq </td>
+                                <td>
+                                    <div> <i class="bi bi-currency-rupee"></i> 7,99,300   </div>
+                                    <button type="button" title="Add Fund" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal"
+                                            data-bs-target="#addFund">
+                                        <i class="bi bi-plus-circle me-1"></i>  Add
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                        <div>
+                                            <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                                            <small class="text-secondary d-block"> 214 kb  </small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table__icon">
+                                        <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-edit"></i>
+                                        </a>
+                                        <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-trash text-orange "></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 4 </td>
+                                <td> 2023-24 </td>
+                                <td> MMKVY </td>
+                                <td> Department </td>
+                                <td> MD Farooq </td>
+                                <td>
+                                    <div> <i class="bi bi-currency-rupee"></i> 7,99,300   </div>
+                                    <button type="button" title="Add Fund" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal"
+                                            data-bs-target="#addFund">
+                                        <i class="bi bi-plus-circle me-1"></i>  Add
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                        <div>
+                                            <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                                            <small class="text-secondary d-block"> 214 kb  </small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table__icon">
+                                        <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-edit"></i>
+                                        </a>
+                                        <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                            <i class="buidcoicon-trash text-orange "></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- add fund Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addFund" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+
+             @Html.Partial("_AddFund.cshtml")
+            
+        </div>
+    </div>
+    <!-- add fund Modal -->
+    <!-- add allottment type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addAllotment" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+           @Html.Partial("_AddAllotment.cshtml")
+        </div>
+    </div>
+    <!-- add allottment type Modal -->
+</div>
+</div>

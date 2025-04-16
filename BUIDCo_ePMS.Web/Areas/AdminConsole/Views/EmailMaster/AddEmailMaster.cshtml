@@ -1,0 +1,201 @@
+﻿@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add Email Master";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="~/adminconsole/js/emailvalidator.js"></script>
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            <h4>Add Email Configuration</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Email Configuration</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Email Configuration</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" href="/AdminConsole/EmailMaster/AddEmailMaster">Add</a>
+                        <a class="nav-item nav-link" href="/AdminConsole/EmailMaster/ViewEmailMaster">View</a>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group row">
+                        <input type="hidden" id="hdnschemeid" value="" />
+
+                        <label class="col-12 col-md-2 col-xl-2 control-label">Email CC</label>
+                        <div class="col-12 col-md-6 col-xl-4 ">
+                            <div class="email-id-row">
+                                <div class="all-mail"></div>
+                                <input type="text" id="emailcc" name="email" class="enter-mail-id" placeholder="Enter the email id .." />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-2 col-xl-2 control-label">Email BCC</label>
+                        <div class="col-12 col-md-6 col-xl-4 ">
+                            <div class="email-id-row">
+                                <div class="all-mailbcc"></div>
+                                <input type="text" name="email" id="emailbcc" class="enter-bccemail-id" placeholder="Enter the email id .." />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-2 col-xl-2 control-label"></label>
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <button type="submit" id="btnsubmit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" id="btncancel">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to get URL parameters
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    $(document).ready(function () {
+        var configid = getUrlVars()["ID"];
+        if (configid) {
+            $("#btnsubmit").html("Update");
+            $("#btncancel").html("Cancel");
+            GeteditconfigId(configid);
+        }
+
+        // Add email to CC
+        $(".enter-mail-id").keydown(function (e) {
+            if (e.keyCode == 13 || e.keyCode == 32) {
+                addEmail($(this), '.all-mail');
+            }
+        });
+
+        // Add email to BCC
+        $(".enter-bccemail-id").keydown(function (e) {
+            if (e.keyCode == 13 || e.keyCode == 32) {
+                addEmail($(this), '.all-mailbcc');
+            }
+        });
+
+        // Remove email
+        $(document).on('click', '.cancel-email', function () {
+            $(this).parent().remove();
+        });
+
+        // Submit form
+        $('#btnsubmit').click(function () {
+            submitEmailConfig();
+        });
+    });
+
+    // Function to add email to list
+    function addEmail(input, container) {
+        var getValue = input.val().trim();
+        if (getValue === '' || !validateEmail(getValue)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        if (!$(container).find('.email-ids').filter(function () { return $(this).text().trim() === getValue; }).length) {
+            $(container).append('<span class="email-ids">' + getValue + ' <span class="cancel-email">x</span></span>');
+            input.val('');
+        } else {
+            alert('Email already added!');
+        }
+    }
+
+   
+    // Function to submit email configuration
+    function submitEmailConfig() {
+        var configid = getUrlVars()["ID"];
+        var message = configid ? "Are you sure you want to Update?" : "Are you sure you want to Submit?";
+
+        var emailcc = collectEmails('.all-mail');
+        var emailbcc = collectEmails('.all-mailbcc');
+
+        if (confirm(message)) {
+            $.ajax({
+                type: "POST",
+                url: "/AdminConsole/EmailMaster/AddEmailMaster",
+                dataType: "json",
+                data: {
+                    CONFIGID: $('#hdnschemeid').val(),
+                    emailcc: emailcc,
+                    emailbcc: emailbcc
+                },
+                success: function (response) {
+                    if (response == 1) {
+                        alert("Email Added");
+                        window.location.href = "/AdminConsole/EmailMaster/ViewEmailMaster";
+                    } else if (response == 2) {
+                        alert("Email Updated");
+                        window.location.href = "/AdminConsole/EmailMaster/ViewEmailMaster";
+                    } else {
+                        alert("Something Went Wrong");
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        }
+    }
+
+    // Function to collect emails
+    function collectEmails(container) {
+        var emails = [];
+        $(container).find(".email-ids").each(function () {
+            emails.push($(this).text().split(' ')[0]);
+        });
+        return emails.join(',');
+    }
+
+    // Function to get email details for editing
+    function GeteditconfigId(configid) {
+        $.ajax({
+            url: "/AdminConsole/EmailMaster/Getemaildetails?configid=" + configid,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#hdnschemeid').val(data[0].CONFIGID);
+                fillEmailList('.all-mail', data[0].emailcc);
+                fillEmailList('.all-mailbcc', data[0].emailbcc);
+            },
+            error: function () {
+                alert("Error fetching email details.");
+            }
+        });
+    }
+
+    // Function to fill email list on edit
+    function fillEmailList(container, emailString) {
+        if (emailString) {
+            var emailArray = emailString.split(',');
+            var html = emailArray.map(email => `<span class="email-ids">${email} <span class="cancel-email">x</span></span>`).join('');
+            $(container).html(html);
+        }
+    }
+</script>

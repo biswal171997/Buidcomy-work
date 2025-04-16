@@ -1,0 +1,274 @@
+﻿@{
+ViewData["Title"] = "Raise Ticket";
+}
+<div class="page-body">
+   <!-- breadcrumb section -->
+   <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+      <nav aria-label="breadcrumb">
+         <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+            <li class="breadcrumb-item active" title="Raise Ticket" aria-current="page"> Raise Ticket </li>
+         </ul>
+      </nav>
+      <div class="col-right">
+         <button type="button" class="btn btn-primary btn-sm me-3" title="Add" data-bs-toggle="modal" data-bs-target="#addRaiseticket">
+               <i class="bi bi-plus-circle me-1"></i> Add
+         </button>
+         <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+         <i class="buidcoicon-excel"></i>
+         </button>
+         <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+            data-bs-toggle="tooltip">
+         <i class="bi bi-printer"></i>
+         </button>
+      </div>
+   </div>
+   <!-- breadcrumb section -->
+   <!-- inner body section -->
+   <div class="body__content">
+      <div class="body__bg">
+         <div class="table-responsive">
+            <table class="table table-striped" id="basic-2">
+               <thead>
+                  <tr>
+                     <th width="5%"> Sl# </th>
+                     <th width="20%"> Bug Name </th>
+                     <th> Module </th>
+                     <th> Sub-Module </th>
+                     <th> Screenshort </th>
+                     <th> Reported On </th>
+                     <th> Status </th>
+                     <th width="15%"> Action </th>
+                  </tr>
+               </thead>
+
+               <tbody>
+                  <tr>
+                     <td> 1 </td>
+                     <td> MLC AA LETTER (2022-23)IS NOT GENERATING </td>
+                     <td> Bug/Complaint MIS </td>
+                     <td>
+                        Add/Edit Bug/Complaint
+                     </td>
+                     <td>
+                        <div id="image-gallery" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        17-Mar-2024
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 2 </td>
+                     <td> MLC AA LETTER (2022-23)IS NOT GENERATING </td>
+                     <td> Bug/Complaint MIS </td>
+                     <td>
+                        Add/Edit Bug/Complaint
+                     </td>
+                     <td>
+                        <div id="image-gallery2" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                              <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        17-Mar-2024
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 3 </td>
+                     <td> MLC AA LETTER (2022-23)IS NOT GENERATING </td>
+                     <td> Bug/Complaint MIS </td>
+                     <td>
+                        Add/Edit Bug/Complaint
+                     </td>
+                     <td>
+                        <div id="image-gallery3" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        08-Apr-2024
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 4 </td>
+                     <td> MLC AA LETTER (2022-23)IS NOT GENERATING </td>
+                     <td> Bug/Complaint MIS </td>
+                     <td>
+                        Add/Edit Bug/Complaint
+                     </td>
+                     <td>
+                        <div id="image-gallery4" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        17-Mar-2024
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 5 </td>
+                     <td> MLC AA LETTER (2022-23)IS NOT GENERATING </td>
+                     <td> Bug/Complaint MIS </td>
+                     <td>
+                        Add/Edit Bug/Complaint
+                     </td>
+                     <td>
+                        <div id="image-gallery5" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        17-Mar-2024
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+               </tbody>
+
+
+            </table>
+         </div>
+      </div>
+   </div>
+   <!-- inner body section -->
+   <!-- take action Modal -->
+   <div class="modal fade right custom-view-modal-medium" id="takeActions" tabindex="-1">
+      <div class="modal-dialog modal-md custom-modal modal-dialog-scrollable">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title"> <i class="bi bi-plus-circle me-2"></i> Take Action </h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                     <label> Reply </label>
+                     <div class="form-group">
+                        <input type="text" class="form-control">
+                     </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                     <label> Description <span class="text-danger"> * </span> </label>
+                     <div class="form-group">
+                        <textarea class="form-control" rows="4">  </textarea>
+                        <small class="text-danger text-end mt-2 d-block fs-8"> (Maximum 250 Charecters Allowed) </small>
+                     </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                     <label> Upload Document <span class="text-danger"> * </span> </label>
+                     <div class="form-group">
+                        <div class="custom__fileupload">
+                           <input type="file" class="form-control">
+                           <label>  <span> Browse  </span> </label>
+                        </div>
+                        <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer lg__btn  justify-content-start">
+               <button type="button" class="btn btn-light-danger me-3"> Reset </button>
+               <button type="button" class="btn btn-primary" id="subaddData"> Update </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- take action Modal -->
+
+
+
+</div>
+
+ <!-- add milestone Modal -->
+   <div class="modal fade right custom-view-modal-medium" id="addRaiseticket">
+      <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+         @Html.Partial("_AddRaiseticket.cshtml")
+      </div>
+   </div>
+   <!-- add milestone Modal -->
+
+   
+</div>
+
+<!-- Initialize lightgallery -->
+<script>
+   $(document).ready(function() {
+       $('#image-gallery').lightGallery();
+       $('#image-gallery2').lightGallery();
+       $('#image-gallery3').lightGallery();
+       $('#image-gallery4').lightGallery();
+       $('#image-gallery5').lightGallery();
+   });
+</script>
+<!-- Initialize lightgallery -->

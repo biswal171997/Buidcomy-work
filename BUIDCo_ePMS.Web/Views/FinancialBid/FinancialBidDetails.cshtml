@@ -1,0 +1,408 @@
+﻿@{
+    ViewData["Title"] = "Assign Project Details";
+}
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item active" title="Financial Bid Process" aria-current="page">Financial Bid Process</li>
+            </ul>
+        </nav>
+        @*<div class="col-right">
+               <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+               <i class="buidcoicon-excel"></i>
+               </button>
+               <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                  data-bs-toggle="tooltip">
+               <i class="bi bi-printer"></i>
+               </button>
+            </div>*@
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="card table__body__text">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-12">
+                            <h5 class="fw-600 mb-3"> Project Details  </h5>
+                            <div class="mb-1">
+                                <a href="#" class="fw-600 text-primary">
+                                    <span class="clsprojectCode"></span>
+                                </a>
+                            </div>
+                            <p class="ClsprojectName">
+
+                            </p>
+                            <div class="row">
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group border-right">
+                                        <small class="mb-1 text-secondary">  Construction Area (Sq. Mtr)  </small>
+                                        <div class="description">
+                                            <span class="ClsconstArea"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group border-right">
+                                        <small class="mb-1 text-secondary">  Length (Mtr.):  </small>
+                                        <div class="description">
+                                            <span class="clsLength"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <small class="mb-1 text-secondary">  Estimated Amount </small>
+                                        <div class="description">
+                                            <span class="clsestamt"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group border-right">
+                                        <small class="mb-1 text-secondary">  Project Duration </small>
+                                        <div class="description">
+                                            8 Months
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group border-right">
+                                        <small class="mb-1 text-secondary">  Start Date </small>
+                                        <div class="description">
+                                            25-Oct-2024
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <small class="mb-1 text-secondary">  End Date </small>
+                                        <div class="description">
+                                            20-Dec-2024
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <div class="d-flex gap-2">
+                                            <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                            <div>
+                                                <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> Letter Document </a>
+                                                <small class="text-secondary d-block"> 214 kb  </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <div class="d-flex gap-2">
+                                            <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                            <div>
+                                                <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> BOQ Document </a>
+                                                <small class="text-secondary d-block"> 150 kb  </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-12 border-left ps-xl-4 ps-lg-4 ps-md-4">
+
+                            <div class="row">
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-12 border-bottom pb-4 mb-4">
+                                    <h5 class="fw-600 mb-3"> Letter Details  </h5>
+                                    <div class="d-block">
+                                        <div class="badge bg-yellow fw-600">
+                                            <span class="text-secondary fw-normal"> Letter No : </span> <span class="clsLetter"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-xl-6 col-md-6 col-6 border-end">
+                                            <small class="text-secondary"> Submitted By: </small>
+                                            <p class="m-0"> MLA </p>
+                                        </div>
+                                        <div class="col-xl-6 col-md-6 col-6">
+                                            <small class="text-secondary"> Proposed By: </small>
+                                            <p class="m-0"> <span class="Clsproposeby"></span> </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <h5 class="fw-600 mb-3"> Tender Details  </h5>
+                                    <div class="d-block">
+                                        <div class="badge bg-yellow fw-600">
+                                            <span class="text-secondary fw-normal"> Letter No : </span> <span class="clsLetter"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 mb-2">
+                                        <div class="col-xl-6 col-md-6 col-6 border-end">
+                                            <small class="text-secondary"> Opening: </small>
+                                            <p class="m-0"> <span class="ClsOpeningDate"></span> </p>
+                                        </div>
+                                        <div class="col-xl-6 col-md-6 col-6">
+                                            <small class="text-secondary"> Last Submission: </small>
+                                            <p class="m-0"> <span class="ClsSubmissionDate"></span> </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="ClsNitFile"></span>
+
+                                        <small class="text-secondary d-block"> 200 kb  </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 table__body__text">
+            <h5 class="fw-600 mb-3 mt-3"> Financial Bid Details </h5>
+            <div class="body__content">
+                <div class="body__bg">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tbl_financialBid">
+                            <thead>
+                                <tr>
+                                    <th width="4%"> Sl# </th>
+                                    <th width="30%"> Bidder Name </th>
+                                    <th width="12%"> Financial Score </th>
+                                    <th width="12%"> Bid Amount</th>
+                                    <th width="12%"> Financial Document </th>
+                                    <th width="12%"> Bid Document </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- final detail report -->
+    <div class="row">
+        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 table__body__text">
+            <h5 class="fw-600 mb-3 mt-3"> Assign Project (Work Order) Details  </h5>
+            <div class="card m-0">
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Assign To  </small>
+                            <div class="description">
+                                SULEKHA JHA
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Amount  </small>
+                            <div class="description">
+                                ₹ 7,99,300
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Agreement Amount  </small>
+                            <div class="description">
+                                ₹ 6,00,300
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary"> PAN Number  </small>
+                            <div class="description">
+                                APRPM2145K
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  GST Number  </small>
+                            <div class="description">
+                                27AAAAPO267H2ZN
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  License/Registration Number  </small>
+                            <div class="description">
+                                CN1058994819A
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Phone Number  </small>
+                            <div class="description">
+                                0612-22100000
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  FAX Number  </small>
+                            <div class="description">
+                                0612-22100000
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Email ID  </small>
+                            <div class="description">
+                                sulekha.j@gmail.com
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Mobile No  </small>
+                            <div class="description">
+                                9861054526
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Conatct Person  </small>
+                            <div class="description">
+                                SULEKHA JHA
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                            <small class="mb-1 text-secondary"> Contact Person Mobile Number  </small>
+                            <div class="description">
+                                9852542154
+                            </div>
+                        </div>
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                            <small class="mb-1 text-secondary">  Address  </small>
+                            <div class="d-block">
+                                <p> Panchayat Bihar, Block Tihur, District Vaishali Construction </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bglight-primary p-4 m-0">
+                        <h5 class="heading-color mb-4">Bank Details </h5>
+                        <div class="row">
+                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <small class="mb-1 text-secondary">   Performance Guarantee Submitted ?  </small>
+                                <div class="description">
+                                    Yes
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <small class="mb-1 text-secondary">  Instrument Type  </small>
+                                <div class="description">
+                                    Bank Guarantee
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <small class="mb-1 text-secondary">  PG Amount  </small>
+                                <div class="description">
+                                    ₹ 7,99,300
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <small class="mb-1 text-secondary"> Bank Name  </small>
+                                <div class="description">
+                                    STATE IBANK OF INDIA (SBI)
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <small class="mb-1 text-secondary">  Valid Till Date  </small>
+                                <div class="description">
+                                    15-Aug-2024
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <div class="description">
+                                    <div class="d-flex gap-2">
+                                        <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                        <div>
+                                            <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download">  PG Document </a>
+                                            <small class="text-secondary d-block"> 200 kb  </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- final detail report -->
+</div>
+</div>
+<!-- inner body section -->
+</div>
+<script>
+    $(document).ready(function(){
+        var id = getUrlVars()["ID"];
+        //alert(id);
+        GetAddendumDetails(id);
+    });
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = decodeURIComponent(value);
+        });
+        return vars;
+    }
+    function GetAddendumDetails(ele) {
+    $.ajax({
+        type: 'Get',
+        url: "@Url.Action("ViewFinanialDetails", "FinancialBid")" + "?Id=" + ele,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (result) {
+            $('.clsprojectCode').text(result[0].projectCode);
+            $('.ClsprojectName').text(result[0].projectName);
+            $('.ClsconstArea').text(result[0].constructionArea);
+            $('.clsLength').text(result[0].length);
+            $('.clsestamt').text('₹' + result[0].emdAmount);
+            $('.clsLetter').text(result[0].letterNo);
+            $('.Clsproposeby').text(result[0].clientName);
+            $('.ClsOpeningDate').text(result[0].openingDate);
+            $('.ClsSubmissionDate').text(result[0].submissionDate);
+            $('.ClsNitFile').html('<a href="@Url.Action("DownloadPdf","Tender")?fileName=' + result[0].nitDocFileName +'" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i> NIT Document</a>');
+
+            $('#tbl_financialBid tbody').empty();
+            if (result.length > 0) {
+                var rows = "";
+                for (var i = 0; i < result.length; i++) {
+                    rows += '<tr>';
+                    rows += '<td>' + (i + 1) + '</td>';
+                    rows += '<td>' + result[i].bidderName;
+                    if (result[i].winnerStatus === 1) {
+                        rows += ' <span style="color: green; font-weight: bold;">(WON)</span>';
+                    }
+                    rows += '</td>';
+                    rows += '<td>' + result[i].financialScore + '</td>';
+                    rows += '<td>' + result[i].bidAmount + '</td>';
+                    rows += '<td>';
+                    if (result[i].financialBidDocFile !== "N/A") {
+                        rows += '<a href="DownloadPdf?fileName=' + result[i].financialBidDocFile +
+                            '" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>Download</a>';
+                    } else {
+                        rows += 'N/A';
+                    }
+                    rows += '</td>';
+                    rows += '<td>';
+                    if (result[i].loaDocFile !== "N/A") {
+                        rows += '<a href="DownloadPdf?fileName=' + result[i].loaDocFile +
+                            '" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>Download</a>';
+                    } else {
+                        rows += 'N/A';
+                    }
+                    rows += '</td>';
+
+                    rows += '</tr>';
+                }
+                $('#tbl_financialBid tbody').append(rows);
+            }
+
+        }
+    });
+}
+
+
+</script>

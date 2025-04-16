@@ -1,0 +1,176 @@
+<style>
+    table td {
+        border: 1px solid black;
+        padding: 4px 12px;
+    }
+</style>
+@{
+ViewData["Title"] = "System.Windows.Forms.TextBox, Text: M_Assembly_Master";
+}
+<div class="row">
+		@Html.AntiForgeryToken()
+			@*Write code here*@
+</div><div>
+    <ul class="nav nav-tabs nav-fill" role="tablist">
+        <a class="nav-item nav-link active" asp-controller="Master" asp-action="M_Assembly_Master">Add</a>
+        <a class="nav-item nav-link" asp-controller="Master" asp-action=ViewM_Assembly_Master>View</a>
+    </ul>
+</div>
+<br />
+<br />
+<br />
+<form id="form">
+
+	<div class="form-group row" id="LeveldetailidDiv">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label"  id="LeveldetailidLabel" for="demo-text-input">Leveldetailid<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+<input type="text" id="Leveldetailid" name="Leveldetailid" class="form-control">
+			</div>
+	</div>
+	<div class="form-group row" id="assemblyNameDiv">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label"  id="assemblyNameLabel" for="demo-text-input">assemblyName<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+<input type="text" id="assemblyName" name="assemblyName" class="form-control">
+			</div>
+	</div>
+	<div class="form-group row" id="assemblyDescDiv">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label"  id="assemblyDescLabel" for="demo-text-input">assemblyDesc<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+<input type="text" id="assemblyDesc" name="assemblyDesc" class="form-control">
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="col-12 col-md-2 col-xl-2 control-label" for="demo-text-input"></label>
+<br/>
+		<div class="col-12 col-md-8 col-xl-12">
+<input type="button" value="Submit" id="btn_Submit" class="btn btn-primary" onclick="Save_M_Assembly_Master()"/>
+		</div>
+	</div>
+<input id="hdnM_Assembly_Master" type="hidden" value="0" />
+</form>
+	
+	<script>
+$(document).ready(function () {
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["strid"];
+
+        if (id != undefined || id != null) {
+            Edit_M_Assembly_Master(decryptData(id));
+         }
+
+@*write function_call code here on page load*@
+
+    });
+ function decryptData(encryptedData) {
+        // Decrypt the encrypted data using CryptoJS
+        var bytes = CryptoJS.AES.decrypt(encryptedData, 'secret_key');
+        var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+        // Return the decrypted ID
+        return decryptedData.data;
+    }
+
+function Edit_M_Assembly_Master(id) {
+        $.ajax({
+            type: "Get",
+            dataType: "json",
+            url: '@Url.Action("GetByID_M_Assembly_Master", "Master")',
+            data: { "Id": id },
+            success: function (Result) {
+                var data1 = JSON.parse(Result);
+   $("#hdnM_Assembly_Master").val(data1.assemblyId);
+             $('#Leveldetailid').val(data1.Leveldetailid);
+					$('#assemblyName').val(data1.assemblyName);
+					$('#assemblyDesc').val(data1.assemblyDesc);
+					
+            },
+            error: function (Message) {
+                alert(Message);
+            }
+        });
+    }        $("#form").validate({
+            rules: {
+                Leveldetailid: {
+                    required: true
+},
+assemblyName: {
+                    required: true
+},
+assemblyDesc: {
+                    required: true
+},
+            },
+            messages: {
+                Leveldetailid: {
+                    required: "Please enter Leveldetailid"
+                 },
+                assemblyName: {
+                    required: "Please enter assemblyName"
+                 },
+                assemblyDesc: {
+                    required: "Please enter assemblyDesc"
+                 },
+                
+           },
+            	
+            highlight: function (element) {	
+                $(element).removeClass("is-valid")		
+                $(element).parent().addClass('error')		
+                $(element).addClass("is-invalid")	
+            },	
+            unhighlight: function (element) {	
+                $(element).parent().removeClass('error')	
+                $(element).removeClass("is-invalid");	
+                $(element).addClass("is-valid")	
+            }	
+        });
+
+			function Save_M_Assembly_Master() {
+			if ($("#form").valid()) {
+					
+					var M_Assembly_Master ={ 
+			
+					 assemblyId:$('#hdnM_Assembly_Master').val(),
+Leveldetailid:$("#Leveldetailid").val(),
+					assemblyName:$("#assemblyName").val(),
+					assemblyDesc:$("#assemblyDesc").val(),
+					
+				};
+			$.ajax({
+				type: "POST",
+				url: "/Master/M_Assembly_Master",
+			beforeSend: function (xhr) {
+					xhr.setRequestHeader("XSRF-TOKEN",
+						$('input:hidden[name="__RequestVerificationToken"]').val());
+				},
+			data:M_Assembly_Master,
+			content: 'application/json;charset=utf-8',
+			dataType: "json",
+			success: function (result) {
+						Swal.fire({
+							icon: 'success',
+							title: result.responseText,
+							text: result.responseMessage,
+						}).then((result) => {
+							if (result.isConfirmed) {
+								location.href ="/Master/ViewM_Assembly_Master";
+							}
+						})
+			},
+			error: function (result) {
+						Swal.fire({
+							icon: 'error',
+							title: result.responseText,
+							text: result.responseMessage,
+						});
+					}, 
+			});
+			}
+		}
+	</script>

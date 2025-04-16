@@ -1,0 +1,290 @@
+﻿@model BUIDCO.Domain.AdminConsole.TabMaster.CreateTabMaster
+
+@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AddTabb";
+
+}
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            <h4>Add Tab Master</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Tab Master</li>
+                    <li class="breadcrumb-item active" aria-current="page">Tab Master</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-area="AdminConsole" asp-controller="TabMaster" asp-action="AddTabb">Add</a>
+                        <a class="nav-item nav-link" asp-area="AdminConsole" asp-controller="TabMaster" asp-action="ViewActiveTab">Active</a>
+                        <a class="nav-item nav-link" asp-area="AdminConsole" asp-controller="TabMaster" asp-action="ViewInActiveTab">InActive</a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="ml-2 text-danger">(*) Indicates mandatory </p>
+                    </div>
+                </div>
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Function Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+
+                                <select id="ddlbutton" asp-for="INTBUTTONID" asp-items="@(new SelectList(Model.ButtonList,"INTBUTTONID","NVCHBUTTON"))" class="form-control">
+                                    <option value="0">--Select Button Name --</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input">Tab  Name <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                @Html.TextBox("NVCHTAB", "", new { @class = "form-control", maxlength = 150, Onkeypress = "return inputLimiter(event,'NameCharactersymbol')" })
+                                <span class="mandatory">@Html.ValidationMessageFor(model => model.NVCHTAB)</span>
+                                @*<input asp-for="INTCREATEDBY" type="hidden" value='@ViewBag.CREATEDBY' />*@
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input">File Name<span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                @Html.TextBox("VCHURL", "", new { @class = "form-control", maxlength = 150, Onkeypress = "return inputLimiter(event,'NameCharactersymbol')" })
+                                <span class="mandatory">@Html.ValidationMessageFor(model => model.VCHURL)</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input">Tab  Description <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                @Html.TextArea("NVCHDESCRIPTION", "", new { @class = "form-control", maxlength = 98, Onkeypress = "return inputLimiter(event,'NameCharactersymbol')" })
+                                <span class="mandatory">@Html.ValidationMessageFor(model => model.NVCHDESCRIPTION)</span>
+                                Maximum <span class="mandatory" id="SpanLbl">100 </span> Character Allowed
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label">
+                                Tab Link Sort No :
+                            </label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <input type="hidden" asp-for="TintSortNum" name="TintSortNum" id="hfID" />
+                                <label id="lblslno" asp-for="TMAxid" name="TMAxid"></label>
+                                @*<input asp-for="" type="hidden" value=@Model.CreatedBy />*@
+                            </div>
+                        </div>
+                        @*<div class="form-group row">
+                                <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input">Tab  Sortnum<span class="text-danger">*</span></label>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <span class="colon">:</span>
+                                    @Html.TextBox("intSortNum", "", new { @class = "form-control", maxlength = 150, Onkeypress = "return inputLimiter(event,'Numbers')" })
+                                    <span class="mandatory">@Html.ValidationMessageFor(model => model.intSortNum)</span>
+                                </div>
+                            </div>*@
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input">Permission <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon">:</span>
+                                <div class=" custom-checkbox">
+                                    @Html.CheckBox("CheckBoxAdd", false, new { @class = "custom-control-input", id = "Add" })
+                                    <label class="custom-control-label" for="Add">Add</label>
+                                </div>
+                                <div class="custom-checkbox">
+                                    @Html.CheckBox("CheckBoxView", false, new { @class = "custom-control-input", id = "View" })
+                                    <label class="custom-control-label" for="View">View</label>
+                                </div>
+                                <div class="custom-checkbox">
+                                    @Html.CheckBox("CheckBoxManage", false, new { @class = "custom-control-input", id = "Manage" })
+                                    <label class="custom-control-label" for="Manage">Manage</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input"> <span class="text-danger"></span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <span class="colon"></span>
+                                <input type="submit" value="Submit" class=" btn btn-primary mb-1 white-text" name="Command" id="btn1" />
+                                <input type="submit" value="Reset" class="btn btn-danger mb-1 white-text" name="Command" />
+                                <input type="submit" value="Log" class="btn btn-dark mb-1 white-text" name="Command" style="display:none" />
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    if (ViewData["result"] != null)
+    {
+        if ((ViewData["result"].ToString()) == "1")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Tab Created Successfully !");
+            </script>
+        }
+        else if ((ViewData["result"].ToString()) == "4")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Tab Already Exist !");
+            </script>
+        }
+        else
+        {
+            <script type="text/javascript" language="javascript">
+                alert('@ViewData["result"]');
+            </script>
+        }
+        ViewData["result"] = null;
+    }
+}
+@{
+    if (!string.IsNullOrEmpty(ViewData["log"] as string))
+    {
+        @*@Html.Raw(ViewData["log"]).ToHtmlString();*@
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#lblslno").text(@Model.TMAxid);
+            $("#hfID").text(@Model.TMAxid);
+
+        });
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/AdminConsole/admjs/validator.js")"></script>
+
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $('#rbNo').prop("checked", true);
+            $('#Yes').prop("checked", true);
+            window.history.forward();  //Disable back button after logout
+            $('#Description').keyup(function () {
+                var left = 500 - $(this).val().length;
+                if (left < 0) {
+                    left = 0;
+                }
+                $('#SpanLbl').text(left);
+            });
+
+        });
+    </script>
+    <script type="text/javascript" language="javascript">
+        $(function () {
+
+            $("#btn1").click(function () {
+
+                if (!blankFieldValidation('NVCHBUTTON', 'Button  Name')) {
+                    return false;
+                }
+                if (!WhiteSpaceValidation1st('NVCHBUTTON', 'Button  Name')) {
+                    return false;
+                }
+
+                if (!blankFieldValidation('NVCHDESCRIPTION', 'NVCHDESCRIPTION')) {
+                    return false;
+                }
+                if (!WhiteSpaceValidation1st('NVCHDESCRIPTION', 'NVCHDESCRIPTION')) {
+                    return false;
+                }
+                if (!isCharfirst('NVCHDESCRIPTION')) {
+                    return false;
+                }
+                if ((document.getElementById('Add').checked == false) && (document.getElementById('View').checked == false) && (document.getElementById('Manage').checked == false)) {
+                    alert('Please choose Permission');
+                    $("#Add").focus();
+                    return false;
+                }
+
+                if (confirm("Are you sure you want to Create this?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function inputLimiter(e, allow) {
+            var AllowableCharacters = '';
+
+            if (allow == 'NameCharactersymbol') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz./&';
+            }
+            if (allow == 'NameCharacters') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.\'';
+            }
+            if (allow == 'Email') {
+                AllowableCharacters = '1234567890@ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz_.';
+            }
+            if (allow == 'Description') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.,()/';
+            }
+            if (allow == 'NameCharactersAndNumbers') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-,/.\'';
+            }
+            if (allow == 'Numbers') {
+                AllowableCharacters = '1234567890';
+            }
+            if (allow == 'Decimal') {
+                AllowableCharacters = '1234567890.';
+            }
+            if (allow == 'Filename') {
+                AllowableCharacters = '1234567890ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz/';
+            }
+            var k;
+            k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
+            if (k != 13 && k != 8 && k != 0) {
+                if ((e.ctrlKey == false) && (e.altKey == false)) {
+                    return (AllowableCharacters.indexOf(String.fromCharCode(k)) != -1);
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+
+        function checkUrl(url) {
+            //regular expression for URL
+            var pattern = /^(http|https)?:\/\/[a-zA-Z0-9-\.]+\.[a-z]{2,4}/;
+
+            if (pattern.test(url)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+}
+

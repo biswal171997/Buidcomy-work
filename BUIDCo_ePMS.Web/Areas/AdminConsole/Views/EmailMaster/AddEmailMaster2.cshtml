@@ -1,0 +1,588 @@
+﻿@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AddEmailMaster";
+
+}
+
+<script src="https://cdn.ckeditor.com/4.20.0/standard-all/ckeditor.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+@*<link href="~/AdminConsole/css/emailmaster.css" rel="stylesheet" />*@
+
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            <h4>Add Email Configuration</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Email Configuration</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Email Configuration</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" href="/AdminConsole/EmailMaster/AddEmailMaster">Add</a>
+                        <a class="nav-item nav-link" href="/AdminConsole/EmailMaster/ViewEmailMaster">View</a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="ml-2 text-danger">(*) Indicates mandatory </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <input type="hidden" id="hdnschemeid" value="" />
+                        <label class="col-12 col-md-2 col-xl-2 control-label">Email CC</label>
+                        <div class="col-12 col-md-6 col-xl-4 ">
+                            <div class="email-id-row">
+                                <div class="all-mail">
+
+                                </div>
+                                <input type="text" id="emailcc" name="email" class="enter-mail-id" placeholder="Enter the email id .." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-md-2 col-xl-2 control-label">Email BCC</label>
+                        <div class="col-12 col-md-6 col-xl-4 ">
+                            <div class="email-id-row">
+                                <div class="all-mailbcc">
+
+                                </div>
+                                <input type="text" name="email" id="emailbcc" class="enter-bccemail-id" placeholder="Enter the email id .." />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-2 col-xl-2 control-label">Data Entry Content</label>
+                        <div class="col-12 col-md-6 col-xl-4 ">
+
+                            <textarea cols="80" id="editor1" name="editor1" rows="10"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-2 col-xl-2 control-label">Data Approver Content</label>
+                        <div class="col-12 col-md-6 col-xl-4 ">
+
+                            <textarea cols="80" id="editor2" name="editor2" rows="10"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input"> <span class="text-danger"></span></label>
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <span class="colon"></span>
+                            <button type="submit" name="submit" id="btnsubmit" class="btn btn-primary mb-1t white-text" title="Submit" value="Submit">Submit</button>
+                            <button type="button" class="btn btn-danger" id="btncancel" title="Reset"> Reset </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+    var PLACEHOLDERS = [{
+        id: 1,
+        name: 'address',
+        title: 'Address',
+        description: 'Customer Support correspondence address.'
+    },
+    {
+        id: 2,
+        name: 'assignee',
+        title: 'Assignee Name',
+        description: 'Ticket assignee name.'
+    },
+    {
+        id: 3,
+        name: 'deadline',
+        title: 'Deadline Time',
+        description: 'Utmost time to which technician should handle the issue.'
+    },
+    {
+        id: 4,
+        name: 'department',
+        title: 'Department Name',
+        description: 'Department name responsible for servicing this ticket.'
+    },
+    {
+        id: 5,
+        name: 'caseid',
+        title: 'Case ID',
+        description: 'Unique case number used to distinguish tickets.'
+    },
+    {
+        id: 6,
+        name: 'casename',
+        title: 'Case Name',
+        description: 'Name of the ticket provided by the user.'
+    },
+    {
+        id: 7,
+        name: 'contact',
+        title: 'Contact E-mail',
+        description: 'Customer Support contact e-mail address.'
+    },
+    {
+        id: 8,
+        name: 'customer',
+        title: 'Customer Name',
+        description: 'Receipent of your response.'
+    },
+    {
+        id: 9,
+        name: 'hotline',
+        title: 'Hotline Number',
+        description: 'Customer Support Hotline number.'
+    },
+    {
+        id: 10,
+        name: 'technician',
+        title: 'Technician Name',
+        description: 'Technician which will handle this ticket.'
+    }
+    ];
+
+    CKEDITOR.addCss('span > .cke_placeholder { background-color: #ffeec2; }');
+
+    CKEDITOR.replace('editor1', {
+        plugins: 'autocomplete,textmatch,toolbar,wysiwygarea,basicstyles,link,undo,placeholder',
+        toolbar: [{
+            name: 'document',
+            items: ['Undo', 'Redo']
+        },
+        {
+            name: 'basicstyles',
+            items: ['Bold', 'Italic']
+        },
+        {
+            name: 'links',
+            items: ['Link', 'Unlink']
+        }
+        ],
+        on: {
+            instanceReady: function (evt) {
+                var itemTemplate = '<li data-id="{id}">' +
+                    '<div><strong class="item-title">{title}</strong></div>' +
+                    '<div><i>{description}</i></div>' +
+                    '</li>',
+                    outputTemplate = '[[{title}]]<span>&nbsp;</span>';
+
+                var autocomplete = new CKEDITOR.plugins.autocomplete(evt.editor, {
+                    textTestCallback: textTestCallback,
+                    dataCallback: dataCallback,
+                    itemTemplate: itemTemplate,
+                    outputTemplate: outputTemplate
+                });
+
+                // Override default getHtmlToInsert to enable rich content output.
+                autocomplete.getHtmlToInsert = function (item) {
+                    return this.outputTemplate.output(item);
+                }
+            }
+        },
+        removeButtons: 'PasteFromWord'
+    });
+
+    function textTestCallback(range) {
+        if (!range.collapsed) {
+            return null;
+        }
+
+        return CKEDITOR.plugins.textMatch.match(range, matchCallback);
+    }
+
+    function matchCallback(text, offset) {
+        var pattern = /\[{2}([A-z]|\])*$/,
+            match = text.slice(0, offset)
+                .match(pattern);
+
+        if (!match) {
+            return null;
+        }
+
+        return {
+            start: match.index,
+            end: offset
+        };
+    }
+
+    function dataCallback(matchInfo, callback) {
+        var data = PLACEHOLDERS.filter(function (item) {
+            var itemName = '[[' + item.name + ']]';
+            return itemName.indexOf(matchInfo.query.toLowerCase()) == 0;
+        });
+
+        callback(data);
+    }
+</script>
+<script>
+    var PLACEHOLDERS = [{
+        id: 1,
+        name: 'address',
+        title: 'Address',
+        description: 'Customer Support correspondence address.'
+    },
+    {
+        id: 2,
+        name: 'assignee',
+        title: 'Assignee Name',
+        description: 'Ticket assignee name.'
+    },
+    {
+        id: 3,
+        name: 'deadline',
+        title: 'Deadline Time',
+        description: 'Utmost time to which technician should handle the issue.'
+    },
+    {
+        id: 4,
+        name: 'department',
+        title: 'Department Name',
+        description: 'Department name responsible for servicing this ticket.'
+    },
+    {
+        id: 5,
+        name: 'caseid',
+        title: 'Case ID',
+        description: 'Unique case number used to distinguish tickets.'
+    },
+    {
+        id: 6,
+        name: 'casename',
+        title: 'Case Name',
+        description: 'Name of the ticket provided by the user.'
+    },
+    {
+        id: 7,
+        name: 'contact',
+        title: 'Contact E-mail',
+        description: 'Customer Support contact e-mail address.'
+    },
+    {
+        id: 8,
+        name: 'customer',
+        title: 'Customer Name',
+        description: 'Receipent of your response.'
+    },
+    {
+        id: 9,
+        name: 'hotline',
+        title: 'Hotline Number',
+        description: 'Customer Support Hotline number.'
+    },
+    {
+        id: 10,
+        name: 'technician',
+        title: 'Technician Name',
+        description: 'Technician which will handle this ticket.'
+    }
+    ];
+
+    CKEDITOR.addCss('span > .cke_placeholder { background-color: #ffeec2; }');
+
+    CKEDITOR.replace('editor2', {
+        plugins: 'autocomplete,textmatch,toolbar,wysiwygarea,basicstyles,link,undo,placeholder',
+        toolbar: [{
+            name: 'document',
+            items: ['Undo', 'Redo']
+        },
+        {
+            name: 'basicstyles',
+            items: ['Bold', 'Italic']
+        },
+        {
+            name: 'links',
+            items: ['Link', 'Unlink']
+        }
+        ],
+        on: {
+            instanceReady: function (evt) {
+                var itemTemplate = '<li data-id="{id}">' +
+                    '<div><strong class="item-title">{title}</strong></div>' +
+                    '<div><i>{description}</i></div>' +
+                    '</li>',
+                    outputTemplate = '[[{title}]]<span>&nbsp;</span>';
+
+                var autocomplete = new CKEDITOR.plugins.autocomplete(evt.editor, {
+                    textTestCallback: textTestCallback,
+                    dataCallback: dataCallback,
+                    itemTemplate: itemTemplate,
+                    outputTemplate: outputTemplate
+                });
+
+                // Override default getHtmlToInsert to enable rich content output.
+                autocomplete.getHtmlToInsert = function (item) {
+                    return this.outputTemplate.output(item);
+                }
+            }
+        },
+        removeButtons: 'PasteFromWord'
+    });
+
+    function textTestCallback(range) {
+        if (!range.collapsed) {
+            return null;
+        }
+
+        return CKEDITOR.plugins.textMatch.match(range, matchCallback);
+    }
+
+    function matchCallback(text, offset) {
+        var pattern = /\[{2}([A-z]|\])*$/,
+            match = text.slice(0, offset)
+                .match(pattern);
+
+        if (!match) {
+            return null;
+        }
+
+        return {
+            start: match.index,
+            end: offset
+        };
+    }
+
+    function dataCallback(matchInfo, callback) {
+        var data = PLACEHOLDERS.filter(function (item) {
+            var itemName = '[[' + item.name + ']]';
+            return itemName.indexOf(matchInfo.query.toLowerCase()) == 0;
+        });
+
+        callback(data);
+    }
+</script>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $(".enter-mail-id").keydown(function (e) {
+            if (e.keyCode == 13 || e.keyCode == 32) {
+                //alert('You Press enter');
+                var getValue = $(this).val();
+                $('.all-mail').append('<span class="email-ids">' + getValue + ' <span class="cancel-email">x</span></span>');
+                $(this).val('');
+            }
+        });
+        /// Cancel
+        $(document).on('click', '.cancel-email', function () {
+
+            $(this).parent().remove();
+
+        });
+        // $('.enter-mail-id').click()
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".enter-bccemail-id").keydown(function (e) {
+            if (e.keyCode == 13 || e.keyCode == 32) {
+                //alert('You Press enter');
+                var getValue = $(this).val();
+                $('.all-mailbcc').append('<span class="email-ids">' + getValue + ' <span class="cancel-email">x</span></span>');
+                $(this).val('');
+            }
+        });
+        /// Cancel
+        $(document).on('click', '.cancel-email', function () {
+
+            $(this).parent().remove();
+
+        });
+        // $('.enter-mail-id').click()
+    });
+</script>
+<script>
+    $('#btnsubmit').click(function () {
+        var configid = getUrlVars()["ID"];
+        if (configid != undefined) {
+            message = "Are you sure ,you want to Update?";
+        }
+        else {
+            message = "Are you sure ,you want to Submit?";
+        }
+        var ccemail =new Array();
+        var bccemail = new Array();
+        $('.all-mail').find(".email-ids").each(function () {
+            var str = $(this).text().split(' ');
+            ccemail.push(str[0]);
+        });
+        $('.all-mailbcc').find(".email-ids").each(function () {
+            var str = $(this).text().split(' ');
+            bccemail.push(str[0]);
+        });
+        var emailcc = ccemail.toString();
+        var emailbcc = bccemail.toString();
+        var data = {
+            CONFIGID: $('#hdnschemeid').val(),
+            emailcc: emailcc,
+            emailbcc: emailbcc,
+            DATAENTRYCONTENT: $('#editor1').val(),
+            DATAAPPROVERCONTENT: $('#editor2').val(),
+        }
+        bootbox.confirm({
+            size: "medium",
+            message: message,
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/AdminConsole/EmailMaster/AddEmailMaster2",
+                        dataType: "json",
+                        data: data,
+                        success: function (response) {
+                            if (response == 1) {
+                                bootbox.alert({
+                                    size: "medium",
+                                    message: "Email Added",
+                                    callback: function () {
+                                        window.location.reload();
+                                    }
+                                })
+                            }
+                            else if (response == 2) {
+                                bootbox.alert({
+                                    size: "medium",
+                                    message: "Email Updated",
+                                    callback: function () {
+                                        window.location.href = "../EmailMaster/AddEmailMaster2";
+                                    }
+                                })
+                            }
+                            else {
+                                bootbox.alert({
+                                    size: "medium",
+                                    message: "Something Went Wrong",
+                                    callback: function () {
+                                        window.location.reload();
+                                    }
+                                })
+                            }
+                        }
+                       
+                    });
+                }
+            }
+        })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var configid = getUrlVars()["ID"];
+        if (configid != undefined) {
+            $("#btnsubmit").html("Update");
+            $("#btncancel").html("Cancel");
+            GeteditconfigId(configid);
+        }
+    });
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+</script>
+<script>
+    function GeteditconfigId(configid) {
+        $.ajax({
+            url: "/AdminConsole/EmailMaster/Getemaildetails?configid=" + configid,
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                //Filling the values in appropriate field for updating purpose
+                var arraycc = data;
+                var arrayccsplit = arraycc[0].emailcc.split(',');
+                var htm = "";
+                for (var i = 0; i < arrayccsplit.length; i++) {
+                    htm += '<span class="email-ids">' + arrayccsplit[i] + ' <span class="cancel-email">x</span></span>'
+                }
+                $('.all-mail').html(htm);
+                var arrayccsplit1 = arraycc[0].emailbcc.split(',');
+                var htm1 = "";
+                for (var i = 0; i < arrayccsplit1.length; i++) {
+                    htm1 += '<span class="email-ids">' + arrayccsplit1[i] + ' <span class="cancel-email">x</span></span>'
+                }
+                $('.all-mailbcc').html(htm1);
+                $('#hdnschemeid').val(data[0].CONFIGID);
+            },
+            error: function (error) {
+                jsonValue = jQuery.parseJSON(error.responseText);
+                bootbox.alert("Error : " + jsonValue);
+            }
+        });
+
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        var configid = 1;
+        $.ajax({
+            url: "/AdminConsole/EmailMaster/Getemaildetails?configid=" + configid,
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                //Filling the values in appropriate field for updating purpose
+                var arraycc = data;
+                var arrayccsplit = arraycc[0].emailcc.split(',');
+                var htm = "";
+                for (var i = 0; i < arrayccsplit.length; i++) {
+                    htm += '<span class="email-ids">' + arrayccsplit[i] + ' <span class="cancel-email">x</span></span>'
+                }
+                $('.all-mail').html(htm);
+                var arrayccsplit1 = arraycc[0].emailbcc.split(',');
+                var htm1 = "";
+                for (var i = 0; i < arrayccsplit1.length; i++) {
+                    htm1 += '<span class="email-ids">' + arrayccsplit1[i] + ' <span class="cancel-email">x</span></span>'
+                }
+                $('.all-mailbcc').html(htm1);
+                $('#hdnschemeid').val(data[0].CONFIGID);
+            },
+            error: function (error) {
+                jsonValue = jQuery.parseJSON(error.responseText);
+                bootbox.alert("Error : " + jsonValue);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUIDCo_ePMS.Core", "BUIDCo_ePMS.Core\BUIDCo_ePMS.Core.csproj", "{B356CDB3-6B8C-4C23-AF09-A7EEE843C1FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUIDCo_ePMS.Model", "BUIDCo_ePMS.Model\BUIDCo_ePMS.Model.csproj", "{DEDDF65A-F044-4C95-B1E8-151641C9F9B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUIDCo_ePMS.Repository", "BUIDCo_ePMS.Repository\BUIDCo_ePMS.Repository.csproj", "{5A9133D8-5309-4778-A5FB-B208B55434B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUIDCo_ePMS.Web", "BUIDCo_ePMS.Web\BUIDCo_ePMS.Web.csproj", "{BA0AA703-1DB7-4CC8-80DE-BFA96BC66D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUIDCo_ePMS.API", "BUIDCo_ePMS.API\BUIDCo_ePMS.API.csproj", "{511F50E4-99E6-4105-976C-8854751FA995}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B356CDB3-6B8C-4C23-AF09-A7EEE843C1FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B356CDB3-6B8C-4C23-AF09-A7EEE843C1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B356CDB3-6B8C-4C23-AF09-A7EEE843C1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B356CDB3-6B8C-4C23-AF09-A7EEE843C1FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEDDF65A-F044-4C95-B1E8-151641C9F9B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDDF65A-F044-4C95-B1E8-151641C9F9B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDDF65A-F044-4C95-B1E8-151641C9F9B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDDF65A-F044-4C95-B1E8-151641C9F9B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A9133D8-5309-4778-A5FB-B208B55434B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A9133D8-5309-4778-A5FB-B208B55434B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A9133D8-5309-4778-A5FB-B208B55434B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A9133D8-5309-4778-A5FB-B208B55434B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0AA703-1DB7-4CC8-80DE-BFA96BC66D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0AA703-1DB7-4CC8-80DE-BFA96BC66D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0AA703-1DB7-4CC8-80DE-BFA96BC66D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0AA703-1DB7-4CC8-80DE-BFA96BC66D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{511F50E4-99E6-4105-976C-8854751FA995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{511F50E4-99E6-4105-976C-8854751FA995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{511F50E4-99E6-4105-976C-8854751FA995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{511F50E4-99E6-4105-976C-8854751FA995}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

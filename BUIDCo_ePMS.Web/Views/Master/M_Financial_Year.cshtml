@@ -1,0 +1,192 @@
+
+@{
+ViewData["Title"] = "M_Financial_Year";
+}
+<div class="row">
+		@Html.AntiForgeryToken()
+			@*Write code here*@
+</div><div>
+    <ul class="nav nav-tabs nav-fill" role="tablist">
+        <a class="nav-item nav-link active" asp-controller="Master" asp-action="M_Financial_Year">Add</a>
+        <a class="nav-item nav-link" asp-controller="Master" asp-action=ViewM_Financial_Year>View</a>
+    </ul>
+</div>
+<br />
+<br />
+<br />
+<form id="form">
+
+	<div class="form-group row">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label" for="demo-text-input">Fyid<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+				<input type="text" id="fyId" name="fyId" class="form-control">
+			</div>
+	</div>
+	<div class="form-group row">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label" for="demo-text-input">Fyname<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+				<input type="text" id="fyName" name="fyName" class="form-control">
+			</div>
+	</div>
+	<div class="form-group row">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label" for="demo-text-input">Createdby<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+				<input type="text" id="createdBy" name="createdBy" class="form-control">
+			</div>
+	</div>
+	<div class="form-group row">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label" for="demo-text-input">Createdon<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+				<input type="text" id="createdOn" name="createdOn" class="form-control">
+			</div>
+	</div>
+	<div class="form-group row">
+			<label class="col-12 col-md-2 col-xl-2 mb-3 control-label" for="demo-text-input">Deletedflag<span class="m-2">:</span></label>
+			<div class="col-12 col-md-6 col-xl-8 mb-3">
+				<input type="text" id="deletedFlag" name="deletedFlag" class="form-control">
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="col-12 col-md-2 col-xl-2 control-label" for="demo-text-input"></label>
+<br/>
+		<div class="col-12 col-md-8 col-xl-12">
+			<input type="button" value="Submit" id="btn_Submit" class="btn btn-primary" onclick="Save_M_Financial_Year()"/>
+		</div>
+	</div>
+<input id="hdnM_Financial_Year" type="hidden" value="0" />
+</form>
+	
+	<script>
+$(document).ready(function () {
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["strid"];
+
+        if (id != undefined || id != null) {
+            Edit_M_Financial_Year(decryptData(id));
+         }
+    });
+
+        function decryptData(encryptedData) {
+            var decryptedBytes = CryptoJS.AES.decrypt(encryptedData, 'secret_key');
+            var decryptedString = decryptedBytes.toString(CryptoJS.enc.Utf8);
+            var decryptedObject = JSON.parse(decryptedString);
+            var originalData = decryptedObject.data;
+            var decryptedInteger = parseInt(originalData, 10);
+            return decryptedInteger;
+        }function Edit_M_Financial_Year(id) {
+        $.ajax({
+            type: "Get",
+            dataType: "json",
+            url: '@Url.Action("GetByID_M_Financial_Year", "Master")',
+            data: { "Id": id },
+            success: function (Result) {
+                var data1 = JSON.parse(Result);
+   $("#hdnM_Financial_Year").val(data1.fyId);
+             $('#fyId').val(data1.fyId);
+					$('#fyName').val(data1.fyName);
+					$('#createdBy').val(data1.createdBy);
+					$('#createdOn').val(data1.createdOn);
+					$('#deletedFlag').val(data1.deletedFlag);
+					
+            },
+            error: function (Message) {
+                swal("", Message, "error");
+            }
+        });
+    }        $("#form").validate({
+            rules: {
+                fyId: {
+                    required: true
+                },
+                fyName: {
+                    required: true
+                },
+                createdBy: {
+                    required: true
+                },
+                createdOn: {
+                    required: true
+                },
+                deletedFlag: {
+                    required: true
+                },
+                            },
+            messages: {
+                fyId: {
+                    required: "Please enter fyId"
+                 },
+                fyName: {
+                    required: "Please enter fyName"
+                 },
+                createdBy: {
+                    required: "Please enter createdBy"
+                 },
+                createdOn: {
+                    required: "Please enter createdOn"
+                 },
+                deletedFlag: {
+                    required: "Please enter deletedFlag"
+                 },
+                
+           },
+            	
+            highlight: function (element) {	
+                $(element).removeClass("is-valid")		
+                $(element).parent().addClass('error')		
+                $(element).addClass("is-invalid")	
+            },	
+            unhighlight: function (element) {	
+                $(element).parent().removeClass('error')	
+                $(element).removeClass("is-invalid");	
+                $(element).addClass("is-valid")	
+            }	
+        });
+			function Save_M_Financial_Year() {
+			if ($("#form").valid()) {
+					
+					var M_Financial_Year ={ 
+			fyId:$("#fyId").val(),
+					fyName:$("#fyName").val(),
+					createdBy:$("#createdBy").val(),
+					createdOn:$("#createdOn").val(),
+					deletedFlag:$("#deletedFlag").val(),
+					
+				};
+			$.ajax({
+				type: "POST",
+				url: "/Master/M_Financial_Year",
+			beforeSend: function (xhr) {
+					xhr.setRequestHeader("XSRF-TOKEN",
+						$('input:hidden[name="__RequestVerificationToken"]').val());
+				},
+			data:M_Financial_Year,
+			content: 'application/json;charset=utf-8',
+			dataType: "json",
+			success: function (result) {
+						Swal.fire({
+							icon: 'success',
+							title: result.responseText,
+							text: result.responseMessage,
+						}).then((result) => {
+							if (result.isConfirmed) {
+								location.href ="/Master/ViewM_Financial_Year";
+							}
+						})
+			},
+			error: function (result) {
+						Swal.fire({
+							icon: 'error',
+							title: result.responseText,
+							text: result.responseMessage,
+						});
+					}, 
+			});
+			}
+		}
+	</script>

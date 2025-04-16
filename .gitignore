@@ -1,0 +1,25 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/BUIDCo_ePMS.API/bin/Debug/net8.0
+/BUIDCo_ePMS.Core/bin/Debug/net8.0
+/BUIDCo_ePMS.Core/obj/Debug/net8.0
+/BUIDCo_ePMS.Core/obj/Release/net8.0
+/BUIDCo_ePMS.Model/bin/Debug/net8.0
+/BUIDCo_ePMS.Model/obj/Debug/net8.0
+/BUIDCo_ePMS.Model/obj/Release/net8.0
+/BUIDCo_ePMS.Model/obj
+/BUIDCo_ePMS.Repository/bin/Debug/net8.0
+/BUIDCo_ePMS.Repository/obj/Debug/net8.0
+/BUIDCo_ePMS.Repository/obj/Release/net8.0
+/BUIDCo_ePMS.Repository/obj
+/BUIDCo_ePMS.Web/bin/Debug/net8.0
+/BUIDCo_ePMS.Web/obj
+/BUIDCo_ePMS.Core/obj
+/BUIDCo_ePMS.API/obj
+/BUIDCo_ePMS.Web/wwwroot/Upload/ProposalLetter
+/BUIDCo_ePMS.Web/wwwroot/Upload/Tender
+/BUIDCo_ePMS.Web/wwwroot/Upload/Proposal
+/BUIDCo_ePMS.Web/wwwroot/pdfs

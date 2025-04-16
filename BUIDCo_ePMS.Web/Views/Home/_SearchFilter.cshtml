@@ -1,0 +1,78 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title"> <i class="bi bi-search me-1"></i> Search Filter </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="formsearch" autocomplete="off">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_fyyear"> Financial Year <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_fyyear" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="txtsearch_letterno"> Letter No <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input type="text" id="txtsearch_letterno" class="form-control" placeholder="Letter No.." maxlength="50" onkeypress="return /^[a-zA-Z0-9#_/ -]+$/i.test(event.key)">
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_client"> Proposal Submitted By <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_client" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_category"> Project Category <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_category" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_subcategory"> Project Sub-Category <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_subcategory" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_projecttype"> Project Type <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_projecttype" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_district"> District <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_district" class="form-select">
+                            <option selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                    <label for="ddlsearch_ulb"> Urban Local Body (ULB) <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsearch_ulb" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button type="button" class="btn btn-light-danger me-3" onclick="ResetSearch()"> Reset </button>
+        <button type="button" class="btn btn-primary" onclick="SearchProposal()"> Submit </button>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+[
+  {
+    "PageName": "M_Application_Status_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Application_Status_Master",
+    "Actions": "I/V",
+    "PageType": "M_Application_Status_Master/ViewM_Application_Status_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Assembly_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Assembly_Master",
+    "Actions": "I/V",
+    "PageType": "M_Assembly_Master/ViewM_Assembly_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Assembly_Tagging",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Assembly_Tagging",
+    "Actions": "I/V",
+    "PageType": "M_Assembly_Tagging/ViewM_Assembly_Tagging",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Client_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Client_Master",
+    "Actions": "I/V",
+    "PageType": "M_Client_Master/ViewM_Client_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Constituency_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Constituency_Master",
+    "Actions": "I/V",
+    "PageType": "M_Constituency_Master/ViewM_Constituency_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Financial_Year",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Financial_Year",
+    "Actions": "I/V",
+    "PageType": "M_Financial_Year/ViewM_Financial_Year",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_MileStone_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_MileStone_Master",
+    "Actions": "I/V",
+    "PageType": "M_MileStone_Master/ViewM_MileStone_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Module_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Module_Master",
+    "Actions": "I/V",
+    "PageType": "M_Module_Master/ViewM_Module_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Project_Category_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Project_Category_Master",
+    "Actions": "I/V",
+    "PageType": "M_Project_Category_Master/ViewM_Project_Category_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Project_Part",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Project_Part",
+    "Actions": "I/V",
+    "PageType": "M_Project_Part/ViewM_Project_Part",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Project_Subcategory_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Project_Subcategory_Master",
+    "Actions": "I/V",
+    "PageType": "M_Project_Subcategory_Master/ViewM_Project_Subcategory_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Project_Type_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Project_Type_Master",
+    "Actions": "I/V",
+    "PageType": "M_Project_Type_Master/ViewM_Project_Type_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Scheme_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Scheme_Master",
+    "Actions": "I/V",
+    "PageType": "M_Scheme_Master/ViewM_Scheme_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_SubMileStone_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_SubMileStone_Master",
+    "Actions": "I/V",
+    "PageType": "M_SubMileStone_Master/ViewM_SubMileStone_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  },
+  {
+    "PageName": "M_Unit_Master",
+    "ModuleName": "Master",
+    "StoreProcedureName": "USP_M_Unit_Master",
+    "Actions": "I/V",
+    "PageType": "M_Unit_Master/ViewM_Unit_Master",
+    "Profile": "Db_BUIDCo_PMS"
+  }
+]

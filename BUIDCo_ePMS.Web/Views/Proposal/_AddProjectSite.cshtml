@@ -1,0 +1,153 @@
+﻿
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">
+            <i class="bi bi-plus-circle me-1"></i> Add Project Site Information
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="formsite" autocomplete="off" enctype="multipart/form-data">
+            <input type="hidden" id="hdnsiteproposalid" value="0" />
+            <input type="hidden" id="hdnsitelandid" value="0" />
+            <div class="row">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlsitearea"> Req. Construction Area (in Sq. Mtr)  <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtsitearea" name="txtsitearea" type="text" class="form-control" maxlength="30" onkeypress="return /^[0-9.]+$/i.test(event.key)">
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="fusitenocPath"> Land NOC Document   <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fusitenocPath" name="fusitenocPath" type="file" class="form-control">
+                            <label for="fusitenocPath">  <span> Browse  </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8"> (.pdf file only and max. file size upto 10 MB) </small>
+                        <a id="asitenocPath" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrsitenocPath" />
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="fusiteplannedMap"> Upload Plan MAP   <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <div class="custom__fileupload">
+                            <input id="fusiteplannedMap" name="fusiteplannedMap" type="file" class="form-control">
+                            <label for="fusiteplannedMap">  <span> Browse  </span> </label>
+                        </div>
+                        <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                            (.ppt file only and max. file size upto
+                            10mb)
+                        </small>
+                        <a id="asiteplannedMap" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                        <input type="hidden" id="hdrsiteplannedMap" />
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlsitedistrict"> District <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsitedistrict" name="ddlsitedistrict" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlsiteblock"> ULB <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsiteblock" name="ddlsiteblock" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlsiteward"> Ward No <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsiteward" name="ddlsiteward" class="form-select">
+                            <option value="0" selected> Select </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    <div class="row">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
+                            <div class="row">
+                                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <label for="txtsiteaddress"> Address <span class="text-danger"> * </span></label>
+                                    <div class="form-group">
+                                        <textarea id="txtsiteaddress" name="txtsiteaddress" class="form-control" cols="2" rows="2" maxlength="200" onkeypress="return /^[a-zA-Z0-9#()_:,. -]+$/i.test(event.key)"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                    <label for="txtsitelattitude"> Latitude <span class="text-danger"> * </span></label>
+                                    <div class="form-group">
+                                        <input id="txtsitelattitude" name="txtsitelattitude" type="text" class="form-control" maxlength="8" onkeypress="return /[0-9.]/i.test(event.key)">
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                    <label for="txtsitelongitude"> Longitude <span class="text-danger"> * </span></label>
+                                    <div class="form-group">
+                                        <input id="txtsitelongitude" name="txtsitelongitude" type="text" class="form-control" maxlength="8" onkeypress="return /[0-9.]/i.test(event.key)">
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                    <label for="txtsitekhataNo"> Khata Number  <span class="text-danger"> * </span></label>
+                                    <div class="form-group">
+                                        <input id="txtsitekhataNo" name="txtsitekhataNo" type="text" class="form-control" maxlength="20" onkeypress="lettersDigitValidate(event)">
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                    <label for="txtsitekhesraNo"> Khesra Number <span class="text-danger"> * </span></label>
+                                    <div class="form-group">
+                                        <input id="txtsitekhesraNo" name="txtsitekhesraNo" type="text" class="form-control" maxlength="20" onkeypress="lettersDigitValidate(event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
+                            <label for="locationInput">Select Location <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <div id="map" style="height: 300px; width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    <label for="fusitedocs"> Upload Documents <span class="text-danger"> * </span></label>
+                    <div class="row">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
+                            <div class="form-group">
+                                <div class="custom__upload">
+                                    <input type="file" class="form-control" id="fusitedocs" name="fusitedocs" multiple>
+                                    <label for="fusitedocs">
+                                        <span> Browse Files </span>
+                                    </label>
+                                </div>
+                                <small class="text-end text-danger mt-2 d-block w-100 fs-8"> (Multiple file upload allowed file type .jpg .png) </small>
+                                <div id="dvsitedocsmultpledownload">
+                                    <a href="#" data-bs-toggle="tooltip" title="Document 1"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                    <a href="#" data-bs-toggle="tooltip" title="Document 2"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                    <a href="#" data-bs-toggle="tooltip" title="Document 3"> <i class="bi bi-file-earmark-pdf me-2 text-danger"> </i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
+                            <div class="row" id="fileListContainer">
+                                <!-- Uploaded files with progress will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button id="btnsitereset" type="button" class="btn btn-light-danger me-3" onclick="ResetProposalSite()"> Reset </button>
+        <button id="btnsitesubmit" type="button" class="btn btn-primary" onclick="SaveProposalSite()"> Submit </button>
+    </div>
+</div>
+
+
+
+

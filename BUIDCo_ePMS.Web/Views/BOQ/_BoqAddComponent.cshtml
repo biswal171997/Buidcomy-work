@@ -1,0 +1,190 @@
+﻿<div class="modal-content">
+   <div class="modal-header">
+      <h5 class="modal-title"> <i class="bi bi-plus-circle me-1"></i> Add Component </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+
+      <form autocomplete="off">
+
+
+            <div class="row">
+
+              <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-12 mb-3">
+
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                        <label> Project Name  <span class="text-danger"> * </span></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                        <label> Select Project Part  <span class="text-danger"> * </span></label>
+                        <div class="form-group">
+                            <select class="form-select">
+                                <option> Select </option>
+                                <option> Project part </option>
+                                <option> Project part2 </option>
+                                <option> Project part3 </option>
+                                <option> Project part4 </option>
+                                <option> Project part5 </option>
+                            </select>
+                        </div>
+                    </div>
+
+               </div>
+
+
+                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-12 mb-3">
+
+                    <div class="d-flex gap-2 mb-2">
+                           <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                           <div>
+                              <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> BOQ Document </a>
+                              <small class="text-secondary d-block"> 230 kb  </small>
+                           </div>
+                        </div>
+
+                    <div class="badge badge-warning text-start col-12 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#boqShows">
+                        Create Component & Sub Component <br> as per approved BOQ Document
+                    </div>
+
+                </div>
+
+
+                 <div class="col-xxl-4 col-xl-4 col-lg-12 col-md-12 col-12 mb-3">
+
+                    <div class="card bglight-primary">
+                        <div class="text-secondary fs-7 mb-2"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> 14-Jun-2024 </div>
+                        <h6 class="fw-500 mb-3"> Birchandra Patel smarak Mahavidhyalaya, Desari, Vaishali ka chahardiwari nirman. </h6>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-2">
+                                <small class="text-secondary"> Construction Area (Sq. Mtr)</small>
+                                <p class="m-0"> 214.33 </p>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-2">
+                                <small class="text-secondary"> Length (Mtr.) </small>
+                                <p class="m-0"> 152.22 </p>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-2">
+                                <small class="text-secondary"> Estimated Amount </small>
+                                <p class="m-0"> ₹ 7,99,300  </p>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-2">
+                                <small class="text-secondary"> Approval Amount </small>
+                                <p class="m-0"> ₹ 6,60,500  </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <div class="row collapse" id="boqShows">
+
+      
+
+             <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-12">
+            <label> Component Name </label>
+            <div class=" form-group">
+               <input type="text" class="form-control" id="">
+              
+            </div>
+         </div>
+
+
+             <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-12">
+                <label> Amount(₹) </label>
+                <div class=" form-group">
+                <input type="text" class="form-control" id="">
+                
+                </div>
+             </div>
+
+
+             <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-12">
+                <label> Financial Expenditure % </label>
+                <div class=" form-group">
+                <input type="text" class="form-control" id="">
+                
+                </div>
+             </div>
+
+
+
+         <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-12 d-flex align-items-center ">
+            <button type="button" class="btn btn-outline-primary addmore-btn"> <i class="bi bi-plus-circle me-2"></i> Add More  </button>
+         </div>
+
+
+
+
+<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-4 mt-3">
+               <div class="table-responsive">
+                  <table class="table table-striped m-0">
+                     <thead>
+                        <tr>
+                           <th width="30"> Sl# </th>
+                           <th width="200"> Component Name </th>
+                           <th width="150"> Amount </th>
+                           <th width="150"> Financial Expenditure </th>
+                           <th width="80"> Action </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+
+                        <tr>
+                           <td> 1 </td>
+                          <td>  Component Name 1 </td>
+                          <td>   ₹ 6,00,000  </td>
+                           
+                           <td> 78.5 </td>
+                           <td>
+                               <a href="#!" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                 <i class="buidcoicon-delete text-danger"></i>
+                                 </a>
+                           </td>
+                        </tr>
+
+
+                          <tr>
+                           <td> 2 </td>
+                          <td>  Component Name 2 </td>
+                          <td>   ₹ 6,00,000  </td>
+                           
+                           <td> 78.5 </td>
+                           <td>
+                               <a href="#!" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                 <i class="buidcoicon-delete text-danger"></i>
+                                 </a>
+                           </td>
+                        </tr>
+
+                     </tbody>
+                     
+                  </table>
+               </div>
+            </div>
+         
+
+
+        </div>
+ 
+
+        
+
+      </form>
+   </div>
+   <div class="modal-footer lg__btn  justify-content-start">
+      <button type="button" class="btn btn-light-danger me-3"> Reset </button>
+      <button type="button" class="btn btn-primary"> Submit </button>
+   </div>
+</div>

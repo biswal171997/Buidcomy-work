@@ -1,0 +1,242 @@
+﻿@{
+ViewData["Title"] = "Query Management";
+}
+<div class="page-body">
+   <!-- breadcrumb section -->
+   <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+      <nav aria-label="breadcrumb">
+         <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+            <li class="breadcrumb-item active" title="Query Management" aria-current="page"> Query Management </li>
+         </ul>
+      </nav>
+      <div class="col-right">
+         <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+         <i class="buidcoicon-excel"></i>
+         </button>
+         <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+            data-bs-toggle="tooltip">
+         <i class="bi bi-printer"></i>
+         </button>
+      </div>
+   </div>
+   <!-- breadcrumb section -->
+   <!-- inner body section -->
+   <div class="body__content">
+      <div class="body__bg">
+         <div class="table-responsive">
+            <table class="table table-striped" id="basic-2">
+               <thead>
+                  <tr>
+                     <th width="5%"> Sl# </th>
+                     <th width="10%"> Query type </th>
+                     <th> Description </th>
+                     <th> Document </th>
+                     <th> Photos </th>
+                     <th> Status </th>
+                     <th width="15%"> Action </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td> 1 </td>
+                     <td> Fund </td>
+                     <td> Fund Related Query </td>
+                     <td>
+                        <div class="d-flex gap-2">
+                           <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                           <div>
+                              <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                              <small class="text-secondary d-block"> 214 kb  </small>
+                           </div>
+                        </div>
+                     </td>
+                     <td>
+                        <div id="image-gallery" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        <div class="badge badge-success">
+                           Responded
+                        </div>
+                     </td>
+                     <td>
+                        <small class="text-secondary"> Responded On  </small>
+                        <div title="description"> 17-Mar-2024   </div>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 2 </td>
+                     <td> Fund </td>
+                     <td> Fund Related Query </td>
+                     <td>
+                        <div class="d-flex gap-2">
+                           <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                           <div>
+                              <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                              <small class="text-secondary d-block"> 214 kb  </small>
+                           </div>
+                        </div>
+                     </td>
+                     <td>
+                        <div id="image-gallery2" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 3 </td>
+                     <td> Fund </td>
+                     <td> Fund Related Query </td>
+                     <td>
+                        <div class="d-flex gap-2">
+                           <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                           <div>
+                              <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                              <small class="text-secondary d-block"> 214 kb  </small>
+                           </div>
+                        </div>
+                     </td>
+                     <td>
+                        <div id="image-gallery3" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td> 4 </td>
+                     <td> Fund </td>
+                     <td> Fund Related Query </td>
+                     <td>
+                        <div class="d-flex gap-2">
+                           <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                           <div>
+                              <a href="#" class="description" title="Download" data-bs-toggle="tooltip"> Download </a>
+                              <small class="text-secondary d-block"> 214 kb  </small>
+                           </div>
+                        </div>
+                     </td>
+                     <td>
+                        <div id="image-gallery4" class="thumbnail__image">
+                           <a href="~/images/buiding_login.jpg" data-src="~/images/buiding_login.jpg" title="Images">
+                           <img src="~/images/buiding_login.jpg"  alt="Thumbnail Image">
+                           </a>
+                        </div>
+                     </td>
+                     <td>
+                        <div class="badge badge-warning">
+                           Pending
+                        </div>
+                        <small class="text-secondary d-block mt-2"> at Approval Authority  </small>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Take Action" data-bs-toggle="modal"
+                           data-bs-target="#takeActions">
+                        Take Action
+                        </button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+   <!-- inner body section -->
+   <!-- take action Modal -->
+   <div class="modal fade right custom-view-modal-medium" id="takeActions" tabindex="-1">
+      <div class="modal-dialog modal-md custom-modal modal-dialog-scrollable">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title"> <i class="bi bi-plus-circle me-2"></i> Take Action </h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                     <label class="mb-1 fs-7 text-secondary">  Bug Subject :  </label>
+                     <div class="description">
+                        PROJECT CODE 22145938112471 , 22145984112472 ,22145985112473 , 22145987112474 AGREEMENT ISSUE
+                     </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                     <label class="mb-1 fs-7 text-secondary">  Module :  </label>
+                     <div class="description">
+                        Fund Management
+                     </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                     <label class="mb-1 fs-7 text-secondary">  Reported On :  </label>
+                     <div class="description">
+                        07-Jul-2022
+                     </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                     <label> Status </label>
+                     <div class="form-group">
+                        <select class="form-select">
+                           <option selected> Select </option>
+                           <option> Pending </option>
+                           <option> Approved </option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                     <label> Remarks </label>
+                     <div class="form-group">
+                        <textarea class="form-control" rows="4">  </textarea>
+                        <small class="text-danger text-end mt-2 d-block fs-8"> (Maximum 250 Charecters Allowed) </small>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer lg__btn  justify-content-start">
+               <button type="button" class="btn btn-light-danger me-3"> Reset </button>
+               <button type="button" class="btn btn-primary" id="subaddData"> Update </button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- take action Modal -->
+</div>
+</div>
+<!-- Initialize lightgallery -->
+<script>
+   $(document).ready(function() {
+       $('#image-gallery').lightGallery();
+       $('#image-gallery2').lightGallery();
+       $('#image-gallery3').lightGallery();
+       $('#image-gallery4').lightGallery();
+   });
+</script>
+<!-- Initialize lightgallery -->

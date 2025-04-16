@@ -1,0 +1,1032 @@
+﻿@using Microsoft.Extensions.Configuration
+
+@inject IConfiguration Configuration
+@{
+    var letterPath = Configuration.GetSection("Path").GetValue<string>("LetterDoc");
+    var encodedPath = Uri.EscapeDataString(letterPath!);
+}
+@{
+    ViewData["Title"] = "Assign Project View";
+}
+<div class="modal fade right custom-view-modal-medium" id="searchFilter">
+    <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+        @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+    </div>
+</div>
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item active" title="Assign Project (Work Order)" aria-current="page"> Assign Project (Work Order) </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addAssignProject">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" title="Delete" data-bs-toggle="tooltip" onclick="DeleteAssignProject()"> <i class="bi bi-trash"></i> </button>
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table-responsive">
+                <table class="table table-striped dataTable" id="tblView">
+                    <thead>
+                        <tr>
+                            <th width="4%"> Sl# </th>
+                            <th width="30%"> Project Details </th>
+                            <th width="12%"> LOA Details </th>
+                            <th width="25%"> Project Tenure </th>
+                            <th width="10%"> Executed By </th>
+                            <th width="12%"> Letter Document </th>
+                            <th width="10%"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- add component type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addAssignProject">
+        <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+            @Html.Partial("_AddAssignProject.cshtml")
+        </div>
+    </div>
+    <!-- add component type Modal -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+</div>
+
+
+
+@*<script src="~/js/forms/searchAssignWork.js"></script>*@
+<input type="hidden" id="hdnbankdetailsList" />
+<!-- jQuery Library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- jQuery UI Library -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script>
+    var baseUrl = "@Url.Content("~/")";
+    var _encodedpath = '@encodedPath';
+    var pgDetails = [];
+    var formData = new FormData();
+    $(document).ready(function () {
+
+
+        if ($('#hiddenProjectId').val() !== '') {
+            // Disable the project ID field
+            $('#projectId').prop('disabled', true);
+
+        }
+
+        ///////////////////
+
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-M-yy',
+            minDate: 0,
+            maxDate: 365
+            // Disables all past dates
+        }).on('keydown', function (event) {
+            event.preventDefault();
+        });
+
+        $(".fromdatepicker").datepicker({
+            dateFormat: 'dd-M-yy',
+            minDate: 0,
+            maxDate: 365
+            // Disables all past dates
+        }).on('keydown', function (event) {
+            event.preventDefault();
+        });
+
+        $(".Todatepicker").datepicker({
+            dateFormat: 'dd-M-yy',
+            minDate: 0,
+            maxDate: 365 // Disables all past dates
+        }).on('keydown', function (event) {
+            event.preventDefault();
+        });
+
+        $('#bankDetailsTable').hide();
+        $('.odd').css('display', 'none')
+        {
+            GetAssignProject();
+            GetProjectList();
+        }
+        $('#hdnlettter').hide();
+        // GST Number Validation Rule
+       // Custom validation methods
+$.validator.addMethod("gstFormat", function (value, element) {
+    return this.optional(element) || /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/.test(value);
+}, "Please enter a valid GST Number (Example: 22AAAAA1234A1Z5)");
+
+$.validator.addMethod("panFormat", function (value, element) {
+    return this.optional(element) || /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value);
+}, "Please enter a valid PAN Number (Example: ABCDE1234F)");
+
+        $.validator.addMethod("phoneFormat", function (value, element) {
+            return this.optional(element) || /^[6-9][0-9]{9}$/.test(value);
+        }, "Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9 (Example: 9876543210)");
+
+$.validator.addMethod("emailFormat", function (value, element) {
+    return this.optional(element) || /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+}, "Please enter a valid Email ID (Example: example@domain.com)");
+
+$.validator.addMethod("amountFormat", function (value, element) {
+    return this.optional(element) || /^\d+(\.\d{1,2})?$/.test(value);
+}, "Please enter a valid amount (Example: 1234.56)");
+
+        $.validator.addMethod("dateFormat", function (value, element) {
+            return this.optional(element) || /^\d{4}-\d{2}-\d{2}$/.test(value);
+        }, "Please enter a valid date (yyyy-mm-dd)");
+
+
+$("#form").validate({
+    rules: {
+        projectId: { required: true },
+        AssignTo: { required: true },
+        AgreementAmount: { required: true, amountFormat: true },
+        panNo: { required: true, panFormat: true },
+        gstNo: { required: true, gstFormat: true },
+        licenseNo: { required: true },
+        phoneNo: { required: true, phoneFormat: true },
+        faxNo: { required: true, phoneFormat: true },
+        emailId: { required: true, emailFormat: true },
+        mobileNo: { required: true, phoneFormat: true },
+        contactPerson: { required: true },
+        contactPersonMobileNumber: { required: true, phoneFormat: true },
+        address: { required: true },
+        projectDuration: { required: true },
+        startDate: { required: true, dateFormat: true },
+        endDate: { required: true, dateFormat: true },
+        UploadLetter: {
+            required: function () {
+                return $('#UploadLetter').val() === '' && $('#hiddenProjectId').val() === '';
+            }
+        }
+    },
+
+    messages: {
+        projectId: { required: "Please select project Name!" },
+        AssignTo: { required: "Please enter Assign To!" },
+        AgreementAmount: { required: "Please enter Agreement Amount!", amountFormat: "Invalid amount format!" },
+        panNo: { required: "Please enter PAN No.!", panFormat: "Invalid PAN format!" },
+        gstNo: { required: "Please enter GST No.!", gstFormat: "Invalid GST format!" },
+        licenseNo: { required: "Please enter License No.!" },
+        phoneNo: { required: "Please enter Phone No.!", phoneFormat: "Invalid phone number!" },
+        faxNo: { required: "Please enter Fax No.!", phoneFormat: "Invalid fax number!" },
+        emailId: { required: "Please enter Email ID!", emailFormat: "Invalid email format!" },
+        mobileNo: { required: "Please enter Mobile No.!", phoneFormat: "Invalid mobile number!" },
+        contactPerson: { required: "Please enter Contact Person!" },
+        contactPersonMobileNumber: { required: "Please enter Contact Person Mobile No.!", phoneFormat: "Invalid mobile number!" },
+        address: { required: "Please enter Address!" },
+        projectDuration: { required: "Please enter Project Duration!" },
+        startDate: { required: "Please enter Start Date!", dateFormat: "Invalid date format!" },
+        endDate: { required: "Please enter End Date!", dateFormat: "Invalid date format!" },
+        UploadLetter: { required: "Please upload the letter!" }
+    },
+
+    errorPlacement: function (error, element) {
+        error.css("color", "red");
+        error.insertAfter(element.closest(".form-group"));
+    },
+    highlight: function (element) {
+        $(element).removeClass("is-valid");
+        $(element).parent().addClass('error');
+        $(element).addClass("is-invalid");
+    },
+    unhighlight: function (element) {
+        $(element).parent().removeClass('error');
+        $(element).removeClass("is-invalid");
+        $(element).addClass("is-valid");
+    }
+});
+
+
+        $("#UploadPgDocuments").change(function () {
+            var file = this.files[0];  // Get selected file
+            var fileType = file.type;  // Get file type
+            var fileSize = file.size;  // Get file size (in bytes)
+
+            // Allowed file type: PDF
+            var allowedType = "application/pdf";
+            var maxSize = 10 * 1024 * 1024; // 10MB in bytes
+
+            if (fileType !== allowedType) {
+                $(".pdfError").text("Only PDF files are allowed.").css("color", "red");
+                $(this).val('');  // Reset file input
+            } else if (fileSize > maxSize) {
+                $(".pdfError").text("File size must be less than 10MB.").css("color", "red");
+                $(this).val('');  // Reset file input
+            } else {
+                $(".pdfError").text(""); // Clear error message
+            }
+
+        });
+
+        $("#UploadLetter").change(function () {
+            var file = this.files[0];  // Get selected file
+            var fileType = file.type;  // Get file type
+            var fileSize = file.size;  // Get file size (in bytes)
+
+            // Allowed file type: PDF
+            var allowedType = "application/pdf";
+            var maxSize = 10 * 1024 * 1024; // 10MB in bytes
+
+            if (fileType !== allowedType) {
+                $(".pdfError").text("Only PDF files are allowed.").css("color", "red");
+                $(this).val('');  // Reset file input
+            } else if (fileSize > maxSize) {
+                $(".pdfError").text("File size must be less than 10MB.").css("color", "red");
+                $(this).val('');  // Reset file input
+            } else {
+                $(".pdfError").text(""); // Clear error message
+            }
+        });
+
+
+    });
+
+    function Reset() {
+        //  Reset all input fields, dropdowns, and checkboxes
+        if ($('#DynamicButton').text() == "Reset") {
+            $('#projectId').val('');
+            $('#hiddenProjectId').val('');
+            $('#hdnAssignProjectId').val('');
+            $('#AssignTo').val('');
+            $('#AgreementAmount').val('');
+            $('#panNo').val('');
+            $('#gstNo').val('');
+            $('#licenseNo').val('');
+            $('#phoneNo').val('');
+            $('#faxNo').val('');
+            $('#emailId').val('');
+            $('#mobileNo').val('');
+            $('#contactPerson').val('');
+            $('#contactPersonMobileNumber').val('');
+            $('#address').val('');
+            $('#InstrumentType').val('');
+            $('#PGAmount').val('');
+            $('#BankName').val('');
+            $('#ValidTill').val('');
+            $('#UploadPgDocuments').val('');
+            $('#projectDuration').val('');
+            $('#startDate').val('');
+            $('#endDate').val('');
+            $('#UploadLetter').val('');
+
+            //  Reset radio buttons to default (Yes)
+            $('#performYes').prop('checked', true);
+            $('#performNo').prop('checked', false);
+
+            //  Clear error messages and validation classes
+            $('.text-danger').text('');
+            $('.error').removeClass('error');
+            $('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+
+            //  Reset validation form
+            $("#form").validate().resetForm();
+
+            //  Optional: Clear bank details table
+            $('#bankDetailsTable tbody').empty();
+
+            // Optional: Close modal (if applicable)
+            $("#addProjecttype").modal("hide");
+        } else {
+            $('#projectId').val('');
+            $('#hiddenProjectId').val('');
+            $('#hdnAssignProjectId').val('');
+            $('#AssignTo').val('');
+            $('#AgreementAmount').val('');
+            $('#panNo').val('');
+            $('#gstNo').val('');
+            $('#licenseNo').val('');
+            $('#phoneNo').val('');
+            $('#faxNo').val('');
+            $('#emailId').val('');
+            $('#mobileNo').val('');
+            $('#contactPerson').val('');
+            $('#contactPersonMobileNumber').val('');
+            $('#address').val('');
+            $('#InstrumentType').val('');
+            $('#PGAmount').val('');
+            $('#BankName').val('');
+            $('#ValidTill').val('');
+            $('#UploadPgDocuments').val('');
+            $('#projectDuration').val('');
+            $('#startDate').val('');
+            $('#endDate').val('');
+            $('#UploadLetter').val('');
+
+            //  Reset radio buttons to default (Yes)
+            $('#performYes').prop('checked', true);
+            $('#performNo').prop('checked', false);
+            $('#bankDetailsTable tbody').empty();
+
+            //  Clear error messages and validation classes
+            $('.text-danger').text('');
+            $('.error').removeClass('error');
+            $('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+
+            //  Reset validation form
+            $("#form").validate().resetForm();
+
+            //  Optional: Clear bank details table
+            $('#bankDetailsTable tbody').empty();
+
+            // Optional: Close modal (if applicable)
+            $("#addProjecttype").modal("hide");
+            $("#addAssignProject").modal("hide");
+        }
+    }
+
+
+    $(".autocomplete").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetProjectName","Tender")',
+            data: JSON.stringify(request.term),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (!data || data.length === 0 || data.message === "No record found") {
+                    response([{ label: "No record found", value: "" }]); // Show message
+                } else {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.projectName || item.projectCode,
+                            value: item.projectId
+                        };
+                    }));
+                }
+            },
+            error: function () {
+                response([]);
+            }
+        });
+        },
+
+    minLength: 3,
+    focus: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+        } else {
+            $("#projectId").val(ui.item.label);
+        }
+        return false;
+    },
+    select: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+            $("#projectId").val(""); // Clear TextBox Value
+            $("#projectId").attr("placeholder", "Record Not Found"); // Set Placeholder
+            $("#hiddenProjectId").val(""); // Reset Hidden Value
+        } else {
+            $("#projectId").val(ui.item.label);
+            $("#hiddenProjectId").val(ui.item.value);
+        }
+        return false;
+    }
+});
+
+    function GetAssignToList() {
+        debugger;
+        var ProjectId = $('#hiddenProjectId').val();
+        console.log('project id', ProjectId);
+        if (ProjectId !== "" && ProjectId != undefined) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetAssignToList", "AssignProject")',
+                data: { 'PId': ProjectId },
+                dataType: "json",
+                traditional: true,
+                success: function (data) {
+                    console.log('bidder dtls', data[0]);
+                    $('#AssignTo').val(data[0].bidderName);
+                    $('#AgreementAmount').val(data[0].agreementAmount);
+                    var selectedMilestone = $("#HdnAssignTo").val();
+                    if (selectedMilestone) {
+                        setTimeout(function () {
+                            $('#AssignTo').val(selectedMilestone).trigger('change');
+                        }, 100);
+                    }
+                }
+            });
+        } else {
+            $('#sectionPopUp').hide();
+        }
+    }
+
+    function GetProjectList() {
+        debugger
+        $.ajax({
+            url: '@Url.Action("GetProjectList", "AssignProject")',
+            type: 'POST',
+            dataType: 'json',
+            success: function (result) {
+               // console.log('project details', data);
+                var data = JSON.parse(result);
+               // console.log(data1);
+                var options = "<option value=''>Select</option>";
+                $.each(data, function (index, item) {
+                    options += `<option value="${item.projectId}">${item.projectName}</option>`;
+                });
+                $('#ProjectId').html(options);
+                if ($("#hiddenProjectId").val()) {
+                    $('#ProjectId').val($("#hiddenProjectId").val()).trigger('change');
+                }
+            },
+            error: function () {
+                swal("", "Failed to fetch Checklist Names.", "error");
+            }
+        });
+    }
+
+
+    function SaveProject() {
+    debugger;
+    if ($("#form").valid()) {
+        // Confirmation message before submission
+        Swal.fire({
+            title: 'Are you sure you want to ' + $("#btnsubmit").text() + '?',
+            text: "Please confirm your submission!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, submit it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var formData = new FormData();
+
+                $("#bankDetailsTable tbody tr").each(function (index) {
+                    var bankName = $(this).find("td:eq(3)").text();
+                    var instrumentType = $(this).find("td:eq(1)").text();
+                    var pgAmount = $(this).find("td:eq(2)").text();
+                    var ValidTill = $(this).find("td:eq(4)").text();
+                    var fileInput = $(this).find("td:eq(5).fileInput")[0]?.files[0];
+
+                    formData.append(`bankdetailsList1[${index}].BankName`, bankName);
+                    formData.append(`bankdetailsList1[${index}].InstrumentType`, instrumentType);
+                    formData.append(`bankdetailsList1[${index}].PGAmount`, pgAmount);
+                    formData.append(`bankdetailsList1[${index}].ValidTill`, ValidTill);
+
+                    if (fileInput) {
+                        formData.append(`bankdetailsList1[${index}].UploadPGDocument`, fileInput);
+                    }
+
+                    console.log('inside loop', ValidTill);
+                });
+
+                formData.append('id', $('#hdnAssignProjectId').val());
+                formData.append('hiddenProjectId', $('#hiddenProjectId').val());
+                formData.append('AssignTo', $('#AssignTo').val());
+                formData.append('AgreementAmount', $('#AgreementAmount').val());
+                formData.append('panNo', $('#panNo').val());
+                formData.append('gstNo', $.trim($("#gstNo").val()));
+                formData.append('licenseNo', $('#licenseNo').val());
+                formData.append('phoneNo', $("#phoneNo").val());
+                formData.append('faxNo', $("#faxNo").val());
+                formData.append('emailId', $("#emailId").val());
+                formData.append('mobileNo', $("#mobileNo").val());
+                formData.append('ContactNo', $("#mobileNo").val());
+                formData.append('contactPerson', $("#contactPerson").val());
+                formData.append('contactPersonMobileNumber', $("#contactPersonMobileNumber").val());
+                formData.append('address', $("#address").val());
+                formData.append("startDate", new Date($("#startDate").val()).toISOString());
+                formData.append("endDate", new Date($("#endDate").val()).toISOString());
+                formData.append('projectDuration', $("#projectDuration").val());
+                formData.append('UploadLetterdoc', $("#UploadLetter")[0].files[0]);
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SaveAssignProject", "AssignProject")",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (result) {
+                        Swal.fire({
+                            icon: result.success ? 'success' : 'error',
+                            title: result.responseText,
+                            text: result.responseMessage,
+                        }).then(() => {
+                            if (result.success) {
+                               location.href = "@Url.Action("AssignProjectView", "AssignProject")";
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Error",
+                            text: "Something went wrong. Please try again!",
+                        });
+                    }
+                });
+            }
+        });
+    }
+}
+
+
+
+
+
+    $("#addMorebtn").click(function () {
+
+        //if ($("#Addmore").valid()) {
+
+        console.log('InstrumentType', $("#InstrumentType").val());
+
+        if ($("#InstrumentType").val() == "" || $("#InstrumentType").val() == undefined) {
+            swal.fire("Alert!", "Please Select InstrumentType!", "warning");
+            return;
+        }
+        else if ($("#PGAmount").val() == "" || $("#PGAmount").val() == undefined) {
+            swal.fire("Alert!", "Please enter PG Amount!", "warning");
+            return;
+        } else if ($("#BankName").val() == "" || $("#BankName").val() == undefined) {
+            swal.fire("Alert!", "Please enter Bank Name!", "warning");
+            return;
+        }
+        else if ($("#ValidTill").val() == "" || $("#ValidTill").val() == undefined) {
+            swal.fire("Alert!", "Please select ValidTill Date!", "warning");
+            return;
+        } else if ($("#UploadPgDocuments").val() == "" || $("#UploadPgDocuments").val() == undefined) {
+            swal.fire("Alert!", "Please Upload PG Documents!", "warning");
+            return;
+        }
+
+
+            let rowCount = $("#bankDetailsTable tbody tr").length;
+
+            let serialNumber = rowCount + 1; // Increment for the new row
+
+
+            let instrumentType = $("#InstrumentType").val();
+
+            let pgAmount = $("#PGAmount").val();
+
+            let bankName = $("#BankName").val();
+
+        let validTill = $("#ValidTill").val();
+
+        console.log('valid date', validTill)
+
+            var fileInput = $("#UploadPgDocuments")[0].files[0]; // Get file object
+
+            if (!instrumentType || !pgAmount || !bankName || !validTill || !fileInput) {
+
+                alert("Please fill all fields and upload a document.");
+
+                return;
+            }
+
+            // Create a FormData object to store file
+            let formData = new FormData();
+            formData.append("InstrumentType", instrumentType);
+            formData.append("PGAmount", pgAmount);
+            formData.append("BankName", bankName);
+            formData.append("ValidTill", validTill);
+            if (fileInput) {
+                formData.append("File", fileInput);
+            }
+
+            // Push formData or JSON object to the array
+            pgDetails.push(formData);
+
+
+            // Create a temporary file link for preview
+
+            let fileURL = URL.createObjectURL(fileInput);
+
+            // Add a new row to the table
+
+            let newRow = `<tr>
+                    <td>${serialNumber}</td> <!-- Sl# -->
+                    <td>${instrumentType}</td> <!-- Project Details -->
+                    <td>${pgAmount}</td> <!-- LOA Details -->
+                    <td>${bankName}</td> <!-- Project Tenure -->
+                    <td>${validTill}</td> <!-- Executed By -->
+                    <td><a href="${fileURL}" target="_blank"><i class="bi bi-file-earmark-pdf me-1 text-danger"></i></  a></ td>   <!--   Letter    Document -->
+                    <td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-  title="Delete"><i class="buidcoicon-delete text-danger"></i ></a > <!-- Action -->
+                    </tr>`;
+
+            $("#bankDetailsTable tbody").append(newRow);
+
+            $("#bankDetailsTable").show();
+
+            // Clear input fields for the next entry
+
+            $("#InstrumentType").val("");
+
+            $("#PGAmount").val("");
+
+            $("#BankName").val("");
+
+            $("#ValidTill").val("");
+
+            // Reset file input properly
+
+            $("#UploadPgDocuments").val(null);
+       // }
+   });
+    $(document).on("click", ".delete", function () {
+        debugger;
+
+        $(this).closest("tr").remove();
+
+        // recalculate serial numbers after row removal
+
+        $("#bankdetailstable tbody tr").each(function (index) {
+
+            $(this).find("td:first").text(index + 1);
+
+        });
+
+    });
+    function GetAssignProject() {
+    $.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        contentType: 'application/json; charset=utf-8',
+        url: '@Url.Action("GetAssignProject", "AssignProject")',
+        success: function (result) {
+            var data1 = JSON.parse(result);
+            if (data1.length > 0) {
+                $('.dataTable tbody').empty();
+                $.each(data1, function (i, data) {
+                    var trows = "<tr>";
+                    trows += "<td>" + (i + 1) + "</td>"; // Corrected serial number
+
+                    trows += "<td><div class='table__body__text'>";
+                    trows += "<div class='row mb-2'>";
+                    trows += "<div class='col-xl-6 col-6 d-flex column-gap-4 mb-2'>";
+                    trows += "<a href='#' class='fw-600 text-primary' title='Download Document'>" + data.projectCode + "</a>";
+                    trows += "</div>";
+                    trows += "<div class='col-xl-6 col-6 text-start text-xl-end'>";
+                    trows += "<div class='badge bg-yellow'>";
+                    trows += "<div class='fw-600'><span class='text-secondary fw-normal'> Letter No : </span>" + data.letterNo + "</div>";
+                    trows += "</div></div></div>";
+                    trows += "<p>" + data.projectName + "</p>";
+                    trows += "</div></td>";
+
+                    trows += "<td><label>" + data.loaName + "</label>";
+                    //trows += "<div class='description mb-2'><small class='text-secondary d-block'>Bid Amount</small>";
+                    //trows += "<div> ₹ " + data.loaBidAmount + " </div></div>";
+                    trows += "<div class='description mb-2'><small class='text-secondary d-block'>Agreement Amount</small>";
+                    trows += "<div> ₹ " + data.loaAggrimentAmt + " </div></div></td>";
+
+                    trows += "<td><small><span class='text-secondary'> Duration : </span> 20 Months</small>";
+                    trows += "<div class='row mt-2'>";
+                    trows += "<div class='col-xl-5 col-lg-5 col-md-5 col-5 border-end'><small class='text-secondary'> Start Date </small>";
+                    trows += "<p class='m-0'>" + data.startDate + "</p></div>";
+                    trows += "<div class='col-xl-5 col-lg-5 col-md-5 col-5'><small class='text-secondary'> End Date </small>";
+                    trows += "<p class='m-0'>" + data.endDate + "</p></div>";
+                    trows += "<div class='col-xl-2 col-lg-2 col-md-2 col-2'>";
+                    /* trows += "<a href='#!' class='btn btn-sm border-0 badge-primary mt-2' title='Edit'><i class='buidcoicon-edit'></i></a>";*/
+                    trows += "</div></div></td>";
+
+                    trows += "<td>Department</td>";
+
+                    trows += "<td><div class='d-flex gap-2'>";
+                    trows += "<div><i class='bi bi-file-earmark-pdf me-1 text-danger'></i></div>";
+                    //trows += "<div><a href='#' + class='description' data-bs-toggle='tooltip' data-bs-original-title='Download'>Download</a>";
+                    //trows += "<small class='text-secondary d-block'> kb</small></div></div></td>";
+                    trows += "<div><a href='/BUIDCo_ePMS.Web/FileUpload/Doc/" + data.letterDocpath + "' class='description' data-bs-toggle='tooltip' data-bs-original-title='Download' download>Download</a>";
+                    trows += "<small class='text-secondary d-block'> </small></div></div></td>";
+
+
+                    trows += "<td><div class='table__icon'>";
+                    trows += "<a href='@Url.Action("AssignProjectDetails", "AssignProject")?Id=" + data.id + "' title='View' data-bs-toggle='tooltip'><i class='buidcoicon-eye text-success'></i></a>";
+                    trows += "<a class='text-primary' href='#!' onclick='EditAssignProject(" + data.id + ")' id='btnEdit" + data.id + "' title='Edit' data-bs-toggle='tooltip'><i class='buidcoicon-edit'></i></a>";
+                    trows += "<a href='#!' onclick='DeleteAssignProjectById(" + data.id + ")' id='" + data.id + "' title='Delete' data-bs-toggle='tooltip'><i class='buidcoicon-trash text-orange'></i></a>";
+                    trows += "</div></td></tr>";
+
+                    $('.dataTable tbody').append(trows);
+                });
+            }
+            else {
+                $('.odd').css('display','')
+            }
+        },
+        error: function (Message) {
+            alert(Message);
+        }
+    });
+  }
+    function GetAssignView() {
+            debugger
+         $.ajax({
+             type: 'Get',
+             dataType: 'Json',
+             contentType: 'application/json; charset=utf-8',
+             data: {},
+             url: "@Url.Action("GetAssignView", "AssignProject")",
+             success: function (result) {
+                 var data1 = JSON.parse(result);
+                 if (data1.length > 0) {
+                     $('#tbl.tbody').empty();
+                     $.each(data1, function (i, data) {
+
+                         var encryptedID = encryptData(data.proposalId);
+                         var trows = "<tr id='tr_" + data.proposalId + "'>";
+                         trows = trows + "<td><div class='form-check'><input class='form-check-input checkbox' type='checkbox' value='' id='flexCheckDefault_" + data.proposalId + "'></div></td>";
+                         trows = trows + "<td style='display:none'>" + data.proposalId + "</td>";
+                         trows = trows + "<td style='display:none'>" + data.proposalId + "</td>";
+                         trows = trows + "<td>" + (i + 1) + "</td>";
+                         trows = trows + "<td>" + data.startDate + "</td>";
+                         trows = trows + "<td>" + data.endDate + "</td>";
+                         trows = trows + "<td>" + data.projectDuration + "</td>";
+                         trows = trows + "<td>" + data.projectCode + "</td>";
+                         trows = trows + "<td>" + data.loaName + "</td>";
+                        // trows = trows + "<td>" + data.loaBidAmount + "</td>";
+                         trows = trows + "<td>" + data.loaAggrimentAmt + "</td>";
+                         //trows = trows + "<td>" + "<a class='btn-primary' href='/Master/M_Project_Category_Master?strid=" + encryptedID + "'>Edit</a>&nbsp;<button class='btn-danger' onclick='Delete_M_Project_Category_Master(" + data.categoryId + ")'>Delete</button>" + "</td>";
+                         trows = trows + "<td><button type='button' class='btn btn-outline-primary btn-sm' onclick='GetByID_M_Project_Subcategory_Master(" + data.proposalId + ")' title='Edit'><i class='bi bi-pencil'></i></button></td>";
+                         trows = trows + "</tr>";
+                         $('#tbl').append(trows);
+                     });
+                 }
+             },
+             error: function (Message) {
+                 alert(Message);
+             }
+         });
+        }
+    function EditAssignProject(id) {
+        debugger;
+        $('#addAssignProject').modal('show');
+
+            $.ajax({
+                type: "GET",  // Change to GET if your API uses GET for fetching details
+                dataType: "json",
+                url: '@Url.Action("GetAssignProjectById", "AssignProject")',
+                data: { "Id": id },
+                success: function (data1) {
+                   // console.log(Result);
+
+                    //var data1 = JSON.parse(Result);  // Ensure the data is properly parsed
+
+                    $('#btnsubmit').text('Update');
+
+                    $('#DynamicButton').text('Cancel');
+                    // Assign Project-Specific Fields (Correcting Property Names)
+
+                    $("#hdnAssignProjectId").val(data1[0].id);
+                    $("#hiddenProjectId").val(data1[0].projectId);
+                    $('#projectId').val(data1[0].projectName);
+                    $('#id').val(data1[0].id);
+                   /* $("#ProjectId").val(data1[0].projectId).change();*/
+                    $('#AssignTo').val(data1[0].assignTo);
+                    $('#AgreementAmount').val(data1[0].agreementAmount);
+                    $('#panNo').val(data1[0].panNo);
+                    $('#gstNo').val(data1[0].gstNo);
+                    $('#licenseNo').val(data1[0].licenseNo);
+                    $('#phoneNo').val(data1[0].phoneNo);
+                    $('#faxNo').val(data1[0].faxNo);
+                    $('#emailId').val(data1[0].emailId);
+                    $('#mobileNo').val(data1[0].mobileNo);
+                    $('#contactPerson').val(data1[0].contactPerson);
+                    $('#contactPersonMobileNumber').val(data1[0].contactPersonMobileNumber);
+                    $('#address').val(data1[0].address);
+                    $('#projectId').prop('disabled', true);
+                    $('#bankDetailsTable').val(data1[0].bankDetailsTable);
+                    $('#startDate').val(data1[0].startDate.split(" ")[0]);
+                    $('#endDate').val(data1[0].endDate.split(" ")[0]);
+                    $('#projectDuration').val(data1[0].projectDuration);
+                    /* $('#UploadLetter').val(data1[0].UploadLetter);*/
+                    /*   $('.clsletterdoc').html('<a href="DownloadPdf?fileName=' + data1[0].uploadLetter + '" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>Download </a>');*/
+                    $('.clsletterdoc').html('<a href="/BUIDCo_ePMS.Web/FileUpload/Doc/' + data1[0].letterDocpath + '" data-bs-toggle="tooltip" title="Download" download>Upload Letter </a>'
+                    );
+                    $('#hdnlettter').text(data1[0].letterDocpath);
+                    $('#hdnlettter').show();
+                    $("#bankDetailsTable tbody").empty();
+                    var rows = "";
+                    for (var i = 0; i < data1.length; i++) {
+                        rows += '<tr>';
+                        rows += '<td>' + (i + 1) + '</td>';
+                        rows += '<td>' + data1[i].instrumentType1 + '</td>';
+                        rows += '<td>' + data1[i].pgAmount1 + '</td>';
+                        rows += '<td>' + data1[i].bankName1 + '</td>';
+                        rows += '<td>' + data1[i].validTill1 + '</td>';
+                        rows += '<td>' + data1[i].uploadPgDocuments + '</td>';
+                        rows += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i ></a ></td>'
+                        rows += '</tr>';
+                    }
+                    $("#bankDetailsTable tbody").append(rows);
+                    $("#bankDetailsTable").show();
+                    $('#addAssignProject').modal("show");
+
+                    $("#form").validate().resetForm();
+                    $('.LengthRemarks').trigger('blur');
+                    $("#addMorebtn").modal("show");
+
+                    $('#DynamicButton').text('Cancel');
+                },
+                error: function (Message) {
+                    alert(Message);
+                }
+            });
+    }
+
+
+
+
+    function DeleteAssignProjectById(id)
+    {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    console.log('after confirm');
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "@Url.Action("DeleteAssignProject", "AssignProject")",
+                        data: { "Id": id },
+                        success: function (data) {
+                            console.log('after success');
+                            swal.fire(
+                                'Deleted!',
+                                'Data Deleted Successfully!',
+                                'success'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("AssignProjectView", "AssignProject")";
+
+
+                                }
+                            })
+                        }
+                    });
+
+                }
+
+            });
+    }
+
+
+</script>
+<script src="~/js/forms/searchproposal.js"></script>
+<script>
+    function SearchProposal() {
+        debugger;
+        if (true) {
+         var formData = new FormData();
+
+            //          var fyId = $.trim($("#ddlsearch_fyyear").val());
+            //          console.log(fyId);
+            //        var queryString = "fyId=" + encodeURIComponent(fyId);
+
+            //            var submittedByid = $.trim($("#ddlsearch_client").val());
+            //            console.log(submittedByid);
+            //        var queryString = "submittedByid=" + encodeURIComponent(submittedByid);
+
+            //            var categoryid = $.trim($("#ddlsearch_category").val());
+            //            console.log(categoryid);
+            //var queryString = "categoryid=" + encodeURIComponent(categoryid);
+
+            //var subCategoryid = $.trim($("#ddlsearch_subcategory").val());
+            //                console.log(subCategoryid);
+            //var queryString = "subCategoryid=" + encodeURIComponent(subCategoryid);
+
+            //var districtids = $.trim($("#ddlsearch_district").val());
+            //console.log(districtids);
+            //var queryString = "districtids=" + encodeURIComponent(districtids);
+
+            //var ulbId = $.trim($("#ddlsearch_ulb").val());
+            //console.log(ulbId);
+            //var queryString = "ulbId=" + encodeURIComponent(ulbId);
+
+            //var letterNo = $.trim($("#txtsearch_letterno").val());
+            //console.log(letterNo);
+            //var queryString = "letterNo=" + encodeURIComponent(letterNo);
+
+                   var projectTypeValue = $.trim($("#ddlsearch_projecttype").val());
+                   console.log(projectTypeValue);
+                   var queryString = "projectTypeidS=" + encodeURIComponent(projectTypeValue);
+                 // Ensure that both projectTypeidS and projectTypeid are needed.
+                    formData.append("projectTypeidS", projectTypeValue);
+                    formData.append("projectTypeid", projectTypeValue);
+                    //formData.append("fyId", fyId);
+                    //formData.append("submittedByid", submittedByid);
+                    //formData.append("categoryid", categoryid);
+                    //formData.append("subCategoryid", subCategoryid);
+                    //formData.append("districtids", districtids);
+                    //formData.append("ulbId", ulbId);
+                    //formData.append("letterNo", letterNo);
+                 // formData.append("districtids", $.trim($("#ddlsearch_district").val()));
+                // formData.append("ulbId", $.trim($("#ddlsearch_ulb").val()));
+                // formData.append("letterNo", $.trim($("#txtsearch_letterno").val()));
+
+                $.ajax({
+                    type: "GET",  // GET method with FormData is possible, but not typical. You can switch to POST if needed.
+                    url: "@Url.Action("GetAssignViewfilter", "AssignProject")?" + queryString,  // Ensure this is properly escaped if inside a razor view.
+                    beforeSend: function (xhr) {
+                        // Hide the modal before sending the request
+                        $('#searchFilter').modal('hide');
+                        $('#tblView tbody').empty();
+                    },
+                    //data: formData,
+                    //processData: false, // Keep this as false for FormData
+                    //contentType: false, // Keep this as false for FormData
+
+                 success: function (result) {
+      var data1 = JSON.parse(result);
+      if (data1.length > 0) {
+          $('.dataTable tbody').empty();
+          $.each(data1, function (i, data) {
+              var trows = "<tr>";
+              trows += "<td>" + (i + 1) + "</td>"; // Corrected serial number
+
+              trows += "<td><div class='table__body__text'>";
+              trows += "<div class='row mb-2'>";
+              trows += "<div class='col-xl-6 col-6 d-flex column-gap-4 mb-2'>";
+              trows += "<a href='#' class='fw-600 text-primary' title='Download Document'>" + data.projectCode + "</a>";
+              trows += "</div>";
+              trows += "<div class='col-xl-6 col-6 text-start text-xl-end'>";
+              trows += "<div class='badge bg-yellow'>";
+              trows += "<div class='fw-600'><span class='text-secondary fw-normal'> Letter No : </span>" + data.letterNo + "</div>";
+              trows += "</div></div></div>";
+              trows += "<p>" + data.projectName + "</p>";
+              trows += "</div></td>";
+
+              trows += "<td><label>" + data.loaName + "</label>";
+              //trows += "<div class='description mb-2'><small class='text-secondary d-block'>Bid Amount</small>";
+              //trows += "<div> ₹ " + data.loaBidAmount + " </div></div>";
+              trows += "<div class='description mb-2'><small class='text-secondary d-block'>Agreement Amount</small>";
+              trows += "<div> ₹ " + data.loaAggrimentAmt + " </div></div></td>";
+
+              trows += "<td><small><span class='text-secondary'> Duration : </span> 20 Months</small>";
+              trows += "<div class='row mt-2'>";
+              trows += "<div class='col-xl-5 col-lg-5 col-md-5 col-5 border-end'><small class='text-secondary'> Start Date </small>";
+              trows += "<p class='m-0'>" + data.startDate + "</p></div>";
+              trows += "<div class='col-xl-5 col-lg-5 col-md-5 col-5'><small class='text-secondary'> End Date </small>";
+              trows += "<p class='m-0'>" + data.endDate + "</p></div>";
+              trows += "<div class='col-xl-2 col-lg-2 col-md-2 col-2'>";
+              /* trows += "<a href='#!' class='btn btn-sm border-0 badge-primary mt-2' title='Edit'><i class='buidcoicon-edit'></i></a>";*/
+              trows += "</div></div></td>";
+
+              trows += "<td>Department</td>";
+
+              trows += "<td><div class='d-flex gap-2'>";
+              trows += "<div><i class='bi bi-file-earmark-pdf me-1 text-danger'></i></div>";
+              //trows += "<div><a href='#' + class='description' data-bs-toggle='tooltip' data-bs-original-title='Download'>Download</a>";
+              //trows += "<small class='text-secondary d-block'> kb</small></div></div></td>";
+              trows += "<div><a href='/BUIDCo_ePMS.Web/FileUpload/Doc/" + data.letterDocpath + "' class='description' data-bs-toggle='tooltip' data-bs-original-title='Download' download>Download</a>";
+              trows += "<small class='text-secondary d-block'> </small></div></div></td>";
+
+
+              trows += "<td><div class='table__icon'>";
+              trows += "<a href='@Url.Action("AssignProjectDetails", "AssignProject")?Id=" + data.id + "' title='View' data-bs-toggle='tooltip'><i class='buidcoicon-eye text-success'></i></a>";
+              trows += "<a class='text-primary' href='#!' onclick='EditAssignProject(" + data.id + ")' id='btnEdit" + data.id + "' title='Edit' data-bs-toggle='tooltip'><i class='buidcoicon-edit'></i></a>";
+              trows += "<a href='#!' onclick='DeleteAssignProjectById(" + data.id + ")' id='" + data.id + "' title='Delete' data-bs-toggle='tooltip'><i class='buidcoicon-trash text-orange'></i></a>";
+              trows += "</div></td></tr>";
+
+              $('.dataTable tbody').append(trows);
+          });
+      }
+      else {
+          $('.odd').css('display','')
+      }
+   },
+                  error: function (Message) {
+                      alert(Message);
+                  }
+
+            });
+        }
+    }
+</script>
+

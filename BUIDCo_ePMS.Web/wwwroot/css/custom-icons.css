@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?vk8ca');
+  src:  url('../fonts/icomoon.eot?vk8ca#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?vk8ca') format('truetype'),
+    url('../fonts/icomoon.woff?vk8ca') format('woff'),
+    url('../fonts/icomoon.svg?vk8ca#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="buidcoicon-"], [class*=" buidcoicon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.buidcoicon-raise-ticket:before {
+  content: "\e914";
+ 
+}
+.buidcoicon-user:before {
+  content: "\e915";
+  
+}
+.buidcoicon-question:before {
+  content: "\e916";
+ 
+}
+.buidcoicon-map:before {
+  content: "\e917";
+  
+}
+.buidcoicon-location:before {
+  content: "\e918";
+  
+}
+.buidcoicon-delete:before {
+  content: "\e919";
+  
+}
+.buidcoicon-datepicker:before {
+  content: "\e91a";
+  
+}
+.buidcoicon-user-setting:before {
+  content: "\e900";
+ 
+}
+.buidcoicon-trash:before {
+  content: "\e901";
+  
+}
+.buidcoicon-monitor:before {
+  content: "\e902";
+ 
+}
+.buidcoicon-application:before {
+  content: "\e903";
+ 
+}
+.buidcoicon-approved:before {
+  content: "\e904";
+  
+}
+.buidcoicon-calendar-day:before {
+  content: "\e905";
+  
+}
+.buidcoicon-cancelled:before {
+  content: "\e906";
+  
+}
+.buidcoicon-column-chart:before {
+  content: "\e907";
+ 
+}
+.buidcoicon-construction:before {
+  content: "\e908";
+ 
+}
+.buidcoicon-desktop:before {
+  content: "\e909";
+ 
+}
+.buidcoicon-edit:before {
+  content: "\e90a";
+  
+}
+.buidcoicon-edit-document:before {
+  content: "\e90b";
+  
+}
+.buidcoicon-excel:before {
+  content: "\e90c";
+  
+}
+.buidcoicon-eye:before {
+  content: "\e90d";
+  
+}
+.buidcoicon-file:before {
+  content: "\e90e";
+ 
+}
+.buidcoicon-filter:before {
+  content: "\e90f";
+ 
+}
+.buidcoicon-in-progress:before {
+  content: "\e910";
+  
+}
+.buidcoicon-magnifiying-glass:before {
+  content: "\e911";
+  
+}
+.buidcoicon-menu-bar:before {
+  content: "\e912";
+}
+.buidcoicon-money-bag:before {
+  content: "\e913";
+ 
+}

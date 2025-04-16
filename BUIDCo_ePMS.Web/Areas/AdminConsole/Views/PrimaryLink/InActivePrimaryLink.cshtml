@@ -1,0 +1,25 @@
+﻿@model BUIDCO.Domain.AdminConsole.Primary_Link.Primary
+
+@{
+    ViewBag.Title = "InActivePrimaryLink";
+
+}
+
+
+
+<div>
+        <p>Please confirm you want to InActive  Primary Link: 
+           <b> @Model.PlinkName? </b> 
+        </p>
+    </div>
+
+   
+@using (Html.BeginForm()) { 
+    <p>
+        <input type="submit" value="InActive" /> |
+        @Html.ActionLink("Back to List", "ViewInActivePrimaryLink")
+    </p>
+ } 
+
+
+

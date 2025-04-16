@@ -1,0 +1,1091 @@
+﻿@using BUIDCo_ePMS.Model.Entities.TakeAction;
+@{
+    ViewData["Title"] = "Technical Approval";
+}
+<form autocomplete="off" id="form1" enctype="multipart/form-data">
+    <div class="page-body">
+        <!-- breadcrumb section -->
+        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" title="Home"><i class="bi bi-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#" title="Construction Steps"> Construction Steps </a></li>
+                    <li class="breadcrumb-item active" title="technical Approval" aria-current="page">
+                        <span id="link">Take Action</span>
+                    </li>
+                </ul>
+            </nav>
+            <input type="hidden" id="hdnProposalid" />
+            <input type="hidden" id="hdnModuleid" />
+           
+        </div>
+        <!-- breadcrumb section -->
+        <!-- inner body section -->
+
+        <div class="body__content">
+            <div class="body__bg table__body__text">
+
+
+               
+
+                <div class="row">
+                    <div class="col-xxl-8 col-xl-8 col-lg-12 col-md-12 col-12">
+                        <h5 class="mb-3"> Proposal Details </h5>
+                        <div class="card ">
+                            <div class="card-body" id="Proposalrow">
+                                <div class="row mb-0 mb-xl-2 mb-lg-2 mb-md-2">
+                                    <div class="col-xl-8 col-lg-8 col-md-8 col-12 pe-0 pe-xl-4 pe-lg-4 pe-md-4">
+                                        <div class="row">
+                                            <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-7 col-12 d-flex align-items-center column-gap-4 mb-3 flex-wrap">
+                                                <div class="badge bg-yellow fw-600">
+                                                    <span class="text-solid-black" id="ProposalletterNo">  </span>
+                                                </div>
+                                                <div><i class="text-light-primary buidcoicon-calendar-day me-2"></i> <span id="ProposalletterDate">  </span> </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-12 text-start text-xl-end mb-3">
+                                                <span class="badge badge-warning" id="ApplicationStatus">  </span>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            @*  *@
+                                            <span id="PropososalSubject">  </span>
+                                        </p>
+                                        <div class="d-flex align-items-center column-gap-3 flex-wrap">
+                                            <div class="border-right pe-3">
+                                                Category & Sub Category :  <span class="fw-600 mt-2 mt-xl-0 mt-lg-0 mt-md-0" id="Proposalcategory">  </span>
+                                            </div>
+                                            <label class="mb-0">
+                                                <span id="PropososalsubCategory">  </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 border-left ps-xl-4 ps-lg-4 ps-md-4">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                            <div class="form-group">
+                                                <label class="mb-1">  Proposal Submitted By : </label>
+                                                <div class="description">
+                                                    <span id="PropososalClient">  </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                            <div class="form-group">
+                                                <label class="mb-1">  Proposer Name : </label>
+                                                <div class="description">
+                                                    <span id="PropososerName">  </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-top pt-3">
+                                    <div class="row">
+                                        <div class="col-xl-8 col-lg-8 col-md-7 col-12">
+                                            <div class="row">
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="mb-1">  District :  </label>
+                                                        <div class="description">
+                                                            <span id="PropososerDistrict">  </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="mb-1">  Created By </label>
+                                                        <div class="description">
+                                                            <span id="PropososerCreatedBy">  </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="mb-1">  Created On </label>
+                                                        <div class="description">
+                                                            <span id="PropososerCreatedOn">  </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label class="mb-1">  Remark : </label>
+                                                        <div class="description">
+                                                            <span id="PropososalRemark">  </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-5 col-12 ps-2 ps-xl-4 ps-md-4">
+                                            <div class="form-group">
+                                                <label class="mb-1">  Letter : </label>
+                                                <div class="d-block">
+                                                    <a href="#" class="description" id="aLetter">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="ProposalRowNoRecord" style="display: none;">
+                                <span>No Record Found </span>
+                            </div>
+                        </div>
+                        <!-- final detail report -->
+                        <div class="accordion accordion-flush" id="faqlist">
+                            <!-- Accordion Item 1 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#DPR-list" aria-expanded="true">
+                                        Proposal Submission
+                                    </button>
+                                </h2>
+                                <div id="DPR-list" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                    <div class="accordion-body">
+                                        <div class="card ">
+                                            <div class="card-body">
+                                                <div class="DPReport__text">
+                                                    <h5> Detailed Progress Report (DPR)  </h5>
+                                                </div>
+                                                <div class="DPReport__details">
+                                                    <div class="row" id="DPRRow" style="display: none;">
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  DPR Prepared By :  </label>
+                                                            <div class="description">
+                                                                <span id="DPRPrepared">  </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  DPR Submitted / Approved Date :  </label>
+                                                            <div class="description">
+                                                                <span id="DPRSubmittedon">  </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  LOA Letter No. :  </label>
+                                                            <div class="description">
+                                                                <span id="DPRLOANo">  </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  LOA Letter Date :  </label>
+                                                            <div class="description">
+                                                                <span id="DPRLOADate">  </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">   Work duration (In days) :  </label>
+                                                            <div class="description">
+                                                                <span id="DPRwork">  </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  LOA Letter :  </label>
+                                                            <div class="d-block">
+                                                                <a href="#" class="description" id="DPRLOADoc">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+                                                                @*<span class="text-secondary border-start ps-3 ms-3">  254 kb </span>*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  Presentation PPT :  </label>
+                                                            <div class="d-block">
+                                                                <a href="#" class="description" id="DPRppt">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+                                                                @*<span class="text-secondary border-start ps-3 ms-3">  254 kb </span>*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  PDF of Estimation and DPR :  </label>
+                                                            <div class="d-block">
+                                                                <a href="#" class="description" id="DPRestimation">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  Map Layout  :  </label>
+                                                            <div class="d-block">
+                                                                <a href="#" class="description" id="DPRMap">  <i class="bi bi-file-earmark-pdf pe-1 text-danger"> </i> </a>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                            <label class="mb-1">  Design Layout :  </label>
+                                                            <div class="d-block">
+                                                                <a href="#" class="description" id="DPRDesign">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" id="DPRRowNoRecord" style="display: none;">
+                                                        <span>No Record Found </span>
+                                                    </div>
+                                                </div>
+                                                <div class="DPReport__text">
+                                                    <h5> Project site information  </h5>
+                                                </div>
+                                                <div class="fdreport__details">
+                                                    <div class="table-responsive" id="Projectsiterow">
+                                                        <table class="table table-striped" id="projectSitesTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="50"> Sl# </th>
+                                                                    <th width="140"> Construction Area <br> (In Sq. Mtr) </th>
+                                                                    <th width="370"> Address </th>
+                                                                    <th width="180"> Documents </th>
+                                                                </tr>
+                                                            </thead>
+
+                                                        </table>
+                                                    </div>
+                                                    <div class="row" id="ProjectSiteRowNoRecord" style="display: none;">
+                                                        <span>No Record Found </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Accordion Item 1 -->
+                            <!-- Accordion Item 2 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#DPR-list2" aria-expanded="false">
+                                        Technical Approval Details
+                                    </button>
+                                </h2>
+                                <div id="DPR-list2" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                                    <div class="accordion-body ">
+                                        <div class="card ">
+                                            <div class="card-body" id="taDetails">
+
+                                                <div class="row mt-3">
+
+
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  TA Letter No :  </label>
+                                                        <div class="description">
+                                                            <span id="TaletterNo"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  TA Letter Date :  </label>
+                                                        <div class="description">
+                                                            <span id="TaletterDate"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Signed TA Letter :  </label>
+                                                        <div class="d-block">
+                                                            <a href="#" class="description" id="SignedLetter">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+                                                            <span class="text-secondary border-start ps-3 ms-3"> </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Estimated Cost :  </label>
+                                                        <div class="description">
+                                                            <i class="bi bi-currency-rupee"></i> <span id="TaEstimatedcost"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  TA Approved By :  </label>
+                                                        <div class="description">
+                                                            <span id="TaApprovedBy"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Nazri Map :  </label>
+                                                        <div class="d-block">
+                                                            <a href="#" class="description" id="TaNazariMap">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Design Drawing :  </label>
+                                                        <div class="d-block">
+                                                            <a href="#" class="description" id="TADesign">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+                                                            <span class="text-secondary border-start ps-3 ms-3">  10 mb </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Other Document :  </label>
+                                                        <div class="d-block">
+                                                            <a href="#" class="description" id="TAOtherDoc">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i>  </a>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Created By :  </label>
+                                                        <div class="description">
+                                                            <span id="TaCreatedBy"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Created :  </label>
+                                                        <div class="description">
+                                                            <span id="TaCreatedOn"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Remarks :  </label>
+                                                        <div class="d-block">
+                                                            <p> <span id="TaRemark"></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" id="TARowNoRecord" style="display: none;">
+                                                <span>No Record Found </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Accordion Item 2 -->
+                            <!-- Accordion Item 2 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#AA-list" aria-expanded="false">
+                                        Administrative Approval Details
+                                    </button>
+                                </h2>
+                                <div id="AA-list" class="accordion-collapse collapse " aria-labelledby="headingThree" >
+                                    <div class="accordion-body ">
+                                        <div class="card ">
+                                            <div class="card-body">
+                                                @*<h6><span id="aaProposalSubjet"></span>  </h6>*@
+                                                <div class="row mt-3" id="AAProposalDetails">
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  AA Letter No :  </label>
+                                                        <div class="description">
+                                                            <span id="aaLetterNo"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  AA Letter Date :  </label>
+                                                        <div class="description">
+                                                            <span id="aaLetterDate"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Scheme Name :  </label>
+                                                        <div class="description">
+                                                            <span id="aaSchemeName"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Signed AA Letter :  </label>
+                                                        <div class="d-block">
+                                                            <a href="#" class="description" target="_blank" id="fileAALetterPath">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Other Document :  </label>
+                                                        <div class="d-block">
+                                                            <a href="#" class="description" target="_blank" id="fileAAOtherfilePath">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Created By :  </label>
+                                                        <div class="description">
+                                                            <span id="aaCreatedBy"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Created :  </label>
+                                                        <div class="description">
+                                                            <span id="aaCreatedOn"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3 mb-xl-4 mb-lg-4 mb-md-4">
+                                                        <label class="mb-1">  Remarks :  </label>
+                                                        <div class="d-block">
+                                                            <span id="aaRemarks"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-4">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped m-0" id="tblAAProjectDetails">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="30"> Sl# </th>
+                                                                        <th width="100"> Project part </th>
+                                                                        <th width="320"> Description </th>
+                                                                        <th width="100"> Amount </th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" id="AARowNoRecord" style="display: none;">
+                                                    <span>No Record Found </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Accordion Item 2 -->
+                        </div>
+                    </div>
+
+                    <!-- take action  -->
+                    <div class="col-xxl-4 col-xl-4 col-lg-12 col-md-12 col-12">
+                        <h5 class="mb-3">Take Action</h5>
+                        <div class="card take__action">
+                            <div class="card-body">
+                                <ul class="nav nav-pills mb-4" id="actionTabs" role="tablist">
+                                    <li class="nav-item d-flex justify-content-between w-100">
+                                        <a class="nav-link active" id="divapprove" >
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio" id="acceptRadio" value="3" checked>
+                                                <label for="acceptRadio" class="m-0" id="4"> Approve </label>
+                                            </div>
+                                        </a>
+                                        <a class="nav-link">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio" value="4" id="rejectRadio">
+                                                <label for="rejectRadio" class="m-0"> Reject </label>
+                                            </div>
+                                        </a>
+                                        <a class="nav-link">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio" value="2" id="revertRadio">
+                                                <label for="revertRadio" class="m-0"> Revert </label>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="details__action">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12" id="divUpload">
+                                        <label> Upload Document <span class="text-danger"> * </span></label>
+                                        <div class="form-group">
+                                            <div class="custom__fileupload">
+                                                <input type="file" class="form-control" id="flpUpload">
+                                                <label>  <span> Browse  </span> </label>
+                                            </div>
+                                            <small class="text-danger text-end mt-2 d-block fs-8"> (.pdf file only and max. file size up to 10 MB) </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Remarks Section -->
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                                        <label> Remarks <span class="text-danger"> * </span></label>
+                                        <div class="form-group">
+                                            <textarea class="form-control LengthRemarks" rows="4" cols="4" id="txtRemarks" maxlength="200"
+                                                      onchange="RemoveWhiteSpace(this);" onkeypress="lettersDigitValidate(event)"
+                                                      name="remarks" targetid="MaxSize"></textarea>
+                                            <small class="text-danger d-block text-end mt-2">
+                                                Maximum <span id="txtchar"><strong id="MaxSize">200</strong></span> characters allowed
+                                            </small>
+                                        </div>
+                                       
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="lg__btn col-xl-12 col-lg-12 col-12">
+                                    <button type="button" class="btn btn-light-danger me-3" id="btnReset" onclick="resetform();"> Reset </button>
+                                    <button type="button" class="btn btn-primary" id="btnSubmit"> Submit </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- take action  -->
+                    </div>
+
+</div>
+<!-- final detail report -->
+    </div>
+</div>
+</form>
+
+
+<script>
+    function resetform() {
+        if ($('#btnReset').text() == "Reset") {
+            $("#form1").validate().resetForm();
+            $("#Remarks").val('');
+
+            $("#form1").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form1").find(".error").removeClass("error");
+            $('.LengthRemarks').trigger('blur');
+        }
+
+    }
+
+    $(document).ready(function () {
+        function updateCharCount(textArea) {
+            debugger;
+            var maxLength = $(textArea).attr("maxlength"); // Get maxlength from textarea
+            var currentLength = $(textArea).val().length; // Current text length
+            var remaining = maxLength - currentLength; // Remaining characters
+
+            var spanId = $(textArea).attr("targetid"); // Get target span ID
+            $('#' + spanId).text(remaining); // Update the count in the span
+
+            if (remaining < 0) {
+                Swal.fire({
+                    title: 'You have reached your maximum limit of characters allowed.',
+                    text: '',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+                $('#' + spanId).text(0); // Set to 0 when limit is exceeded
+            }
+        }
+
+        // Keyup event to update character count in real-time
+        $(document).on('keyup', '.LengthRemarks', function () {
+            debugger;
+            updateCharCount(this);
+        });
+
+        // Blur event to validate character count when user leaves the textarea
+        $(document).on('blur', '.LengthRemarks', function () {
+            debugger;
+            updateCharCount(this);
+        });
+        $("#divUpload").hide();
+
+
+
+        $("input[type='radio']").click(function () {
+            // Hide all sections
+            $("#acceptId").hide();
+            $("#actionId").hide();
+            $("#revertId").hide();
+
+            // Show the relevant section based on the active radio button
+            if ($("#acceptRadio").is(":checked")) {
+                $("#divUpload").hide();
+            } else if ($("#rejectRadio").is(":checked")) {
+                $("#divUpload").show();
+            } else if ($("#revertRadio").is(":checked")) {
+                $("#divUpload").show();
+            }
+        });
+    });
+</script>
+
+<script>
+    var tabs = document.querySelectorAll('.nav-link');
+    tabs.forEach(function (tab) {
+        tab.addEventListener('shown.bs.tab', function (event) {
+            document.querySelectorAll('input[type="radio"]').forEach(function (radio) {
+                radio.checked = false;
+            });
+            if (event.target.getAttribute('href') === "#acceptTab") {
+                document.getElementById('acceptRadio').checked = true;
+            } else if (event.target.getAttribute('href') === "#rejectTab") {
+                document.getElementById('rejectRadio').checked = true;
+            } else if (event.target.getAttribute('href') === "#revertTab") {
+                document.getElementById('revertRadio').checked = true;
+            }
+        });
+    });
+</script>
+<script src="~/js/forms/encryptdecrypt.js"></script>
+<script>
+    $(document).ready(function () {
+        debugger;
+        $.validator.addMethod("filesize", function (value, element, param) {
+            return this.optional(element) || (element.files[0].size <= param);
+        }, "File size must be less than 10MB");
+        $("#form1").validate({
+
+            rules: {
+                flpUpload: {
+                    required: function () {
+                        return $("input[name='radio']:checked").val() != "3" && !$("#flpUpload").val().trim();
+                    },
+                    extension: "pdf",
+                    filesize: 10 * 1024 * 1024 // 10MB in bytes
+                },
+                txtRemarks: {
+                    required: true
+                }
+            },
+            messages: {
+                flpUpload: {
+                    required: "Please upload a document",
+                    extension: "Only PDF files are allowed",
+                    filesize: "File size must be less than 10MB"
+                },
+                txtRemarks: {
+                    required: "Please enter remarks"
+                }
+            },
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element.closest(".form-group"));
+            },
+            highlight: function (element) {
+                $(element).removeClass("is-valid");
+                $(element).parent().addClass("error");
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass("error");
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid");
+            }
+        });
+
+        function getUrlVars() {
+            debugger;
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["Id"];
+        var Moduleid = getUrlVars()["Moduleid"];
+        if (id != undefined || id != null) {
+            $("#hdnProposalid").val(decryptData(id));
+        }
+        if (Moduleid != undefined || Moduleid != null) {
+            $("#hdnModuleid").val(decryptData(Moduleid));
+        }
+
+        GetDetails();
+    });
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+    function GetDetails() {
+        debugger;
+        var url = '@Url.Action("GetActionPageDetails", "TakeAction")' + "?Id=" + encodeURIComponent($('#hdnProposalid').val());
+
+        $("#ProposalRowNoRecord").hide();
+        $("#Proposalrow").hide();
+        $("#DPRRowNoRecord").hide(); 
+        $("#divapprove").hide();
+
+        $("#DPRRow").hide();
+        $("#TARowNoRecord").hide();
+        $("#taDetails").hide();
+        $("#Projectsiterow").hide();
+        $("#ProjectSiteRowNoRecord").hide();
+        $("#AARowNoRecord").hide();
+        var moduleId = $("#hdnModuleid").val();
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url, // Use constructed URL
+                success: function (response) {
+                    if (response.success) {
+                        var data1 = response.data;
+                        console.log(data1);
+                        if (!data1.proposal)
+                            $("#ProposalRowNoRecord").show();
+                        else {
+                            $("#Proposalrow").show();
+
+                            $("#ProposalletterNo").text(data1.proposal.proposalLetterNo);
+                            $("#ProposalletterDate").text(data1.proposal.letterDate);
+
+                            $("#PropososalSubject").text(data1.proposal.proposalSubject);
+                            $("#Proposalcategory").text(data1.proposal.proposalcategory);
+                            $("#PropososalsubCategory").text(data1.proposal.proposalsubcategory);
+                            $("#PropososalClient").text(data1.proposal.proposalSubmittedBy);
+                            $("#PropososerName").text(data1.proposal.proposerName);
+
+                            $("#PropososerDistrict").text(data1.proposal.district);
+                            $('#PropososalRemark').text(data1.proposal.remarks);
+                            $('#PropososerCreatedBy').text(data1.proposal.createdBy);
+                            $('#PropososerCreatedOn').text(data1.proposal.createdon);
+                            $('#aLetter')
+                                .attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.proposal.tAletterPath) + '&foldername=ProposalLetter')
+                                .show();
+                            debugger;
+                            if (!data1.dpr) {
+                                $("#DPRRowNoRecord").show();
+                            } else {
+
+                                $("#DPRRow").show();
+                                $('#DPRPrepared').text(data1.dpr.preparedBy);
+                                $('#DPRSubmittedon').text(data1.dpr.submittedOn);
+                                $('#DPRLOANo').text(data1.dpr.loaNo);
+                                $('#DPRLOADate').text(data1.dpr.loaDate);
+                                $('#DPRwork').text(data1.dpr.workduration);
+
+
+
+                                $('#DPRLOADoc').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.dpr.loaLetterPath) + '&foldername=ProposalLetter')
+                                    .show();
+
+                                $('#DPRppt').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.dpr.pptPath) + '&foldername=ProposalLetter')
+                                    .show();
+                                $('#DPRestimation').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.dpr.DPRPath) + '&foldername=ProposalLetter')
+                                    .show();
+                                $('#DPRMap').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.dpr.mapPath) + '&foldername=ProposalLetter')
+                                    .show();
+                                $('#DPRDesign').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.dpr.designLayout) + '&foldername=ProposalLetter')
+                                    .show();
+                                
+                                if (!data1.projectSite)
+
+                                    $("#ProjectSiteRowNoRecord").show();
+                                else {
+                                    $("#Projectsiterow").show();
+
+                                    updateTable(data1.projectSite);
+                                }
+                                if (!data1.tAdata) {
+                                    $("#TARowNoRecord").show();
+                                    $("#divUpload").show();
+                                    $("#rejectRadio").prop("checked", true);
+
+                                } else {
+                                    $("#taDetails").show();
+                                    $('#TaletterNo').text(data1.tAdata.taletterno);
+                                    $('#TaletterDate').text(data1.tAdata.taletterdate);
+                                    $('#SignedLetter').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.tAdata.taletterpath) + '&foldername=TALetter')
+                                        .show();
+
+                                    $('#TaEstimatedcost').text(data1.tAdata.estimattedcost);
+                                    $('#TaApprovedBy').text(data1.tAdata.taapprovedby);
+                                    $('#TaNazariMap').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.tAdata.nazarimap) + '&foldername=TANazari')
+                                        .show();
+                                    $('#TADesign').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.tAdata.drawingpath) + '&foldername=TADesign')
+                                        .show();
+                                    $('#TAOtherDoc').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.tAdata.otherdocpath) + '&foldername=TAOtherDoc')
+                                        .show();
+                                    $('#TaCreatedBy').text(data1.tAdata.createdby);
+                                    $('#TaCreatedOn').text(data1.tAdata.createdon);
+                                    $('#TaRemark').text(data1.tAdata.taremarks);
+                                    if (moduleId == 2) {
+                                        $("#divapprove").show();
+                                    }
+                                }
+
+                            }
+
+                            if (!data1.aAdata) {
+                                $("#AARowNoRecord").show(); 
+                                $("#AAProposalDetails").hide(); 
+                            } else {
+                                $('#aaProposalSubjet').text(data1.proposal.proposalSubject);
+                                $('#aaLocation').text(data1.proposal.district);
+                                $('#aaCreatedBy').text(data1.aAdata.aaCreatedBy);
+                                $('#aaCreatedOn').text(data1.aAdata.createdon);
+                                $('#aaLetterDate').text(data1.aAdata.aaLetterDate);
+                                $('#aaLetterNo').text(data1.aAdata.aaLetterNo);
+                                $('#aaSchemeName').text(data1.aAdata.aaSchemeName);
+                                $('#fileAALetterPath').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.aAdata.aaLetterPath) + '&foldername=AAGeneratedLetter')
+                                $('#fileAAOtherfilePath').attr('href', '@Url.Action("DownloadPdf", "TakeAction")?fileName=' + encodeURIComponent(data1.aAdata.aaOtherDocuemntPath) + '&foldername=AAOtherDocument')
+                                $('#aaRemarks').text(data1.aAdata.aaRemarks);
+
+                                var rows1 = '';
+                                $('#tblAAProjectDetails tbody').empty();
+
+                                if (data1.aAdata.projectDetailsList && data1.aAdata.projectDetailsList.trim() !== '') {
+                                    var allrow = data1.aAdata.projectDetailsList.split("^");
+
+                                    for (var i = 0; i < allrow.length; i++) {
+                                        if (allrow[i].trim() !== '') {
+                                            var getcols1 = allrow[i].split("|");
+
+
+                                            var col1 = getcols1[1] ? getcols1[1] : '-';
+                                            var col2 = getcols1[2] ? getcols1[2] : '-';
+                                            var col3 = getcols1[3] ? getcols1[3] : '-';
+
+                                            rows1 += '<tr>';
+                                            rows1 += '<td>' + (i + 1) + '</td>';
+                                            rows1 += '<td>' + col1 + '</td>';
+                                            rows1 += '<td>' + col2 + '</td>';
+                                            rows1 += '<td>' + col3 + '</td>';
+
+                                            rows1 += '</tr>';
+                                        }
+                                    }
+                                }
+
+                                if (rows1) {
+                                    $('#tblAAProjectDetails tbody').append(rows1);
+                                    $('#tblAAProjectDetails').show();
+                                }
+                                else {
+                                    $('#tblAAProjectDetails').hide();
+                                }
+                                if (moduleId == 3) {
+                                    $("#divapprove").show();
+                                }
+                            }
+                        }
+
+
+                    } else {
+                        console.warn("No data found:", response.message);
+                        Swal.fire("","No data available for this Proposal ID.","error");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    alert("Failed to load details. Please try again.");
+                }
+            });
+
+
+
+    }
+    $("#btnSubmit").click(function (e) {
+        e.preventDefault();
+        debugger;
+        if (!$("#form1").valid()) {
+            return;
+        }
+
+        var proposalId = $("#hdnProposalid").val();
+        var moduleId = $("#hdnModuleid").val();
+
+        if (!proposalId || !moduleId) {
+            alert("Proposal ID or Module ID is missing.");
+            return;
+        }
+        var formData = new FormData();
+        formData.append("ProposalId", proposalId);
+        formData.append("ModuleId", moduleId);
+        formData.append("Status", $("input[name='radio']:checked").val());
+        formData.append("Remarks", $("#txtRemarks").val());
+        formData.append("docPath", "");
+        formData.append("CreatedBy", 0);
+
+        var fileInput = $("#flpUpload")[0].files[0];
+        if (fileInput) {
+            formData.append("IformFile", fileInput); // Ensure correct model property name
+        }
+
+        $.ajax({
+            url: "@Url.Action("SaveTakeAction", "TakeAction")",
+            type: "POST",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                Swal.fire({
+                    icon: result.sucess ? 'success' : 'error',
+                    title: result.responseText,
+                    text: result.responseMessage,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (moduleId == 3) {
+                             location.href = "@Url.Action("AdministrativeList", "AdministartiveApproval")";
+                        }
+                        else {
+                            location.href = "@Url.Action("TechnicalApproval", "TechnicalApproval")";
+                        }
+                    }
+                })
+            },
+            error: function (result) {
+                Swal.fire({
+                    icon: result.responseText,
+                    title: result.responseText,
+                    text: result.responseMessage,
+                });
+            },
+        });
+    });
+
+    function updateTable(projectSites) {
+        debugger;
+        let tbody = $("#projectSitesTable tbody");
+        tbody.empty(); // Clear existing table data
+
+        $.each(projectSites, function (index, site) {
+            let row = `
+                <tr>
+                    <td> ${index + 1} </td>
+                    <td> ${site.area} </td>
+                    <td>
+                        <div class="site__information">
+                            <p>${site.address}</p>
+                            <div class="khata__section">
+                                <div class="khata__list">
+                                    <small class="d-block text-secondary mb-1"> Latitude </small>
+                                    <p class="fw-500 m-0">${site.lattitude}</p>
+                                </div>
+                                <div class="khata__list">
+                                    <small class="d-block text-secondary mb-1"> Longitude </small>
+                                    <p class="fw-500 m-0">${site.longitude}</p>
+                                </div>
+                                <div class="khata__list">
+                                    <small class="d-block text-secondary mb-1"> Khata No </small>
+                                    <p class="fw-500 m-0">${site.khatano}</p>
+                                </div>
+                                <div class="khata__list">
+                                    <small class="d-block text-khesrano mb-1"> Khesara No. </small>
+                                    <p class="fw-500 m-0">${site.khesrano}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-2">
+
+                            <a             href="@Url.Action("DownloadPdf", "TakeAction")?fileName=${encodeURIComponent(site.nocpath)}&foldername=ProposalLetter"
+ class="bg__grey fs-7" title="NOC Document" target="_blank">
+                                <i class="bi bi-filetype-pdf pe-2 text-danger"></i> NOC Document
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <p class="d-block text-secondary mb-2"> Other Documents </p>
+                            <div class=" d-flex align-items-center gap-2 mb-2">
+                                <div class="d-flex align-items-center">
+                                    ${generateDocumentLinks(site.docpath)}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>`;
+            tbody.append(row);
+        });
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+
+    function generateDocumentLinks(documents) {
+        if (typeof documents === "string") {
+            documents = documents.split(",").map(doc => doc.trim()); // Convert string to array
+        }
+
+        if (!Array.isArray(documents)) {
+            console.error("Expected an array but got:", documents);
+            return ''; // Return empty string if documents is not an array
+        }
+
+       let visibleDocs = documents.slice(0, 3);
+    let hiddenDocs = documents.slice(3);
+    let collapseId = "collapseDocs" + Math.random().toString(36).substr(2, 5); // Unique ID for collapse
+
+    let visibleLinks = visibleDocs.map(doc =>
+        `<a href="@Url.Action("DownloadPdf", "TakeAction")?fileName=${encodeURIComponent(doc)}&foldername=ProposalLetter"
+            target="_blank" data-bs-toggle="tooltip" title="View">
+            <i class="bi bi-file-earmark-pdf me-2 text-danger"></i>
+        </a>`
+    ).join("");
+
+    let hiddenLinks = hiddenDocs.map(doc =>
+        `<a href="@Url.Action("DownloadPdf", "TakeAction")?fileName=${encodeURIComponent(doc)}&foldername=ProposalLetter"
+            target="_blank" data-bs-toggle="tooltip" title="View">
+            <i class="bi bi-file-earmark-pdf me-2 text-danger"></i>
+        </a>`
+    ).join("");
+
+        return `
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="d-flex align-items-center">
+                ${visibleLinks}
+                ${hiddenDocs.length > 0 ? `<a href="#" class="text-primary" data-bs-toggle="collapse" data-bs-target="#${collapseId}" title="+${hiddenDocs.length} More"> +${hiddenDocs.length} More </a>` : ""}
+            </div>
+        </div>
+        ${hiddenDocs.length > 0 ? `<div class="collapse" id="${collapseId}">${hiddenLinks}</div>` : ""}
+    `;
+    }
+    function RemoveWhiteSpace(e) {
+        debugger;
+        //alert(e);
+        e.value = $.trim(e.value);
+    }
+    function lettersDigitValidate(event) {
+        var keyCode = event.which || event.keyCode;
+
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            // If not allowed, prevent the default action (key press)
+            event.preventDefault();
+        }
+    }
+
+    @*document.getElementById("submitBtn").addEventListener("click", function () {
+        var htmlContent = $("#divletter").prop('outerHTML');
+        debugger;
+        var proposalId = $("#hdnProposalid").val();
+        let dynamicMsg;
+        dynamicMsg = "Generate";
+        //}
+        Swal.fire({
+            title: 'Are you sure to Generate Letter?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GeneratePDF", "TechnicalApproval")",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: JSON.stringify({ proposalId: proposalId, htmlContent: htmlContent }),
+                    contentType: "application/json",
+                    success: function (result) {
+                        Swal.fire({
+                            icon: result.sucess ? 'success' : 'error',
+                            title: result.responseText,
+                            text: result.responseMessage,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = "@Url.Action("TechnicalApproval", "TechnicalApproval")";
+                            }
+                        })
+                    },
+                    error: function (result) {
+                        Swal.fire({
+                            icon: result.responseText,
+                            title: result.responseText,
+                            text: result.responseMessage,
+                        });
+                    },
+                });
+
+            }
+            return false;
+        })
+
+
+
+    });*@
+
+</script>

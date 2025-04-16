@@ -1,0 +1,279 @@
+﻿
+@using BUIDCo_ePMS.Model.Entities.CreateProject
+@model List<ProjectViewEF>
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#!" title="Home"> Constructions Steps </a></li>
+                <li class="breadcrumb-item active" title="Create Project" aria-current="page"> Create Project </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" onclick="window.location='CreateProjectAdd'">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+
+           
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table-responsive">
+                <table class="table table-striped datatable" id="basic-2">
+                    <thead>
+                        <tr>
+                            <th width="5%"> Sl# </th>
+                            <th width="12%"> Proposal Details </th>
+                            <th width="40%"> Project Details </th>
+                            <th width="12%"> Execution Mode </th>
+                            <th width="14%"> Amount </th>
+                            <th width="10%"> Project Stage </th>
+                            <th width="10%"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var count = 0;
+                            foreach (var project in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td> @count </td>
+                                    <td>
+                                        <div class="badge bg-yellow">
+                                            <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> @project.ProposalLetterNo </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-2">
+                                            <small class="text-secondary d-block">Submitted By : </small>
+                                            <p class="m-0"> @project.ProposalSubmittedBy </p>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                            <small class="text-secondary d-block"> Proposed By : </small>
+                                            <p class="m-0"> @project.ProposalProposedBy</p>
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="table__body__text">
+                                            <div class="row mb-2">
+
+                                                <div class="col-xl-8 col-12 d-flex align-items-center column-gap-4 mb-2 flex-wrap">
+                                                    <a href="#" class="fw-600 text-primary" title="Download Document">
+                                                        @project.ProjectCode
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-xl-4 col-12 text-start text-xl-end">
+                                                    <div class="text-secondary"><i class="text-light-primary buidcoicon-calendar-day me-2"></i> @project.ProjectSubmittedDate </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="content">
+                                                <p>
+                                                    @project.ProjectSubject
+                                                </p>
+                                            </div>
+
+
+                                            <div class="row">
+
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 border-end ">
+
+                                                    <div class="d-block">
+                                                        <small class="text-secondary"> Construction Area (Sq. Mtr) : </small>
+                                                        <p class="m-0"> @project.AreaOfConstruction </p>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-3">
+
+                                                    <div class="d-block">
+                                                        <small class="text-secondary"> Length (Mtr.) : </small>
+                                                        <p class="m-0"> @project.Length </p>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+                                        Department
+                                    </td>
+
+                                    <td>
+                                        <div class="description mb-3">
+                                            <small class="text-secondary d-block"> Sanctioned Amount    </small>
+                                            <div>   ₹ @project.SanctionedAmount </div>
+                                        </div>
+
+                                        <div class="description">
+                                            <small class="text-secondary d-block"> Revised Amount    </small>
+                                            <div class="fw-600">   ₹ @project.RevisedAmount </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        <div class="badge badge-primary">
+                                            @project.ProjectStage
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="table__icon">
+
+                                            <a class="text-primary" href="javascript:void(0);" onclick="EditProject(@project.ProjectId);" title="Edit" data-bs-toggle="tooltip">
+                                                <i class="buidcoicon-edit"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteProject(@project.ProjectId)" ;" title="Delete" data-bs-toggle="tooltip">
+
+                                                <i class="buidcoicon-trash text-orange "></i>
+                                            </a>
+                                            
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+
+                            }
+                        }
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- inner body section -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+
+
+
+
+
+</div>
+<script>
+ /*   $(document).ready(function () {*/
+
+ var editProjectUrl = "@Url.Action("CreateProjectAdd", "CreateProject")";
+    function DeleteProject(value) {
+
+         var formData = new FormData();
+
+         // Append text fields
+        formData.append("ProjectId", value || 0);
+
+         let dynamicMsg;
+             dynamicMsg = "Delete";
+         //}
+         Swal.fire({
+             title: 'Are you sure?',
+             text: "You won't be able to revert this!",
+             icon: 'warning',
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+         }).then((result) => {
+             if (result.isConfirmed) {
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("DELETE_PROJECT_Details", "CreateProject")",
+                     beforeSend: function (xhr) {
+                         xhr.setRequestHeader("XSRF-TOKEN",
+                             $('input:hidden[name="__RequestVerificationToken"]').val());
+                     },
+                 data: formData,
+                     contentType: false,
+                     processData: false,
+                     success: function (result) {
+                         Swal.fire({
+                             icon: result.sucess ? 'success' : 'error',
+                             title: result.responseText,
+                             text: result.responseMessage,
+                         }).then((result) => {
+                             if (result.isConfirmed) {
+                                 location.href = "@Url.Action("CreateProjectView", "CreateProject")";
+                             }
+                         })
+                     },
+                     error: function (result) {
+                         Swal.fire({
+                             icon: result.responseText,
+                             title: result.responseText,
+                             text: result.responseMessage,
+                         });
+                     },
+                 });
+
+             }
+             return false;
+         })
+
+
+ }
+    function EditProject(value) {
+        var projectId = value;
+        let dynamicMsg = "Edit";
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Use string concatenation to pass projectId in URL
+                window.location.href = editProjectUrl + "?id=" + projectId;
+            }
+        });
+    }
+
+
+   /* });*/
+</script>
+

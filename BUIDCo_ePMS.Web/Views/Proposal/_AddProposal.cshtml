@@ -1,0 +1,160 @@
+﻿
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">
+            <i class="bi bi-plus-circle me-1"></i> Add Proposal Letter
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="formaddproposal" autocomplete="off" enctype="multipart/form-data">
+            <input type="hidden" id="hdnproposalid" value="0" />
+            <div class="row">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlfyyear"> Financial Year <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlfyyear" name="ddlfyyear" class="form-select">
+                            <option value="0" selected>Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlclient"> Proposal Submitted By <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlclient" name="ddlclient" class="form-select">
+                            <option value="0" selected>Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="txtProposeName"> Proposer Name <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <input id="txtProposeName" name="txtProposeName" type="text" class="form-control" maxlength="100" onkeypress="lettersDigitValidate(event)">
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlcategory"> Category <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlcategory" name="ddlcategory" class="form-select">
+                            <option value="0" selected>Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlsubcategory"> Sub-Category <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlsubcategory" name="ddlsubcategory" class="form-select">
+                            <option value="0" selected>Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                    <label for="ddlprojecttype"> Project Type <span class="text-danger"> * </span></label>
+                    <div class="form-group">
+                        <select id="ddlprojecttype" name="ddlprojecttype" class="form-select" onkeypress="lettersDigitValidate(event)">
+                            <option value="0" selected>Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    <h5 class="mb-3 mt-3 heading-color"> Location Details </h5>
+                    <div class="row">
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label for="ddldistrict"> District <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <select id="ddldistrict" name="ddldistrict" class="form-select">
+                                    <option value="0" selected>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label for="ddldirectorname"> Project Director Name <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <select id="ddldirectorname" name="ddldirectorname" class="form-select">
+                                    <option value="0" selected> Select </option>
+                                    <option> Alok Mishra </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label for="ddlblock"> Urban Local Body (ULB) <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <select id="ddlblock" name="ddlblock" class="form-select">
+                                    <option value="0" selected>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12">
+                    <h5 class="mb-3 mt-3 heading-color"> Letter Details </h5>
+                    <div class="row">
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label for="txtletternumber"> Proposal Letter Number <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <input id="txtletternumber" name="txtletternumber" type="text" class="form-control" placeholder="Letter No.." maxlength="100" onkeypress="lettersNumberValidate(event)">
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label for="proposalDate"> Proposal Date <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="proposalDate" name="proposalDate" class="form-control" placeholder="DD-MM-YYYY"
+                                           aria-describedby="basic-addon2">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <i class="buidcoicon-calendar-day"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label for="fuproposalletter"> Upload Proposal Letter <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+
+                                <div class="custom__fileupload">
+                                    <input id="fuproposalletter" name="fuproposalletter" type="file" class="form-control">
+                                    <label for="fuproposalletter">  <span> Browse  </span> </label>
+                                </div>
+                                <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                                    (.pdf only and max. file size upto
+                                    10mb)
+                                </small>
+                                <a id="aletterDocPath" style="display:none" href="#" data-bs-toggle="tooltip" class="text-secondary" title="Download Document"><i class="bi bi-filetype-pdf text-danger"></i> Download</a>
+                                <input type="hidden" id="hdnletterDocPath" />
+                            </div>
+
+
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
+                            <label for="txtsubject"> Subject <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <textarea id="txtsubject" name="txtsubject" class="form-control LengthRemarks" cols="4" rows="4" onkeypress="lettersDigitValidate(event)" maxlength="1000" data-targetid="MaxSizeSubject"></textarea>
+                                <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                                    Maximum <span><strong id="MaxSizeSubject">1000</strong></span> characters allowed
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
+                            <label for="txtremark"> Remark <span class="text-danger"> * </span></label>
+                            <div class="form-group">
+                                <textarea id="txtremark" name="txtremark" class="form-control LengthRemarks" cols="4" rows="4" onkeypress="lettersDigitValidate(event)" maxlength="200" data-targetid="MaxSizeRemark"></textarea>
+                                <small class="text-end text-danger mt-2 d-block w-100 fs-8">
+                                    Maximum <span><strong id="MaxSizeRemark">200</strong></span> characters allowed
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer lg__btn  justify-content-start">
+        <button id="btnproposalreset" type="button" class="btn btn-light-danger me-3" onclick="resetaddproposal(this)"> Reset </button>
+        <button id="btnproposalsubmit" type="button" class="btn btn-primary" onclick="SaveProposalLetter()"> Submit </button>
+    </div>
+</div>
+
+
+

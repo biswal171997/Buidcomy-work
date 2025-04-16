@@ -1,0 +1,765 @@
+﻿
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Master"> Master   </a></li>
+                <li class="breadcrumb-item active" title="Project Type" aria-current="page"> Banner  </li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" onclick="AddBanner()">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" title="Delete" data-bs-toggle="tooltip" onclick="DeleteBanner()"> <i class="bi bi-trash"></i> </button>
+
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table__fixed">
+                <div class="table-responsive border">
+                    <table id="tbl" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">
+                                    <div class="form-check">
+                                        <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault_">
+                                    </div>
+                                </th>
+                                <th style="display:none"></th>
+                                <th style="width: 5%"> Sl# </th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Active From</th>
+                                <th>Active To</th>
+
+                                <th style="width: 5%"> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add project type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProposal" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Add Banner </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjectType">Title<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <input type="text" id="Title" name="Title" class="form-control">
+                                        <input id="hdnbannerid" type="hidden" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjecttype"> Start Date  <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+
+                                        <input type="date" id="StartDate" name="StartDate" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjecttype"> End Date  <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+
+                                        <input type="date" id="EndDate" name="EndDate" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjecttype"> Description  <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+
+                                        <textarea id="Description" name="Description" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjecttype"> Choose Photo  <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+
+                                        <input type="file" accept="image/png, image/jpeg, image/gif" class="form-control" onchange="checkFileSize()" id="ImageUrl" name="ImageUrl">
+                                    </div>
+                                </div>
+                            </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer lg__btn border-0 justify-content-start">
+                    <button type="button" class="btn btn-light-danger me-3" onclick="reset()" id="DynamicButton">Reset</button>
+                    <button type="button" class="btn btn-primary" id="subaddData" onclick="SaveBanner()"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModelRemark" tabindex="-1" aria-labelledby="serviceProviderModalLabel" aria-hidden="true">
+    <div class="modal-dialog None">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceProviderModalLabel">Give Remark</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="addLeadForm">
+                    <div class="row">
+                        <!-- Rating Stars -->
+                       
+
+                        <!-- Feedback Text Area -->
+                        <div class="col-12 mb-3  text-center">
+                           
+
+                            <textarea class="form-control" id="txtremarks" rows="4" placeholder="Write your remarks here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+
+                <button type="button" id="submitFeedback" class="btn btn-primary" onclick="ApproveBanner()">Submit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#splayoutheader').text('Banner');
+          $('.form-control').bind('copy paste cut', function (e) {
+            e.preventDefault();
+
+
+        });
+        GetBanner();
+       /* GetprojectHead();*/
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["strid"];
+        if (id != undefined || id != null) {
+            EditBanner(decryptData(id));
+        }
+
+    });
+
+    $(".checkbox").change(function () {
+        var isChecked = $(this).prop("checked");
+        $(".checkbox").prop("checked", $(this).prop("checked"));
+    });
+
+    $('#tblbody').on('change', '.checkbox', function () {
+        const totalCheckboxes = $('.checkbox:visible:not(#flexCheckDefault_)').length;
+        const checkedCheckboxes = $('.checkbox:checked:visible:not(#flexCheckDefault_)').length;
+        // Update the header checkbox based on selection
+        $('#flexCheckDefault_').prop('checked', totalCheckboxes === checkedCheckboxes);
+    });
+
+
+
+
+
+    //------Description Count Start---
+    $(document).ready(function () {
+        // Function to update the character count
+        function updateCharCount(textArea) {
+            var maxLength = $(textArea).attr("maxlength"); // Get maxlength from textarea
+            var currentLength = $(textArea).val().length; // Current text length
+            var remaining = maxLength - currentLength; // Remaining characters
+
+            var spanId = $(textArea).attr("targetid"); // Get target span ID
+            $('#' + spanId).text(remaining); // Update the count in the span
+
+            if (remaining < 0) {
+                swal("","You have reached your maximum limit of characters allowed.","error");
+                $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+                $('#' + spanId).text(0); // Set to 0 when limit is exceeded
+            }
+        }
+
+        // Keyup event to update character count in real-time
+        $(document).on('keyup', '.LengthRemarks', function () {
+            updateCharCount(this);
+        });
+
+        // Blur event to validate character count when user leaves the textarea
+        $(document).on('blur', '.LengthRemarks', function () {
+            updateCharCount(this);
+        });
+    });
+    ///////-----Description Count End---
+
+    function lettersDigitValidate(event) {
+         var keyCode = event.which || event.keyCode;
+
+         // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+         var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+             .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+             .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+             .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+         // Check if the pressed key is allowed
+         if (allowedKeyCodes.indexOf(keyCode) === -1) {
+             // If not allowed, prevent the default action (key press)
+             event.preventDefault();
+         }
+     }
+
+     function Allowalphabate(event) {
+         var keyCode = event.which || event.keyCode;
+         // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+         var allowedKeyCodes =
+          //   [...Array(10).keys()].map(i => i + 48) // 0-9
+             [...Array(26).keys()].map(i => i + 65) // A-Z
+             .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+             .concat([32]); // ., ,, :, -, (, ), \, / space
+         // Check if the pressed key is allowed
+         if (allowedKeyCodes.indexOf(keyCode) === -1) {
+             // If not allowed, prevent the default action (key press)
+             event.preventDefault();
+         }
+     }
+
+    function RemoveWhiteSpace(e) {
+        debugger;
+        //alert(e);
+        e.value = $.trim(e.value);
+    }
+    function encryptData(data) {
+        // Convert the integer data to a string
+        var dataString = String(data);
+
+        // Encrypt the data using CryptoJS
+        var encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data: dataString }), 'secret_key').toString();
+
+        return encryptedData;
+    }
+
+
+    function GetBanner() {
+
+        $.ajax({
+            type: 'Get',
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            data: {},
+            url: "@Url.Action("Get_Document", "Master")",
+            success: function (result) {
+                var data1 = JSON.parse(result);
+                if (data1.length > 0) {
+                    $('#tbl.tbody').empty();
+                    $.each(data1, function (i, data) {
+
+
+
+
+                            var encryptedID = encryptData(data.BannerId);
+                            var trows = "<tr id='tr_" + data.BannerId + "'>";
+                            trows = trows + "<td><div class='form-check'><input class='form-check-input checkbox' type='checkbox' value='' id='flexCheckDefault_" + data.BannerId + "'></div></td>";
+                            trows = trows + "<td style='display:none'>" + data.BannerId + "</td>";
+                            trows = trows + "<td>" + (i + 1) + "</td>";
+                            trows += "<td>" + data.Title + "</td>";
+                            trows += "<td>" + data.ImageDescription + "</td>";
+                            trows += "<td>" + data.ActiveFrom + "</td>";
+                            trows += "<td>" + data.ActiveTo + "</td>";
+
+
+                        if (data.Approve_Status == 0) {
+                            /*trows = trows + "<td><button type='button' class='btn btn-outline-primary btn-sm' onclick='ApproveBanner(" + data.Id + ")' title='Approve'>To Approve</button></td>";*/
+
+                            trows = trows + "<td><button type='button' class='btn btn-outline-primary btn-sm' onclick='SetBannerId(" + data.Id + ")' title='Approve'><span class='dir-button' data-bs-toggle='modal' data-bs-target='#ModelRemark'>" +
+                                "<i class='fa fa-star-o' style='color: rgb(226, 93, 116);'></i> Approve" +
+                                "</span></button></td>";
+
+                            trows = trows + "</tr>";
+                        }
+                        else {
+                            trows = trows + `<td><span style="color:green">Approved</span>`;
+                            trows = trows + "</tr>";
+                        }
+                        $('#tbl').append(trows);
+                    });
+                }
+            },
+            error: function (Message) {
+                swal("", Message , "error");
+            }
+        });
+    }
+    var bannerId = 0;
+    function SetBannerId(id) {
+        bannerId = id;
+    }
+    // Helper function to get a query parameter by name
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    function ApproveBanner() {
+        debugger;
+        // Retrieve the 'Plink' value from the URL query string
+        var plinkValue = getParameterByName('Plink');
+
+         let banner = {
+             Id: bannerId,
+             Plink: plinkValue,
+             remarks: $("#txtremarks").val()
+         };
+
+         Swal.fire({
+             title: 'Are you sure?',
+             text: "You won't be able to revert this!",
+             icon: 'warning',
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'Yes, Approve it!'
+         }).then((result) => {
+             if (result.isConfirmed) {
+
+
+
+                 $.ajax({
+                     type: "POST",
+                     dataType: "json",
+                     url: "@Url.Action("ApproveDocument", "Master")",
+                     contentType: "application/json",
+                     data: JSON.stringify(banner),
+                     success: function (response) {
+
+                         if (response.success) {
+                             Swal.fire(
+                                 'Approved!',
+                                 response.responseMessage,
+                                 'success'
+                             ).then((result) => {
+                                 if (result.isConfirmed) {
+                                     location.href = "@Url.Action("AddDocument", "Master")";
+                                 }
+                             });
+                         }
+                         else {
+                              Swal.fire(
+                                 'Fails!',
+                                 response.responseMessage,
+                                 'error'
+                             ).then((result) => {
+                                 if (result.isConfirmed) {
+                                     location.href = "@Url.Action("AddDocument", "Master")";
+                                 }
+                             });
+                         }
+
+
+                  }
+
+                 });
+
+             }
+             return false;
+         })
+
+
+ }
+
+    function DeleteBanner() {
+        debugger
+        if ($(".form-check-input:checked").length === 0) {
+            Swal.fire({
+                title: 'Please Select at least one checkbox.',
+                text: '',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var ids = '';
+
+                        var checkLength = $(".form-check-input:checked").length;
+
+                    var arrIds = [];
+                        if (checkLength > 0)
+                        {
+                            $(".form-check-input:checked").each(function () {
+                                let chkId = $(this).attr("id");
+
+                                let rowNo = chkId.split('_')[1];
+                                arrIds.push(rowNo)
+                               let rowId = 'tr_' + rowNo;
+                            });
+                           ids= arrIds.toString()
+                        }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "@Url.Action("DeleteDocument", "Master")",
+                        data: { "Id": ids },
+                        success: function (response) {
+                         console.log("Response:", response);
+                         Swal.fire(
+            'Deleted!',
+                             response.responseMessage,
+                             response.responseText
+        ).then((result) => {
+                             if (result.isConfirmed) {
+                                        location.href = "@Url.Action("AddDocument", "Master")";
+                                       }
+                         });
+                     }
+
+                    });
+
+                }
+                return false;
+            })
+        }
+
+    }
+    function checkFileSize() {
+        const fileInput = document.getElementById('ImageUrl');
+        const file = fileInput.files[0];
+
+        if (file) {
+            // Allowed MIME types
+            const validTypes = ['image/png', 'image/jpeg', 'image/gif'];
+            const validExtensions = ['.png', '.jpg', '.jpeg', '.gif']; // Allowed extensions
+
+            // Check MIME type
+            if (!validTypes.includes(file.type)) {
+                //alert('Please select a valid image file (PNG, JPEG, GIF).');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select a valid image file (PNG, JPEG, GIF).'
+                });
+                fileInput.value = ''; // Clear input
+                return; // Exit function if invalid MIME type
+            }
+
+            // Check file extension
+            const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
+            if (!validExtensions.includes(`.${fileExtension}`)) {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select a file with a valid extension (.png, .jpg, .jpeg, .gif).'
+                });
+                fileInput.value = ''; // Clear input
+                return; // Exit function if invalid extension
+            }
+
+            // File size validation
+            const fileSize = file.size / 1024 / 1024; // Convert size to MB
+            const minSize = 0.1; // Minimum size in MB
+            const maxSize = 10; // Maximum size in MB
+
+            if (fileSize < minSize) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: `The file is too small. Minimum size is ${minSize}MB.`
+                });
+                //alert(`The file is too small. Minimum size is ${minSize}MB.`);
+                fileInput.value = ''; // Clear input
+            } else if (fileSize > maxSize) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: `The file is too large. Maximum size is ${maxSize}MB.`
+                });
+                // alert(`The file is too large. Maximum size is ${maxSize}MB.`);
+                fileInput.value = ''; // Clear input
+            }
+        }
+    }
+    function validate() {
+
+
+
+
+        if ($('#Title').val() == "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `Please enter Title!`
+            });
+            $('#Title').focus();
+            return false;
+        }
+        else if ($('#StartDate').val() == "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `Please Set StartDate!`
+            });
+            $('#StartDate').focus();
+            return false;
+        }
+        else if (new Date($('#StartDate').val()) < new Date().setHours(0, 0, 0, 0)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `Start Date cannot be before the current date!`
+            });
+
+            $('#StartDate').focus();
+            return false;
+        }
+        else if ($('#EndDate').val() == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `Please Set EndDate!`
+            });
+
+            $('#EndDate').focus();
+            return false;
+        }
+
+        else if (new Date($('#EndDate').val()) < new Date().setHours(0, 0, 0, 0)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `End Date cannot be before the current date!`
+            });
+
+            $('#EndDate').focus();
+            return false;
+        }
+        else if (new Date($('#StartDate').val()) > new Date($('#EndDate').val())) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `Start Date cannot be later than End Date!`
+            });
+
+            $('#StartDate').focus();
+            return false;
+        }
+        else if ($('#Description').val() == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: `Please Write Descrption!`
+            });
+
+
+            $('#Description').focus();
+            return false;
+        }
+        if ($('#hdnbannerid').val() == 0) {
+            if ($('#ImageUrl').val() == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: `Please Select Photo!`
+                });
+
+
+                $('#ImageUrl').focus();
+                return false;
+            }
+            return true;
+        }
+
+        else {
+            return true;
+        }
+
+    }
+    function SaveBanner() {
+        if (validate()) {
+     var userId = $('#userid').val();
+
+
+     var fileData = new FormData();
+     fileData.append("Id", $('#hdnbannerid').val());
+     fileData.append("Title", $('#Title').val());
+     fileData.append("ImageDescription", $('#Description').val());
+     fileData.append("ActiveFrom", $('#StartDate').val());
+     fileData.append("ActiveTo", $('#EndDate').val());
+     fileData.append("Plink", getParameterByName('Plink'));
+           
+
+     var files = $("#ImageUrl").prop("files");
+     if (files.length > 0) {
+         fileData.append("ImageFile", files[0]);
+     }
+
+     $.ajax({
+         type: "POST",
+       //  url: "../Master/AddDocument",
+         url: '@Url.Action("AddDocument", "Master")',
+
+         data: fileData,
+         contentType: false,
+         processData: false,
+         success: function (res) {
+
+
+             Swal.fire({
+                 icon: 'Success',
+                 title: 'Success',
+                 text: res.responseMessage
+             }).then(() => {
+                 // Redirect to another page after the alert is closed
+                 window.location.href = "@Url.Action("AddDocument", "Master")";
+             });
+         },
+         failure: function (response) {
+             console.log(response.responseText);
+         },
+         error: function (response) {
+             console.log(response.responseText);
+         }
+     });
+ }
+    }
+
+
+
+
+    function EditBanner(id) {
+        debugger;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("GetDocumentByID", "Master")',
+            data: { "Id": id },
+            success: function (Result) {
+                debugger
+                console.log(Result)
+                var data1 = JSON.parse(Result);
+                $("#hdnBannerId").val(data1.BannerId);
+               // $('#SchemeName').val(data1.SchemeName);
+                $('#BannerName').val(data1.BannerName);
+                $('#BannerDesc').val(data1.BannerDesc);
+
+                $("#BannerName").addClass("is-valid");
+                $("#BannerDesc").addClass("is-valid");
+                $("#form").validate().resetForm();
+
+                $('.LengthRemarks').trigger('blur');
+                $("#addProposal").modal("show");
+                $('#subaddData').text('Update');
+                $('#DynamicButton').text('Cancel');
+            },
+            error: function (Message) {
+                swal("",Message,"error");
+                console.log(Result)
+            }
+        });
+    }
+
+    function AddBanner() {
+        reset();
+        $("#hdnBannerId").val('');
+        $('#SchemeName').val('');
+        $('#BannertDesc').val('');
+        $('.LengthRemarks').trigger('blur');
+        //RemoveHeightLight();
+        $("#addProposal").modal("show");
+        $('#subaddData').text('Submit');
+        $('#DynamicButton').text('Reset')
+
+    }
+    function reset() {
+        if ($('#DynamicButton').text() == "Reset") {
+            $('#BannerName').val('');
+            $('#BannerDesc').val('');
+            $("#form").validate().resetForm();
+            // Remove validation classes
+            $("#form").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form").find(".error").removeClass("error");
+            $("#form")[0].reset();
+            $('.LengthRemarks').trigger('blur');
+        }
+        else {
+            $("#addProposal").modal("hide");
+            $("#form").validate().resetForm();
+            // Remove validation classes
+            $("#form").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form").find(".error").removeClass("error");
+            $('#BannerName').val('');
+            $('#BannerDesc').val('');
+        }
+    }
+
+
+    function RemoveHeightLight() {
+        $('.LengthRemarks').trigger('blur');
+        //$("#BannerName").removeClass("is-invalid");
+        //$("#BannerName").removeClass("is-valid");
+        //$("#BannerDesc").removeClass("is-invalid");
+        //$("#BannerDesc").removeClass("is-valid");
+        //$("#form").validate().resetForm();
+       // $("#form").find(".error").remove();
+        //$("#form").find(".is-invalid").removeClass("is-invalid");
+    }
+
+</script>

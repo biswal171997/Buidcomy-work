@@ -1,0 +1,146 @@
+﻿@{
+ViewData["Title"] = "ForgotPass";
+Layout = "~/Views/LoginLayout/_Layout1.cshtml";
+}
+<div class="login__wrapp">
+   <div class="login-bottom"></div>
+   <div class="login__content">
+      <div class="log__body ">
+         <div class="left__wrap">
+            <img src="~/images/buiding_login.jpg" alt="" class="img-fluid">
+         </div>
+         <div class="right__wrap wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+            <div class="login__box">
+               <div class="login__logo">
+                  <img src="~/images/logo.png" class="Logo">
+                  <div class="d-block">
+                     <h4>
+                        Project Monitoring & Finance
+                        <span class="d-block"> Management System </span>
+                     </h4>
+                     <small class="d-block"> Bihar Urban Infrastructure Development Corporation </small>
+                  </div>
+               </div>
+
+               <div class="forgot__txt">
+                  Forgot Password
+               </div>
+
+
+               <!-- login form details -->
+<form autocomplete="off" id="loginForm">
+    <p>Enter registered User ID or Mobile No.</p>
+    <div class="form-group">
+        <div class="input-group">
+            <input class="input-group__input" type="text" placeholder="&nbsp;" name="username" id="userName" autocomplete="off" required />
+            <label class="input-group__label" for="userName">Enter Here..</label>
+        </div>
+    </div>
+    <div class="row mt-0 mt-xl-4 mt-md-4 mt-sm-4">
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
+            <button type="submit" class="btn btn-primary login__btn" data-bs-toggle="modal" data-bs-target="#otpForgot" id="getOtpBtn">Get OTP</button>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6 text-end pt-3">
+            <a href="UserLogin" title="Back to Login"> <i class="bi bi-arrow-left me-2"></i> Back to Login </a>
+        </div>
+    </div>
+</form>
+<!-- login form details -->
+
+
+
+             
+
+<!-- password set -->
+<form autocomplete="off" id="passwordSet" style="display:none;">
+    <div class="form-group">
+        <div class="input-group login__icon">
+            <input class="input-group__input" type="password" placeholder="&nbsp;" name="password" id="userPassword" autocomplete="off" required />
+            <label class="input-group__label" for="userPassword">New Password</label>
+            <div class="captcha__icon">
+                <a href="javascript:void(0);" title="View" id="passwordView">
+                    <i class="bi bi-eye-slash"></i>
+                    <i class="bi bi-eye" style="display:none;"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group login__icon">
+            <input class="input-group__input" type="password" placeholder="&nbsp;" name="password" id="userPasswordConfirm" autocomplete="off" required />
+            <label class="input-group__label" for="userPasswordConfirm">Confirm Password</label>
+            <div class="captcha__icon">
+                <a href="javascript:void(0);" title="View" id="passwordView">
+                    <i class="bi bi-eye-slash"></i>
+                    <i class="bi bi-eye" style="display:none;"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-0 mt-xl-4 mt-md-4 mt-sm-4">
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6">
+            <button type="submit" class="btn btn-primary login__btn" id="passReset">Submit</button>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-6 text-end pt-3">
+            <a href="UserLogin" title="Back to Login"> <i class="bi bi-arrow-left me-2"></i> Back to Login </a>
+        </div>
+    </div>
+</form>
+<!-- password set -->
+
+
+
+            </div>
+         </div>
+      </div>
+
+
+<!-- OTP verify Modal -->
+<div class="modal fade" id="otpForgot" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Verify Phone No.</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off">
+                    <div class="form-row align-items-center">
+                        <div class="row">
+                            <label class="mt-2 text-center" for="txtOtp">Please Enter one time password <br> to verify your account <span class="text-danger">*</span></label>
+                            <div class="form-group otp-form">
+                                <input type="text" class="otp-input" maxlength="1" id="otp1" oninput="moveToNext(1)">
+                                <input type="text" class="otp-input" maxlength="1" id="otp2" oninput="moveToNext(2)">
+                                <input type="text" class="otp-input" maxlength="1" id="otp3" oninput="moveToNext(3)">
+                                <input type="text" class="otp-input" maxlength="1" id="otp4" oninput="moveToNext(4)">
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-12 text-center" id="show-resend" style="display: none;">
+                            <small class="text-secondary d-block">Didn't get Code yet?</small>
+                            <a href="#" class="Resend OTP" id="resendOtpBtn">Resend OTP</a>
+                        </div>
+
+                        <div class="col-12 text-center" id="timer">
+                              <div> <span class="text-danger fw-600 me-2">09:42</span> Seconds...</div>
+                        </div>
+
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <div class="col-xl-12 text-center lg__btn">
+                    <button type="button" class="btn btn-primary me-2" title="Verify" onclick="verifyOtp()">Verify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- OTP verify Modal -->
+
+
+   </div>
+</div>

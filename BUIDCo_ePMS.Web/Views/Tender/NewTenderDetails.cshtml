@@ -1,0 +1,812 @@
+﻿
+@{
+    ViewData["Title"] = "New Tender Details";
+}
+<div class="modal fade right custom-view-modal-medium" id="addCorrigendum" tabindex="-1">
+    <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+        @Html.Partial("_AddTenderCorrigendum.cshtml")
+    </div>
+</div>
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#!" title="Tender"> Tender </a></li>
+                <li class="breadcrumb-item active" title="New tender" aria-current="page"> New tender </li>
+            </ul>
+        </nav>
+        @*<div class="col-right">
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>*@
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg table__body__text">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-12 mb-3 mb-xl-0 mb-lg-0 mb-md-0">
+                            <h5 class="mb-3"> letter Details  </h5>
+                            <div class="badge bg-yellow">
+                                <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> <span class="clsletterNo"></span> </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-2">
+                                <small class="text-secondary d-block"> Submitted By : </small>
+                                <p class="m-0"> Department </p>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                <small class="text-secondary d-block"> Proposed By : </small>
+                                <p class="m-0"> <span class="clsproposedBy"></span> </p>
+                            </div>
+                        </div>
+                        <div class="col-xxl-7 col-xl-7 col-lg-6 col-md-9 col-12 mb-3 mb-xl-0 mb-lg-0 mb-md-0">
+                            <h5 class="mb-3"> Project Details  </h5>
+                            <div class="mb-1">
+                                <a href="#" class="fw-600 text-primary">
+                                    <span class="clsprojectcode"></span>
+                                </a>
+                            </div>
+                            <p class="clsprojectName">
+
+                            </p>
+                            <div class="row">
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group border-right">
+                                        <small class="mb-1 text-secondary">  Construction Area (Sq. Mtr)  </small>
+                                        <div class="description">
+                                            <span class="clscontractArea"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group border-right">
+                                        <small class="mb-1 text-secondary">  Length (Mtr.):  </small>
+                                        <div class="description">
+                                            <span class="clsength"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <small class="mb-1 text-secondary">  Estimated Amount </small>
+                                        <div class="description">
+                                            <span class="clsestimatedamt"></span>
+                                            @*₹ 7,99,300*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mb-3 mb-xl-0 mb-lg-0 mb-md-0">
+                            <h5 class="mb-3"> Tender Details  </h5>
+                            <div class="row mt-2 mb-3">
+                                <div class="col-xl-6 col-md-6 col-6 border-end">
+                                    <small class="text-secondary"> Opening </small>
+                                    <p class="m-0 clsOpening"></p>
+                                </div>
+                                <div class="col-xl-6 col-md-6 col-6">
+                                    <small class="text-secondary"> Last Submission </small>
+                                    <p class="m-0 clssubmissionDate"> </p>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <a href="#" class="description nitfile">  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> Document.pdf </a>
+                                <span class="text-secondary border-start ps-3 ms-3">  254 kb </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="faqlist">
+                <!-- Accordion Item 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#corrigenList" aria-expanded="true">
+                            Corrigendum  <span class="badge badge-primary fw-600 corrigendumCount">0 </span>
+                        </button>
+                    </h2>
+                    <div id="corrigenList" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                        <div class="accordion-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-4">
+                                        <div class="accordion" id="accordionCorrigendum">
+                                            <div class="table-responsive ">
+                                                <table class="table m-0 border" id="tbl_corrigendum">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="30"> Sl# </th>
+                                                            <th width="200"> Date of Corrigendum </th>
+                                                            <th width="300"> Approved by </th>
+                                                            <th width="100"> Document </th>
+                                                            <th width="80"> Action </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!--<tr>
+                        <td class="table-bottom"> 1 </td>
+                        <td class="table-bottom"> 05-Jun-2024 </td>
+                        <td class="table-bottom">  EE </td>
+                        <td class="table-bottom">
+                            <small class="text-secondary"> Document : </small>
+                            <a href="#!" data-bs-toggle="tooltip" aria-label="Download" data-bs-original-title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i> </a>
+                        </td>
+                        <td class="table-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="table__icon">
+                                    <a class="text-primary" href="#!" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="buidcoicon-edit"></i>
+                                    </a>
+                                    <a href="#!" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="buidcoicon-delete text-danger"></i>
+                                    </a>
+                                </div>
+                                <div class="circle__arrow">
+                                    <a href="#showCorrigen" title="Show" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="showCorrigen">-->
+                                                        <!-- Down Arrow (initially visible) -->
+                                                        <!--<i class="bi bi-chevron-down"></i>-->
+                                                        <!-- Up Arrow (initially hidden) -->
+                                                        <!--<i class="bi bi-chevron-up" style="display: none;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>-->
+                                                        <!-- Collapsible content -->
+                                                        <!--<tr class="collapse border" id="showCorrigen">
+                        <td colspan="5" class="table-bottom">
+                            <div class="collapse__table">
+                                <table class="w-100 table  m-0 border">
+                                    <thead>
+                                        <tr>
+                                            <th width="6%">Sl #</th>
+                                            <th width="20%">Reference Number of RFP/NIT</th>
+                                            <th width="70%">Description of Charges</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1.1</td>
+                                            <td>Last date and time for receipt (Upload) of bids</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>1.2</td>
+                                            <td>Last date and time for receipt (Upload) of bids</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>1.3</td>
+                                            <td>Last date and time for receipt (Upload) of bids</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>1.4</td>
+                                            <td>Last date and time for receipt (Upload) of bids</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>-->
+                                                        <!-- Collapsible content -->
+                                                        <!--<tr>
+                        <td class="table-bottom"> 2 </td>
+                        <td class="table-bottom"> 05-Jun-2024 </td>
+                        <td class="table-bottom">  EE </td>
+                        <td class="table-bottom">
+                            <small class="text-secondary"> Document : </small>
+                            <a href="#!" data-bs-toggle="tooltip" aria-label="Download" data-bs-original-title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i> </a>
+                        </td>
+                        <td class="table-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="table__icon">
+                                    <a class="text-primary" href="#!" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="buidcoicon-edit"></i>
+                                    </a>
+                                    <a href="#!" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="buidcoicon-delete text-danger"></i>
+                                    </a>
+                                </div>
+                                <div class="circle__arrow">
+                                    <a href="#showCorrigen" title="Show" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="showCorrigen">-->
+                                                        <!-- Down Arrow (initially visible) -->
+                                                        <!--<i class="bi bi-chevron-down"></i>-->
+                                                        <!-- Up Arrow (initially hidden) -->
+                                                        <!--<i class="bi bi-chevron-up" style="display: none;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-bottom"> 3 </td>
+                        <td class="table-bottom"> 05-Jun-2024 </td>
+                        <td class="table-bottom">  EE </td>
+                        <td class="table-bottom">
+                            <small class="text-secondary"> Document : </small>
+                            <a href="#!" data-bs-toggle="tooltip" aria-label="Download" data-bs-original-title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i> </a>
+                        </td>
+                        <td class="table-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="table__icon">
+                                    <a class="text-primary" href="#!" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="buidcoicon-edit"></i>
+                                    </a>
+                                    <a href="#!" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="buidcoicon-delete text-danger"></i>
+                                    </a>
+                                </div>
+                                <div class="circle__arrow">
+                                    <a href="#showCorrigen" title="Show" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="showCorrigen">-->
+                                                        <!-- Down Arrow (initially visible) -->
+                                                        <!--<i class="bi bi-chevron-down"></i>-->
+                                                        <!-- Up Arrow (initially hidden) -->
+                                                        <!--<i class="bi bi-chevron-up" style="display: none;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>-->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion Item 1 -->
+                <!-- Accordion Item 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#corrigenList2" aria-expanded="false">
+                            Addendum  <span class="badge badge-primary fw-600 addendumCount"> 0</span>
+                        </button>
+                    </h2>
+                    <div id="corrigenList2" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                        <div class="accordion-body ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-4">
+                                        <div class="accordion" id="accordionAddendum">
+                                            <div class="table-responsive ">
+                                                <table class="table m-0 border" id="tbl_addendum">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="30"> Sl# </th>
+                                                            <th width="200"> Date of Addendum </th>
+                                                            <th width="300"> Approved by </th>
+                                                            <th width="100"> Document </th>
+                                                            <th width="80"> Action </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion Item 2 -->
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+</div>
+<input type="hidden" id="hdnApprovedById" />
+<input type="hidden" id="hdncorrendum_List" />
+<input type="hidden" id="hdncorrigendumId" />
+
+<script>
+    $(document).ready(function(){
+        var id = getUrlVars()["tenderid"];
+        //alert(id);
+        ViewProjectTenderCorrigendum(id);
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-M-yy'
+        }).on('keydown', function (event) {
+            event.preventDefault();
+        });
+    });
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = decodeURIComponent(value);
+        });
+        return vars;
+    }
+     function ViewProjectTenderCorrigendum(ele) {
+     debugger
+     $.ajax({
+         type: 'Get',
+    url: "@Url.Action("ViewProjectTenderCorrigendum", "Tender")" + "?tenderId=" + ele,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function (result) {
+        debugger
+        // console.log(result[0]);
+
+        $('.clsletterNo').text(result[0].letterNo);
+        $('.clsproposedBy').text(result[0].clientName);
+        $(".clsprojectcode").text(result[0].projectCode);
+        $('.clsprojectName').text(result[0].projectName);
+        $('.clscontractArea').text(result[0].constructionArea);
+        $('.clsength').text(result[0].length);
+        $(".clsestimatedamt").text("₹" + result[0].emdAmount);
+        $(".clsOpening").text(result[0].openingDate);
+        $('.clssubmissionDate').text(result[0].submissionDate);
+        $('.corrigendumCount').text(result[0].corrigendumCount);
+        $('.addendumCount').text(result[0].addendumCount);
+        $('.nitfile').attr("href", "DownloadPdf?fileName=" + result[0].nitDocFileName)
+            .html('<i class="bi bi-file-earmark-pdf me-1 text-danger"></i> Document.pdf');
+
+
+        $(".projectNameID").parent().removeClass("error"); 
+        $(".projectNameID").removeClass("is-invalid").addClass("is-valid");
+        
+        $("#corriGendum").parent().removeClass("error");
+        $("#corriGendum").removeClass("is-invalid").addClass("is-valid"); 
+
+        $("#ApprovedById").parent().removeClass("error");
+        $("#ApprovedById").removeClass("is-invalid").addClass("is-valid"); 
+
+        $("#corrigendumFileName").parent().removeClass("error");
+        $("#corrigendumFileName").removeClass("is-invalid").addClass("is-valid"); 
+
+
+        var rows = '';
+        var rows1 = '';
+
+        $('#tbl_corrigendum tbody').html('');
+        $('#tbl_addendum tbody').html('');
+
+        if (result[0].corrigendumList != null) {
+            var allrow = result[0].corrigendumList.split("^");
+
+            var serialNo = 1;  // Counter for tbl_corrigendum
+            var serialNo1 = 1; // Counter for tbl_addendum
+
+            for (var i = 0; i < allrow.length; i++) {
+                if (allrow[i] != '') {
+                    var getcols1 = allrow[i].split("|");
+
+                    // Ensure required columns exist
+                    if (getcols1.length >= 5) {
+
+
+                        if (getcols1[1] == "1") {
+
+                            let actionButtons = '<tr class="collapse border" id="' + serialNo + '_' + "Corigendum" + '" data-bs-target="#' + serialNo + '_' + "Corigendum" + '" aria-expanded="false" data-bs-parent="#accordionCorrigendum"><td colspan="5" class="table-bottom"><div class="collapse__table"><table class="w-100 table  m-0 border" id="tbl_corrigendumdtls"><thead><tr><th width="6%">Sl #</th><th width="20%">Reference Number of RFP/NIT</th><th width="70%">Description of Charges</th></tr></thead><tbody></tbody></table></div></td></tr>';
+
+                            rows = '<tr>';
+                            rows += '<td>' + serialNo + '</td>';  // Add Serial No.
+                            rows += '<td>' + getcols1[2] + '</td>';
+                            rows += '<td>' + getcols1[3] + '</td>';
+                            rows += '<td><small class="text-secondary">Document : </small><a href = "@Url.Action("DownloadPdf", "Tender")?fileName=' + getcols1[4] +'" data - bs - toggle="tooltip" aria - label="Download" data - bs - original - title="Download" > <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i> </a ></td>';
+                            rows += '<td class="table-bottom"><div class="d-flex justify-content-between align-items-center"><div class="table__icon"><a class="text-primary" href="#!" data-bs-toggle="tooltip" aria-label="Edit" onclick="Edit_Corrigendum_Addendum(' + getcols1[0] + ')" data-bs-original-title="Edit"><i class="buidcoicon-edit"></i></a><a href="#!" onclick="DeleteCorrigendum_Addendum(' + getcols1[0] + ')" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i></a></div><div class="circle__arrow"><a href="#' + serialNo + '_' + "Corigendum" + '" onclick="GetCorrigendumDetails(' + getcols1[0] + ')" title="Show" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="' + serialNo + '_' + "Corigendum" + '" data-bs-target="#' + serialNo + '_' + "Corigendum" +'"><i class="bi bi-chevron-down"></i><i class="bi bi-chevron-up" style="display: none;"></i></a></div></div ></td >';
+                            rows += '</tr>';
+                            rows += actionButtons;
+
+                            $('#tbl_corrigendum tbody').append(rows);
+                            serialNo++;
+                        }
+                        else if (getcols1[1] == "2") {
+                            let actionButtons1 = '<tr class="collapse border" id="' + serialNo1 + '_' + "Addedum" + '" data-bs-parent="#accordionAddendum" aria-expanded="false" data-bs-target="#' + serialNo1 + '_' + "Addedum" + '"><td colspan="5" class="table-bottom"><div class="collapse__table"><table class="w-100 table  m-0 border" id="tbl_addendumdtls"><thead><tr><th width="6%">Sl #</th><th width="20%">Reference Number of RFP/NIT</th><th width="70%">Description of Charges</th></tr></thead><tbody></tbody></table></div></td></tr>';
+
+                            rows1 = '<tr>';
+                            rows1 += '<td>' + serialNo1 + '</td>';  // Add Serial No.
+                            rows1 += '<td>' + getcols1[2] + '</td>';
+                            rows1 += '<td>' + getcols1[3] + '</td>';
+                            rows1 += '<td><small class="text-secondary">Document : </small><a href = "@Url.Action("DownloadPdf", "Tender")?fileName=' + getcols1[4] +'" data - bs - toggle="tooltip" aria - label="Download" data - bs - original - title="Download" > <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i> </a ></td>';
+                            rows1 += '<td class="table-bottom"><div class="d-flex justify-content-between align-items-center"><div class="table__icon"><a class="text-primary" href="#!" data-bs-toggle="tooltip" aria-label="Edit" onclick="Edit_Corrigendum_Addendum(' + getcols1[0] +')" data-bs-original-title="Edit"><i class="buidcoicon-edit"></i></a><a href="#!" onclick="DeleteCorrigendum_Addendum(' + getcols1[0] + ')" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i></a></div><div class="circle__arrow"><a href="#' + serialNo1 + '_' +"Addedum"+'" onclick="GetAddendumDetails(' + getcols1[0] +')" title="Show" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="showCorrigen"><i class="bi bi-chevron-down"></i><i class="bi bi-chevron-up" style="display: none;"></i></a></div></div ></td >';
+                            rows1 += '</tr>';
+                            rows1 += actionButtons1;
+                            rows1 += '</tr>';
+
+                            $('#tbl_addendum tbody').append(rows1);
+                            serialNo1++;
+                        }
+                    }
+                }
+            }
+        }
+
+    },
+    error: function (Message) {
+        alert(Message);
+    }
+});
+ }
+    function GetCorrigendumDetails(ele) {
+        $.ajax({
+            type: 'Get',
+            url: "@Url.Action("GetCorrigendumDtls", "Tender")" + "?Id=" + ele,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (result) {
+                if (result.length > 0) {
+                    $('#tbl_corrigendumdtls tbody').empty();
+                    $.each(result, function (i, data) {
+                        var trows = "<tr>";
+                        trows += "<td>" + (i + 1) + "</td>";
+                        trows += "<td>" + data.refNo + "</td>";
+                        trows += "<td>" + data.description + "</td>";
+                        trows += "</tr>";
+
+                        $('#tbl_corrigendumdtls tbody').append(trows);
+                    });
+
+                } else {
+                    $('#tbl_corrigendumdtls tbody').empty();
+                    var trows = "<tr>";
+                    trows += "<td colspan='3' class='text-center'>Data Not Available</td>";
+                    trows += "</tr>";
+                    $('#tbl_corrigendumdtls tbody').append(trows);
+                }
+            }
+        });
+    }
+    function GetAddendumDetails(ele) {
+    $.ajax({
+        type: 'Get',
+        url: "@Url.Action("GetCorrigendumDtls", "Tender")" + "?Id=" + ele,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (result) {
+            if (result.length > 0) {
+                $('#tbl_addendumdtls tbody').empty();
+                $.each(result, function (i, data) {
+                    var trows = "<tr>";
+                    trows += "<td>" + (i + 1) + "</td>";
+                    trows += "<td>" + data.refNo + "</td>";
+                    trows += "<td>" + data.description + "</td>";
+                    trows += "</tr>";
+
+                    $('#tbl_addendumdtls tbody').append(trows);
+                });
+
+            } else {
+                $('#tbl_addendumdtls tbody').empty();
+                var trows = "<tr>";
+                trows += "<td colspan='3' class='text-center'>Data Not Available</td>";
+                trows += "</tr>";
+                $('#tbl_addendumdtls tbody').append(trows);
+            }
+        }
+    });
+}
+    function DeleteCorrigendum_Addendum(ids) {
+        debugger
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "@Url.Action("DeleteCorrigendum_Addendum", "Tender")",
+                        data: { "Id": ids },
+                        success: function (response) {
+                            debugger
+                            console.log("Response:", response);
+                            Swal.fire(
+                                'Deleted!',
+                                response.responseMessage,
+                                response.responseText
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("NewTenderView", "Tender")";
+                                }
+                            });
+                          }
+
+                    });
+                }
+                return false;
+            })
+    }
+
+    function Edit_Corrigendum_Addendum(ele) {
+        $.ajax({
+     type: 'Get',
+     url: "@Url.Action("EditCorrigendumAddendum", "Tender")" + "?Id=" + ele,
+     contentType: false,
+     processData: false,
+     dataType: "json",
+            success: function (data) {
+                if (data.corrigendumType == "1") {
+                    $('.dynamicheader').text("Add Corrigendum");
+                    $(".projectNameID").prop("readonly", true).css("cursor", "not-allowed");
+                    $('.Dynamiclabel').text("Date of Corrigendum");
+                    $('#hideshowcorrigendum').show();
+                    $('#hideshowAddendum').hide();
+                    $("#addenum").prop("checked", false).prop("disabled", true).css("cursor", "not-allowed");
+                    $("#corrigen").prop("checked", true);
+                    $('.projectNameID').val(data.projectName + "/" + data.projectCode);
+                    $('#hdnprojecttypeId').val(data.projectName);
+                    $('.Startdateid').text(data.createdOn);
+                    $('.projectDescId').text(data.projectName);
+                    $('.ConstrId').text(data.constructionArea);
+                    $('.LenthId').text(data.length);
+                    $('.Estimated').text("₹" + data.projectAmount);
+                    $('#corriGendum').val(data.corrigendumDate);
+                    $("#hdncorrigendumFileName").val(data.corrigendumFileName);
+                    $(".clsFileName").html('<a href="DownloadPdf?fileName=' + data.corrigendumFileName + '" data-bs-toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>Download</a>');
+                    $('#hdncorrigendumId').val(data.corrigendumId);
+                    GetUserName();
+                    $('#hdnApprovedById').val(data.approveBy).change();
+                    var rows1 = '';
+                    $('#tblcorrendum tbody').empty();
+
+                    if (data.corrigendumList && data.corrigendumList.trim() !== '') {
+                        var allrow = data.corrigendumList.split("^");
+
+                        for (var i = 0; i < allrow.length; i++) {
+                            if (allrow[i].trim() !== '') {
+                                var getcols1 = allrow[i].split("|");
+
+
+                                var col1 = getcols1[1] ? getcols1[1] : '-';
+                                var col2 = getcols1[2] ? getcols1[2] : '-';
+
+                                rows1 += '<tr>';
+                                rows1 += '<td>' + (i + 1) + '</td>';
+                                rows1 += '<td>' + col1 + '</td>';
+                                rows1 += '<td>' + col2 + '</td>';
+                                rows1 += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" title="Delete">'
+                                    + '<i class="buidcoicon-delete text-danger"></i></a></td>';
+                                rows1 += '</tr>';
+                            }
+                        }
+                    }
+
+                    if (rows1) {
+                        $('#tblcorrendum tbody').append(rows1);
+                    }
+                    $("#DynamicBtn").text("Cancel");
+                    $("#DynmicSavebtn").text("Update");
+                    $('#sectionAddCor').show();
+                    $('#addCorrigendum').modal('show');
+                } else if (data.corrigendumType == "2") {
+                    $('.dynamicheader').text("Add Addendum");
+                    $('.Dynamiclabel').text("Date of Addendum");
+                    $("#corrigen").prop("disabled", true).css("cursor", "not-allowed");
+                    $("#corrigen").prop("checked", false).prop("disabled", true).css("cursor", "not-allowed");
+                    $("#addenum").prop("checked", true);
+                    $('.projectNameID').val(data.projectName + "/" + data.projectCode);
+                    $('.Startdateid').text(data.createdOn);
+                    $('.projectDescId').text(data.projectName);
+                    $('.ConstrId').text(data.constructionArea);
+                    $('.LenthId').text(data.length);
+                    $('.Estimated').text("₹" + data.projectAmount);
+                    $('#corriGendum').val(data.corrigendumDate);
+                    $('#hdncorrigendumId').val(data.corrigendumId);
+                    GetUserName();
+                    $('#hdnApprovedById').val(data.approveBy).change();
+
+
+                    var rows1 = '';
+
+                    $('#tblcorrendum tbody').empty();
+
+                    if (data.corrigendumList && data.corrigendumList.trim() !== '') {
+                        var allrow = data.corrigendumList.split("^");
+
+                        for (var i = 0; i < allrow.length; i++) {
+                            if (allrow[i].trim() !== '') {
+                                var getcols1 = allrow[i].split("|");
+
+                                var col1 = getcols1[1] ? getcols1[1] : '-';
+                                var col2 = getcols1[2] ? getcols1[2] : '-';
+
+                                rows1 += '<tr>';
+                                rows1 += '<td>' + (i + 1) + '</td>';
+                                rows1 += '<td>' + col1 + '</td>';
+                                rows1 += '<td>' + col2 + '</td>';
+                                rows1 += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" title="Delete">'
+                                    + '<i class="buidcoicon-delete text-danger"></i></a></td>';
+                                rows1 += '</tr>';
+                            }
+                        }
+                    }
+                    if (rows1) {
+                        $('#tblcorrendum tbody').append(rows1);
+                    }
+                    $("#DynamicBtn").text("Cancel");
+                    $("#DynmicSavebtn").text("Update");
+                    $('#addCorrigendum').modal('show');
+                }
+     }
+ });
+}
+    function GetUserName() {
+      debugger
+      $.ajax({
+          type: 'Get',
+          dataType: 'Json',
+          contentType: 'application/json; charset=utf-8',
+          data: {},
+          url: "@Url.Action("GetUserName", "Tender")",
+          success: function (data) {
+              var data1 = JSON.parse(data);
+              debugger
+              $('#ApprovedById').html('');
+              $('#ApprovedById').append('<option value="">Select</option>');
+              $.each(data1, function (ind, item) {
+                  $('#ApprovedById').append('<option value="' + item.UserId + '">' + item.UserName + '</option>');
+              });
+              var approvedById = $('#hdnApprovedById').val();
+              if (approvedById && approvedById > 0) {
+                  $('#ApprovedById').val(approvedById).trigger('change');
+              }
+          }
+      });
+  }
+
+    function AddMoreRef() {
+        var rows = '';
+        var cont = 1;
+        let checkVal;
+        $('#tblcorrendum tbody tr').each(function (index) {
+            $(this).find('td:eq(0)').text(cont++);
+            var RefNo = $(this).find('td:eq(1)').text();
+            var DescofChange = $(this).find('td:eq(2)').text();
+            var referenceNumberId = $('#referenceNumberId').val();
+            var descchangeId = $('#descchangeId').val();
+            if (referenceNumberId == RefNo) {
+                checkVal = 1;
+                alert('Reference already exists!');
+            }
+            if (descchangeId == DescofChange) {
+                checkVal = 1;
+                alert('Description already exists!');
+            }
+
+        });
+        if (checkVal != 1) {
+            rows += '<tr>';
+            rows += '<td>' + cont++ + '</td>';
+            rows += '<td>' + $("#referenceNumberId").val() + '</td>';
+            rows += '<td>' + $("#descchangeId").val() + '</td>';
+            rows += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i ></a ></td>'
+            rows += '</tr>';
+            $('#tblcorrendum tbody').append(rows);
+            $('#tblcorrendum').show();
+            $("#referenceNumberId").val('');
+            $('#descchangeId').val('');
+        }
+    }
+    $(document).on("click", '.delete', function () {
+        let rowToDelete = $(this).closest('tr');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Remove it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                rowToDelete.remove();
+                $('#tblcorrendum tbody tr').each(function (i) {
+                    $(this).find('td:first').html(i + 1);
+                });
+                if ($('#tblcorrendum tbody tr').length == 0) {
+                    $("#tblcorrendum").hide();
+                    $("#referenceNumberId").val('');
+                    $('#descchangeId').val('');
+                }
+            }
+        });
+    });
+
+    function Save_PROJECT_TENDER_CORRIGENDUM() {
+        if ($("#formCorrigendum_Addendum").valid()) {
+        var tbody = $("#tblcorrendum tbody");
+        if (tbody.children().length != 0) {
+            var correndumList = '';
+            $('#tblcorrendum tbody tr').each(function (index) {
+                var referenceNo = $(this).find('td:eq(1)').text();
+                var Desc = $(this).find('td:eq(2)').text();
+                correndumList += referenceNo + '|' + Desc + '^';
+            });
+            if (correndumList != '') {
+                $('#hdncorrendum_List').val(correndumList);
+            }
+        }
+     let CorreigendumTypeId= $("input[name='corrigendumType']:checked").val();
+     var formData = new FormData();
+     var fileInput = $("#corrigendumFileName")[0].files[0];
+        formData.append("tenderId", $('#hdntenderId').val()||0);
+        formData.append("projectId", $('#hdnProjectId').val() || 0);
+        formData.append("approveBy", $('#ApprovedById').val() || 0);
+        formData.append("corrigendumType", CorreigendumTypeId);
+        formData.append("corrigendumDate", $("#corriGendum").val());
+            formData.append("corrigendumId", $("#hdncorrigendumId").val());
+        formData.append("CorrigendumList", $("#hdncorrendum_List").val());
+ if (fileInput) {
+     formData.append("corrigendumIfromFile", fileInput);
+ }
+    var projecttypeId = $('#hdnprojecttypeId').val() || null;
+    let dynamicMsg;
+    if (projecttypeId == 0) {
+         dynamicMsg = "Save";
+    } else {
+        dynamicMsg = "Update";
+    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, ' + dynamicMsg +' it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Save_PROJECT_TENDER_CORRIGENDUM", "Tender")",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (result) {
+                    Swal.fire({
+                        icon: result.sucess ? 'success' : 'error',
+                        title: result.responseText,
+                        text: result.responseMessage,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = "@Url.Action("NewTenderView", "Tender")";
+                        }
+                    })
+                },
+                error: function (result) {
+                    Swal.fire({
+                        icon: result.responseText,
+                        title: result.responseText,
+                        text: result.responseMessage,
+                    });
+                },
+            });
+
+        }
+        return false;
+    })
+}
+    }
+
+</script>

@@ -1,0 +1,328 @@
+﻿@{
+    ViewData["Title"] = "Particulars";
+}
+
+<div class="page-body">
+
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                 <li class="breadcrumb-item"><a href="#!" title="BOQ"> BOQ </a></li>
+                <li class="breadcrumb-item active" title="Particulars" aria-current="page"> Particulars </li>
+            </ul>
+        </nav>
+
+        <div class="col-right">
+
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addParticulars">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+
+             <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+
+            <button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+
+
+        <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table-responsive">
+                <table class="table table-striped" id="basic-2">
+                <thead>
+                    <tr>
+                        <th  width="4%"> Sl# </th>
+                        <th  width="35%"> Project Details </th>
+                        <th  width="12%" class="text-center"> Component </th>
+                        <th  width="13%" class="text-center"> Sub-Component </th>
+                        <th  width="12%" class="text-center"> Particulars </th>
+                        <th  width="12%"> BOQ Document </th>
+                        <th  width="14%"> Status </th>
+                        <th  width="12%"> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <tr>
+                        <td> 1 </td>
+                        <td>
+                            <div class="table__body__text">
+                            <div class="row">
+                                <div class="col-xl-6 col-6 d-flex column-gap-4 mb-2">
+                                    <a href="#" class="fw-600 text-primary">
+                                    23144877128239
+                                    </a>
+                                </div>
+                                <div class="col-xl-6 col-6 text-start text-xl-end">
+                                    <div class="badge bg-yellow">
+                                        <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> 212/23 </div>
+                                    </div>
+                                </div>
+                                <p>
+                                    Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram basahiya ram ward no16.
+                                </p>
+                            </div>
+                            
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#!" class="fw-600 text-primary mb-2" title="View">  05  </a>
+                            
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#" class="fw-600 text-primary mb-2" title="View">  03  </a>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#" class="fw-600 text-primary mb-2" title="View">  10  </a>
+                            </div>
+                        </td>
+
+                        <td>
+
+                        <div class="d-flex gap-2">
+                            <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                            <div>
+                                <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> Download </a>
+                                <small class="text-secondary d-block"> 214 kb  </small>
+                            </div>
+                            </div>
+                        
+                        </td>
+
+
+                        <td>
+                            <div class="badge badge-warning">
+                            Pending
+                            </div>
+                            <small class="text-secondary d-block mt-2"> at Technical Sanction Process  </small>
+                        </td>
+
+                        <td>
+                            <div class="table__icon">
+                            <a href="~/BOQ/ParticularsDetails" title="View" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-eye text-success "></i>
+                            </a>
+                            <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-edit"></i>
+                            </a>
+                            <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-trash text-orange "></i>
+                            </a>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                        <tr>
+                        <td> 2 </td>
+                        <td>
+                            <div class="table__body__text">
+                            <div class="row">
+                                <div class="col-xl-6 col-6 d-flex column-gap-4 mb-2">
+                                    <a href="#" class="fw-600 text-primary">
+                                    23144877128239
+                                    </a>
+                                </div>
+                                <div class="col-xl-6 col-6 text-start text-xl-end">
+                                    <div class="badge bg-yellow">
+                                        <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> 212/23 </div>
+                                    </div>
+                                </div>
+                                <p>
+                                    Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram basahiya ram ward no16.
+                                </p>
+                            </div>
+                            
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#!" class="fw-600 text-primary mb-2" title="View">  05  </a>
+                            
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#" class="fw-600 text-primary mb-2" title="View">  03  </a>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#" class="fw-600 text-primary mb-2" title="View">  10  </a>
+                            </div>
+                        </td>
+
+                        <td>
+
+                        <div class="d-flex gap-2">
+                            <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                            <div>
+                                <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> Download </a>
+                                <small class="text-secondary d-block"> 214 kb  </small>
+                            </div>
+                            </div>
+                        
+                        </td>
+
+
+                        <td>
+                            <div class="badge badge-warning">
+                            Pending
+                            </div>
+                            <small class="text-secondary d-block mt-2"> at Technical Sanction Process  </small>
+                        </td>
+
+                        <td>
+                            <div class="table__icon">
+                            <a href="~/BOQ/ParticularsDetails" title="View" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-eye text-success "></i>
+                            </a>
+                            <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-edit"></i>
+                            </a>
+                            <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-trash text-orange "></i>
+                            </a>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                        <tr>
+                        <td> 3 </td>
+                        <td>
+                            <div class="table__body__text">
+                            <div class="row">
+                                <div class="col-xl-6 col-6 d-flex column-gap-4 mb-2">
+                                    <a href="#" class="fw-600 text-primary">
+                                    23144877128239
+                                    </a>
+                                </div>
+                                <div class="col-xl-6 col-6 text-start text-xl-end">
+                                    <div class="badge bg-yellow">
+                                        <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> 212/23 </div>
+                                    </div>
+                                </div>
+                                <p>
+                                    Sheohar Prakhand ke mathurapur kahtarawa panchayat antragat gram basahiya ram ward no16.
+                                </p>
+                            </div>
+                            
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#!" class="fw-600 text-primary mb-2" title="View">  05  </a>
+                            
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#" class="fw-600 text-primary mb-2" title="View">  03  </a>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="text-center"> 
+                            <a href="#" class="fw-600 text-primary mb-2" title="View">  10  </a>
+                            </div>
+                        </td>
+
+                        <td>
+
+                        <div class="d-flex gap-2">
+                            <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                            <div>
+                                <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> Download </a>
+                                <small class="text-secondary d-block"> 214 kb  </small>
+                            </div>
+                            </div>
+                        
+                        </td>
+
+
+                        <td>
+                            <div class="badge badge-warning">
+                            Pending
+                            </div>
+                            <small class="text-secondary d-block mt-2"> at Technical Sanction Process  </small>
+                        </td>
+
+                        <td>
+                            <div class="table__icon">
+                            <a href="~/BOQ/ParticularsDetails" title="View" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-eye text-success "></i>
+                            </a>
+                            <a class="text-primary" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-edit"></i>
+                            </a>
+                            <a href="#!" title="Delete" data-bs-toggle="tooltip">
+                                <i class="buidcoicon-trash text-orange "></i>
+                            </a>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+
+
+<!-- search filter Modal -->
+        <div class="modal fade right custom-view-modal-medium" id="searchFilter">
+            <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+            </div>
+        </div>
+        <!-- search filter Modal -->
+
+    <!-- add component type Modal -->
+        <div class="modal fade right custom-view-modal-medium" id="addParticulars">
+        <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+            @Html.Partial("_BoqAddParticulars.cshtml")
+            </div>
+        </div>
+    <!-- add component type Modal -->
+
+
+    
+
+
+</div>

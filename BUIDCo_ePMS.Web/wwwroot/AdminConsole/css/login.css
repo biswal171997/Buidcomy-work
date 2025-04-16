@@ -1,0 +1,55 @@
+﻿@charset "UTF-8";
+/* Scss variable  Created By Bikash on 21-Jan-2019 */
+@import url("variables");
+@import url("mixins");
+/* GRADIENT LISTS
+============================================= */
+/* GRADIENT LISTS
+============================================= */
+@font-face {
+  font-family: "Font-Light";
+  src: url("../fonts/Helvetica.eot");
+  src: url("../fonts/Helvetica.eot?#iefix") format("embedded-opentype"), url("../fonts/Helvetica.woff") format("woff"), url("../fonts/Helvetica.ttf") format("truetype"), url("../fonts/Helvetica.svg#aller") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.section {
+    background: url('../images/maintenance.png') no-repeat;
+    height: 100vh;
+    padding-top: 15%;
+}
+.login-body {
+    width: 500px;
+    margin-left: auto;
+    background: #fff;
+    margin-right: 100px;
+   
+    padding: 25px 35px 40px 35px;
+    box-shadow: 0px 0px 6px #cecece;
+}
+
+  .login-body h3{
+    margin-bottom: 35px;
+    color: #0288d1;
+    border-bottom: 2px solid #0288d1;
+    padding-bottom: 11px;
+}
+
+.login-body h3 img{width: 50px;margin-right: 10px;}
+
+
+
+@media screen and (max-width:1440px) {
+.login-body {width: 440px;margin-right: 50px;}
+
+
+
+}
+
+
+
+
+
+
+

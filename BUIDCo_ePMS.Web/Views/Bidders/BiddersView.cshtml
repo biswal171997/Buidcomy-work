@@ -1,0 +1,672 @@
+﻿@model IEnumerable<BUIDCo_ePMS.Model.Entities.ProjectTender.ViewTenderBidderModelEF>
+@{
+    ViewData["Title"] = "Bidders";
+}
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#!" title=" Tender"> Tender </a></li>
+                <li class="breadcrumb-item active" title=" Bidders" aria-current="page">  Bidders </li>
+            </ul>
+        </nav>
+
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" onclick="Reset()" title="Add" data-bs-toggle="modal"
+                    data-bs-target="#addBidders">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" title="Filter" data-bs-toggle="modal"
+                    data-bs-target="#searchFilter">
+                <i class="buidcoicon-filter"></i>
+            </button>
+            @*<button type="button" class="btn btn-outline-success btn-sm" title="Excel" data-bs-toggle="tooltip">
+                <i class="buidcoicon-excel"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm" title="Print Preview"
+                    data-bs-toggle="tooltip">
+                <i class="bi bi-printer"></i>
+            </button>*@
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table-responsive">
+                <table class="table table-striped" id="tbl_biddername">
+                    <thead>
+                        <tr>
+                            <th width="4%"> Sl# </th>
+                            <th width="14%"> Letter Details </th>
+                            <th width="30%"> Project Details </th>
+                            <th width="24%"> Tender Details </th>
+                            <th width="12%"> Status </th>
+                            <th width="10%"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+
+                            if (Model.Count() > 0)
+                            {
+                                int count = 0;
+                                foreach (var item in Model)
+                                {
+                                    count++;
+
+                                    <tr>
+                                        <td> @count </td>
+
+                                        <td>
+                                            <div class="badge bg-yellow mb-3">
+                                                <div class="fw-600"> <span class="text-secondary fw-normal"> Letter No : </span> @item.letterNo </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-2">
+                                                <small class="text-secondary d-block"> Submitted By : </small>
+                                                <p class="m-0"> Department </p>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                                <small class="text-secondary d-block"> Proposed By : </small>
+                                                <p class="m-0"> @item.clientName </p>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="table__body__text">
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-6 d-flex column-gap-4 mb-2">
+                                                        <a href="#" class="fw-600 text-primary" title="Download Document">
+                                                            @item.projectCode
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-xl-6 col-6 text-start text-xl-end">
+                                                        <small class="text-secondary me-2"> Amount : </small>   ₹ @item.projectAmount
+                                                    </div>
+                                                    <p>
+                                                        @item.projectName
+                                                    </p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-6 border-end ">
+                                                        <div class="d-block">
+                                                            <small class="text-secondary"> Construction Area (Sq. Mtr) </small>
+                                                            <p class="m-0"> @item.constructionArea </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-3">
+                                                        <div class="d-block">
+                                                            <small class="text-secondary"> Length (Mtr.) </small>
+                                                            <p class="m-0"> @item.length </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 border-end">
+                                                    <small class="text-secondary"> Opening </small>
+                                                    <p class="m-0"> @item.openingDate </p>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-4">
+                                                    <small class="text-secondary"> Last Submission </small>
+                                                    <p class="m-0"> @item.submissionDate </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6">
+                                                    <a href="#" class="btn btn-outline-primary btn-sm" title="5 Bidders">
+                                                        @item.totalBider Bidders
+                                                    </a>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-6 ps-4 pt-2">
+                                                    <small class="text-secondary">  NIT Document : </small>
+                                                    <a href="@Url.Action("DownloadPdf","PreBidQueries")?fileName=@item.nitDocFileName" title="Download" data-bs-toggle="tooltip"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"> </i> </a>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="badge badge-success">
+                                                Approved
+                                            </div>
+
+                                        </td>
+
+
+                                        <td>
+                                            <div class="table__icon">
+                                                <a href="@Url.Action("BiddersDetails","Bidders")?tenderid=@item.tenderId" title="View" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-eye text-success "></i>
+                                                </a>
+                                                <a class="text-primary" onclick="Edit_Tender_BidderId(@item.tenderId)" href="#!" title="Edit" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-edit"></i>
+                                                </a>
+                                                <a href="#!" title="Delete" onclick="DeleteBidders(@item.tenderId)" data-bs-toggle="tooltip">
+                                                    <i class="buidcoicon-trash text-orange "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" style="color:red; text-align:center;">Record Not Found</td>
+                                </tr>
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- inner body section -->
+    <!-- add pre-bid query Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addBidders">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            @Html.Partial("_AddBidders.cshtml")
+        </div>
+    </div>
+    <!-- add pre-bid query Modal -->
+    <!-- search filter Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="searchFilter">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            @Html.Partial("~/Views/Home/_SearchFilter.cshtml")
+        </div>
+    </div>
+    <!-- search filter Modal -->
+</div>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<input type="hidden" id="HdnTenderId" />
+<input type="hidden" id="hdnbidderID" />
+<input type="hidden" id="hdntbl_bidderDetails" />
+<script>
+    $(document).ready(function () {
+        $('#tbl_bidderDetails').hide();
+
+        jQuery.validator.addMethod("validMobile", function (value, element) {
+            return this.optional(element) || /^[6-9]\d{9}$/.test(value);
+        }, "Please enter a valid 10-digit mobile number starting with 6-9!");
+
+        $("#formbidder").validate({
+            rules: {
+                bidderName: { required: true },
+                emailId: {
+                    required: true,
+                    email: true
+                },
+                contactNumber: { required: true, validMobile: true },
+                bankName: { required: true },
+                amount: { required: true },
+            },
+            messages: {
+                bidderName: {
+                    required: "Please enter Bidder Name!"
+                },
+                emailId: {
+                    required: "Please enter Email ID!",
+                    email: "Please enter a valid Email address!" 
+                },
+                contactNumber: {
+                    required: "Please enter Contact Number!",
+                    validMobile: " Invalid Contact Number!"
+                },
+                bankName: {
+                    required: "Please enter Bank Name!"
+                },
+                amount: {
+                    required: "Please enter Amount!"
+                },
+            },
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element.closest(".form-group"));
+            },
+            highlight: function (element) {
+                $(element).removeClass("is-valid")
+                $(element).parent().addClass('error')
+                $(element).addClass("is-invalid")
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid")
+            }
+        });
+        $("#formproject").validate({
+            rules: {
+                projectId: { required: true },
+            },
+            messages: {
+                projectId: {
+                    required: "Please select Project Name/ID or NIT Number!"
+                },
+            },
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element.closest(".form-group"));
+            },
+            highlight: function (element) {
+                $(element).removeClass("is-valid")
+                $(element).parent().addClass('error')
+                $(element).addClass("is-invalid")
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid")
+            }
+        });
+
+        $(".decimal-input").on("keypress", function (event) {
+            var value = $(this).val();
+            var key = String.fromCharCode(event.which);
+            if (!/[\d.]/.test(key) || (key === "." && value.includes("."))) {
+                event.preventDefault();
+                return false;
+            }
+            var newValue = value + key;
+            if (newValue.includes(".") && newValue.split(".")[1].length > 2) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $(".decimal-input").on("input", function () {
+            var value = $(this).val();
+            value = value.replace(/[^0-9.]/g, "");
+            var parts = value.split(".");
+            if (parts.length > 2) {
+                value = parts[0] + "." + parts.slice(1).join("");
+            }
+            if (parts.length === 2) {
+                value = parts[0] + "." + parts[1].substring(0, 2);
+            }
+            $(this).val(value);
+        });
+    });
+                $(".autocomplete").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetProjectName","Tender")',
+            data: JSON.stringify(request.term),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (!data || data.length === 0 || data.message === "No record found") {
+                    response([{ label: "No record found", value: "" }]); // Show message
+                } else {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.projectName || item.projectCode,
+                            value: item.projectId
+                        };
+                    }));
+                }
+            },
+            error: function () {
+                response([]);
+            }
+        });
+    },
+    minLength: 3,
+    focus: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+        } else {
+            $("#projectId").val(ui.item.label);
+        }
+        return false;
+    },
+    select: function (event, ui) {
+        if (ui.item.label === "No record found") {
+            event.preventDefault(); // Prevent selection
+            $("#projectId").val(""); // Clear TextBox Value
+            $("#projectId").attr("placeholder", "Record Not Found"); // Set Placeholder
+            $("#hiddenProjectId").val(""); // Reset Hidden Value
+        } else {
+            $("#projectId").val(ui.item.label);
+            $("#hiddenProjectId").val(ui.item.value);
+        }
+        return false;
+    }
+});
+      function GetProjectDetails() {
+       var ProjectId= $('#hiddenProjectId').val();
+    if (ProjectId !== "" && ProjectId != undefined) {
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("GetProjectDetailsById", "Bidders")',
+        data: { 'PId': ProjectId },
+        dataType: "json",
+        traditional: true,
+        success: function (data) {
+               $('#HdnTenderId').val(data.tenderId);
+                $('.Startdateid').text(data.createdOn);
+                $('.projectDescId').text(data.projectName);
+                $('.ConstrId').text(data.constructionArea);
+                $('.LenthId').text(data.length);
+                $('.Estimated').text("₹" + data.projectAmount);
+                $('#sectionPopUp').show();
+        }
+    });
+    } else {
+        $('#sectionPopUp').hide();
+    }
+}
+
+    function AddTenderDetails() {
+        if ($("#formbidder").valid()) {
+        var rows = '';
+        var cont = 1;
+        let checkVal;
+        $('#tbl_bidderDetails tbody tr').each(function (index) {
+            $(this).find('td:eq(0)').text(cont++);
+            var bidderName = $(this).find('td:eq(1)').text();
+            var emailId = $(this).find('td:eq(2)').text();
+            var contactNo = $(this).find('td:eq(3)').text();
+            var bankname = $(this).find('td:eq(4)').text();
+            var amount = $(this).find('td:eq(5)').text();
+            var v_bidderName = $('#bidderName').val();
+            var v_emailId = $('#emailId').val();
+            var v_contactNumber = $('#contactNumber').val();
+            var v_bankName = $('#bankName').val();
+            var v_amount = $('#amount').val();
+            if (bidderName == v_bidderName) {
+                checkVal = 1;
+                //alert('Reference already exists!');
+                Swal.fire("", "Bidder Name Already exists!", "error")
+            }
+            if (emailId == v_emailId) {
+                checkVal = 1;
+                //alert('Reference already exists!');
+                Swal.fire("", "Email Id Already exists!", "error")
+            }
+            if (contactNo == v_contactNumber) {
+                checkVal = 1;
+                //alert('Reference already exists!');
+                Swal.fire("", "Contact No. Already exists!", "error")
+            }
+
+        });
+            if (checkVal != 1) {
+                rows += '<tr>';
+                rows += '<td>' + cont++ + '</td>';
+                rows += '<td>' + $("#bidderName").val() + '</td>';
+                rows += '<td>' + $("#emailId").val() + '</td>';
+                rows += '<td>' + $("#contactNumber").val() + '</td>';
+                rows += '<td>' + $("#bankName").val() + '</td>';
+                rows += '<td>' + $("#amount").val() + '</td>';
+                rows += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i ></a ></td>'
+                rows += '</tr>';
+                $('#tbl_bidderDetails tbody').append(rows);
+                $('#tbl_bidderDetails').show();
+                $('#bidderName').val('');
+                $("#emailId").val('')
+                $("#contactNumber").val('');
+                $('#bankName').val('');
+                $('#amount').val('');
+
+                $("#formbidder").validate().resetForm();
+                $("#formbidder").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                $("#formbidder").find(".error").removeClass("error");
+                $("#formbidder")[0].reset();
+               // $('#formbidder').text('Reset');
+            }
+        }
+    }
+    function Reset() {
+        if ($("#btnReset").text() == "Reset") {
+            $('#sectionPopUp').hide();
+            $("#formbidder").validate().resetForm();
+            $("#formbidder").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formbidder").find(".error").removeClass("error");
+            $("#formbidder")[0].reset();
+            $("#formproject").validate().resetForm();
+            $("#formproject").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formproject").find(".error").removeClass("error");
+            $("#formproject")[0].reset();
+            $("#btnReset").text("Reset");
+            $("#btnSave").text("Submit");
+            $("#projectId").prop("readonly", false).css("cursor", "text");
+            $("#tbl_bidderDetails").hide();
+            $('#tbl_bidderDetails tbody').empty();
+            $(".Clstechnicaldocfile").text("");
+        } else {
+            $('#addBidders').modal("hide");
+            $('#sectionPopUp').hide();
+            $("#formbidder").validate().resetForm();
+            $("#formbidder").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formbidder").find(".error").removeClass("error");
+            $("#formbidder")[0].reset();
+            $("#formproject").validate().resetForm();
+            $("#formproject").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formproject").find(".error").removeClass("error");
+            $("#formproject")[0].reset();
+            $("#btnReset").text("Reset");
+            $("#btnSave").text("Submit");
+            $("#projectId").prop("readonly", false).css("cursor", "text");
+            $("#tbl_bidderDetails").hide();
+            $('#tbl_bidderDetails tbody').empty();
+            $("#addBidders").modal("hide");
+            $(".Clstechnicaldocfile").text("");
+        }
+
+    }
+    $(document).on("click", '.delete', function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Remove it!'
+        }).then((submit) => {
+            if (submit) {
+                $(this).parents('tr').remove();
+                $('#tbl_bidderDetails tbody tr').each(function (i) {
+                    $($(this).find('td')[0]).html(i + 1);
+                });
+                if ($('#tbl_bidderDetails tbody tr').length == 0) {
+                    $("#tbl_bidderDetails").hide();
+                    $('#bidderName').val('');
+                    $("#emailId").val('')
+                    $("#contactNumber").val('');
+                    $('#bankName').val('');
+                    $('#amount').val('');
+                }
+            }
+        });
+    });
+    function Save_BidderDetails() {
+        if ($("#formproject").valid()) {
+                var tbody = $("#tbl_bidderDetails tbody");
+                if (tbody.children().length != 0) {
+                    var bidderDetailsList = '';
+                    $('#tbl_bidderDetails tbody tr').each(function (index) {
+                        var bidderName = $(this).find('td:eq(1)').text();
+                        var emailId = $(this).find('td:eq(2)').text();
+                        var contactNo = $(this).find('td:eq(3)').text();
+                        var bankname = $(this).find('td:eq(4)').text();
+                        var amount = $(this).find('td:eq(5)').text();
+
+                        bidderDetailsList += bidderName + '|' + emailId + '|' + contactNo + '|' + bankname + '|' + amount + '^';
+                    });
+                    if (bidderDetailsList != '') {
+                        $('#hdntbl_bidderDetails').val(bidderDetailsList);
+                    }
+                    var formData = new FormData();
+                    var HdnTenderId = $('#HdnTenderId').val();
+                    formData.append("tenderId", HdnTenderId || 0);
+                    formData.append("projectId", $('#hiddenProjectId').val() || 0);
+                    formData.append("bidderID", $('#hdnbidderID').val() || 0);
+                    formData.append("bidderDetailsList", $("#hdntbl_bidderDetails").val());
+                    var hdnbidderId = $('#hdnbidderID').val();
+                    var dynamicBtn;
+                    if (hdnbidderId != 0 || hdnbidderId != "") {
+                        dynamicBtn = "Update";
+                    } else {
+                        dynamicBtn = "Submit";
+                    }
+                  
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, ' + dynamicBtn +' it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "@Url.Action("SAVE_PROJECT_TENDER_BIDDER_DTS", "Bidders")",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                dataType: "json",
+                                success: function (result) {
+                                    Swal.fire({
+                                        icon: result.sucess ? 'success' : 'error',
+                                        title: result.responseText,
+                                        text: result.responseMessage,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "@Url.Action("BiddersView", "Bidders")";
+                                        }
+                                    })
+                                },
+                                error: function (result) {
+                                    Swal.fire({
+                                        icon: reset.responseText,
+                                        title: result.responseText,
+                                        text: result.responseMessage,
+                                    });
+                                },
+                            });
+
+                        }
+                        return false;
+                    })
+
+                } else {
+                    // No data available
+                    Swal.fire("Warning!", "No data available in the table.", "warning");
+                }
+        }
+    }
+    function Edit_Tender_BidderId(ele) {
+            $.ajax({
+      type: "Get",
+      dataType: "json",
+      url: '@Url.Action("BidderDetailsById", "Bidders")',
+        data: { "Id": ele },
+        success: function (data) {
+            debugger
+            $('#projectId').val(data[0].projectName + "/" + data[0].projectCode);
+            $('#hdnbidderID').val(data[0].bidderID)
+            $('#hiddenProjectId').val(data[0].projectId);
+            $("#projectId").prop("readonly", true).css("cursor", "not-allowed");
+
+            $("#projectId").parent().removeClass('error');
+            $("#projectId").removeClass("is-invalid");
+            $("#projectId").addClass("is-valid");
+
+            $("#formproject").validate().resetForm();
+            $("#formproject").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formproject").find(".error").removeClass("error");
+            //$("#formproject")[0].reset();
+
+            $("#formbidder").validate().resetForm();
+            $("#formbidder").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#formbidder").find(".error").removeClass("error");
+            $("#formbidder")[0].reset();
+
+
+            $('#HdnTenderId').val(data[0].tenderId);
+            $('.Startdateid').text(data[0].createdOn);
+            $('.projectDescId').text(data[0].projectName);
+            $('.ConstrId').text(data[0].constructionArea);
+            $('.LenthId').text(data[0].length);
+            $('.Estimated').text("₹" + data[0].projectAmount);
+            $('#sectionPopUp').show();
+            $('.clsnitdoc').html('<a href="DownloadPdf?fileName=' + data[0].nitDocFileName + '" data-bs-  toggle="tooltip" title="Download"> <i class="bi bi-file-earmark-pdf ms-2 text-danger"></i>NIT Document</a>');
+            $('.bidamount').text(data[0].amount);
+            $("#tbl_bidderDetails tbody").empty();
+            var rows = "";
+            for (var i = 0; i < data.length; i++) {
+                rows += '<tr>';
+                rows += '<td>' + (i+1) + '</td>';
+                rows += '<td>' + data[i].bidderName + '</td>';
+                rows += '<td>' + data[i].emailId + '</td>';
+                rows += '<td>' + data[i].contactNo + '</td>';
+                rows += '<td>' + data[i].bankName + '</td>';
+                rows += '<td>' + data[i].amount + '</td>';
+                rows += '<td><a href="#!" class="delete" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete"><i class="buidcoicon-delete text-danger"></i ></a ></td>'
+                rows += '</tr>';
+            }
+            $("#tbl_bidderDetails tbody").append(rows);
+            $("#tbl_bidderDetails").show();
+            $('#addBidders').modal("show");
+            $("#btnReset").text("Cancel");
+            $("#btnSave").text("Update");
+      },
+      error: function (Message) {
+          alert(Message);
+      }
+            });
+    }
+
+    function DeleteBidders(ids) {
+       debugger
+           Swal.fire({
+               title: 'Are you sure?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   $.ajax({
+                       type: "POST",
+                       dataType: "json",
+                       url: "@Url.Action("DeleteBidders", "Bidders")",
+                       data: { "Id": ids },
+                       success: function (response) {
+                           debugger
+                           console.log("Response:", response);
+                           Swal.fire(
+                               'Deleted!',
+                               response.responseMessage,
+                               response.responseText
+                           ).then((result) => {
+                               if (result.isConfirmed) {
+                                   location.href = "@Url.Action("BiddersView", "Bidders")";
+                               }
+                           });
+                         }
+
+                   });
+               }
+               return false;
+           })
+   }
+</script>

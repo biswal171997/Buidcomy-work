@@ -1,0 +1,504 @@
+﻿@*//Auther By AMIT SINHA
+//Created ON 10 FEB 2025*@
+
+@Html.AntiForgeryToken()
+<div class="page-body">
+    <!-- breadcrumb section -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#!" title="Home"><i class="bi bi-house"></i></a></li>
+                <li class="breadcrumb-item"><a href="#" title="Master"> Master</a></li>
+                <li class="breadcrumb-item active" title="Project Type" aria-current="page"> Scheme</li>
+            </ul>
+        </nav>
+        <div class="col-right">
+            <button type="button" class="btn btn-primary btn-sm me-3" title="Add" onclick="AddScheme()">
+                <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" title="Delete" data-bs-toggle="tooltip" onclick="DeleteScheme()"> <i class="bi bi-trash"></i> </button>
+            @* <button type="button" class="btn btn-outline-secondary btn-sm" title="Excel" data-bs-toggle="tooltip">
+            <i class="buidcoicon-excel"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" title="Print Preview"
+                data-bs-toggle="tooltip">
+            <i class="bi bi-printer"></i>
+        </button> *@
+        </div>
+    </div>
+    <!-- breadcrumb section -->
+    <!-- inner body section -->
+    <div class="body__content">
+        <div class="body__bg">
+            <div class="table__fixed">
+                <div class="table-responsive border">
+                    <table id="tbl" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">
+                                    <div class="form-check">
+                                        <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault_">
+                                    </div>
+                                </th>
+                                <th style="display:none"></th>
+                                <th style="width: 5%"> Sl# </th>
+                                <th style="width: 30%"> Scheme Name </th>
+                                <th style="width: 60%"> Description </th>
+                                <th style="width: 5%"> Edit </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add project type Modal -->
+    <div class="modal fade right custom-view-modal-medium" id="addProjecthead" tabindex="-1">
+        <div class="modal-dialog modal-lg custom-modal modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Scheme</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjectType">Scheme Name<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <input type="text" id="ProjectHead" name="ProjectHead" onkeypress="Allowalphabate(event)" onchange="RemoveWhiteSpace(this);" maxlength="50" class="form-control" autocomplete="off">
+                                        <input id="hdnprojectHeadId" type="hidden" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <label class="control-label" for="txtProjecttype"> Description  <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-12">
+                                        <textarea class="form-control LengthRemarks" id="ProjectDesc" rows="4" cols="4" name="ProjectDesc" onkeypress="lettersDigitValidate(event)" onchange="RemoveWhiteSpace(this);" targetid="MaxSize" maxlength="200"></textarea>
+                                        <small class="text-danger d-block text-end mt-2">
+                                            Maximum <span id="txtchar"><strong id="MaxSize">200</strong></span> characters allowed
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer lg__btn border-0 justify-content-start">
+                    <button type="button" class="btn btn-light-danger me-3" id="DynamicButton" onclick="reset()"> Reset </button>
+                    <button type="button" class="btn btn-primary" id="subaddData" onclick="SaveScheme()"> Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#splayoutheader').text('Scheme');
+        $('.form-control').bind('copy paste cut', function (e) {
+            e.preventDefault();
+
+
+        });
+        GetSchemeMaster();
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = decodeURIComponent(value);
+            });
+            return vars;
+        }
+        var id = getUrlVars()["strid"];
+        if (id != undefined || id != null) {
+            EditScheme(decryptData(id));
+        }
+
+        $("#form").validate({
+
+            rules: {
+                ProjectHead: {
+                    required: true
+                },
+                ProjectDesc: {
+                    required: true
+                },
+            },
+            messages: {
+                ProjectHead: {
+                    required: "Please enter Scheme Name"
+                },
+                ProjectDesc: {
+                    required: "Please enter Description"
+                },
+
+            },
+
+            errorPlacement: function (error, element) {
+                error.css("color", "red");
+                error.insertAfter(element);
+            },
+
+
+            highlight: function (element) {
+                $(element).removeClass("is-valid")
+                $(element).parent().addClass('error')
+                $(element).addClass("is-invalid")
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+                $(element).removeClass("is-invalid");
+                $(element).addClass("is-valid")
+            }
+        });
+
+        $(".checkbox").change(function () {
+            var isChecked = $(this).prop("checked");
+            $(".checkbox").prop("checked", $(this).prop("checked"));
+        });
+        $('#tblbody').on('change', '.checkbox', function () {
+            const totalCheckboxes = $('.checkbox:visible:not(#flexCheckDefault_)').length;
+            const checkedCheckboxes = $('.checkbox:checked:visible:not(#flexCheckDefault_)').length;
+            // Update the header checkbox based on selection
+            $('#flexCheckDefault_').prop('checked', totalCheckboxes === checkedCheckboxes);
+        });
+
+    });
+
+    //------Description Count Start---
+    function updateCharCount(textArea) {
+        var maxLength = $(textArea).attr("maxlength");
+        var currentLength = $(textArea).val().length;
+        var remaining = maxLength - currentLength;
+
+        var spanId = $(textArea).attr("targetid");
+        $('#' + spanId).text(remaining);
+
+        if (remaining < 0) {
+            Swal.fire({
+                title: 'You have reached your maximum limit of characters allowed.',
+                text: '',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+           
+            $(textArea).val($(textArea).val().substring(0, maxLength)); // Trim input
+            $('#' + spanId).text(0);
+        }
+    }
+    $(document).on('keyup', '.LengthRemarks', function () {
+        updateCharCount(this);
+    });
+    $(document).on('blur', '.LengthRemarks', function () {
+        updateCharCount(this);
+    });
+
+    ///////-----Description Count End---
+
+    //$("#ProjectHead").parent().removeClass('error');
+    //$("#ProjectHead").removeClass("is-invalid");
+    //$("#ProjectHead").addClass("is-valid");
+
+    function lettersDigitValidate(event) {
+        var keyCode = event.which || event.keyCode;
+
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes = [...Array(10).keys()].map(i => i + 48) // 0-9
+            .concat([...Array(26).keys()].map(i => i + 65)) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([46, 44, 58, 45, 40, 41, 92, 47, 32]); // ., ,, :, -, (, ), \, / space
+
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            // If not allowed, prevent the default action (key press)
+            event.preventDefault();
+        }
+    }
+
+    function Allowalphabate(event) {
+        var keyCode = event.which || event.keyCode;
+        // Allowed key codes: a-z, A-Z, 1-9, ., , , :, -, (, ), \, /
+        var allowedKeyCodes =
+         //   [...Array(10).keys()].map(i => i + 48) // 0-9
+            [...Array(26).keys()].map(i => i + 65) // A-Z
+            .concat([...Array(26).keys()].map(i => i + 97)) // a-z
+            .concat([32]); // ., ,, :, -, (, ), \, / space
+        // Check if the pressed key is allowed
+        if (allowedKeyCodes.indexOf(keyCode) === -1) {
+            // If not allowed, prevent the default action (key press)
+            event.preventDefault();
+        }
+    }
+
+  
+
+
+    function RemoveWhiteSpace(e) {
+
+        //alert(e);
+        e.value = $.trim(e.value);
+    }
+    function encryptData(data) {
+        // Convert the integer data to a string
+        var dataString = String(data);
+
+        // Encrypt the data using CryptoJS
+        var encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data: dataString }), 'secret_key').toString();
+
+        return encryptedData;
+    }
+    function GetSchemeMaster() {
+
+        $.ajax({
+            type: 'Get',
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            data: {},
+            url: "@Url.Action("Get_Scheme_Master", "Master")",
+            success: function (result) {
+                var data1 = JSON.parse(result);
+                if (data1.length > 0) {
+                    $('#tbl.tbody').empty();
+                    $.each(data1, function (i, data) {
+
+                        var encryptedID = encryptData(data.schemeId);
+                        var trows = "<tr id='tr_" + data.schemeId + "'>";
+                        trows = trows + "<td><div class='form-check'><input class='form-check-input checkbox' type='checkbox' value='' id='flexCheckDefault_" + data.schemeId +"'></div></td>";
+                        trows = trows + "<td style='display:none'>" + data.schemeId + "</td>";
+                        trows = trows + "<td>" + (i + 1) + "</td>";
+                        trows = trows + "<td>" + data.SchemeName + "</td>";
+                        trows = trows + "<td>" + data.schemeDesc + "</td>";
+                        trows = trows + "<td><button type='button' class='btn btn-outline-primary btn-sm' onclick='EditScheme(" + data.schemeId + ")' title='Edit'><i class='bi bi-pencil'></i></button></td>";
+                        trows = trows + "</tr>";
+                        $('#tbl').append(trows);
+                    });
+                }
+            },
+            error: function (Message) {
+                Swal.fire({
+                    title: Message,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+
+
+
+
+    function DeleteScheme() {
+
+        if ($(".form-check-input:checked").length === 0) {
+            Swal.fire({
+                title: 'Please Select at least one checkbox.',
+                text: '',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var ids = '';
+
+                        var checkLength = $(".form-check-input:checked").length;
+
+                    var arrIds = [];
+                        if (checkLength > 0)
+                        {
+                            $(".form-check-input:checked").each(function () {
+                                let chkId = $(this).attr("id");
+
+                                let rowNo = chkId.split('_')[1];
+                                arrIds.push(rowNo)
+                               let rowId = 'tr_' + rowNo;
+                            });
+                           ids= arrIds.toString()
+                        }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "@Url.Action("DeleteScheme", "Master")",
+                        data: { "Id": ids },
+                        success: function (response) {
+                        console.log("Response:", response);
+                        Swal.fire(
+                            'Deleted!',
+                            response.responseMessage,
+                            response.responseText
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = "@Url.Action("SchemeMaster", "Master")";
+                            }
+                        });
+
+                     }
+
+                    });
+
+                }
+                return false;
+            })
+        }
+
+    }
+    function SaveScheme() {
+        if ($("#form").valid()) {
+
+            var ProjectHead = {
+                schemeId: $('#hdnprojectHeadId').val(),
+                SchemeName: $("#ProjectHead").val(),
+                schemeDesc: $("#ProjectDesc").val(),
+
+            };
+            var schemeId = $('#hdnprojectHeadId').val() || 0;
+            let dynamicMsg;
+            if (schemeId == 0) {
+                dynamicMsg = "Save";
+            } else {
+                dynamicMsg = "Update";
+            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, ' + dynamicMsg + ' it!'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("AddScheme", "Master")",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                        data: ProjectHead,
+                        content: 'application/json;charset=utf-8',
+                        dataType: "json",
+                        success: function (result) {
+
+                            Swal.fire({
+                                icon: result.sucess ? 'success' : 'error',
+                                title: result.responseText,
+                                text: result.responseMessage,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("SchemeMaster", "Master")";
+                                }
+                            })
+                        },
+                        error: function (result) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: result.responseText,
+                                text: result.responseMessage,
+                            });
+                        },
+                    });
+                }
+            })
+        }
+    }
+
+
+    function EditScheme(id) {
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("GetSchemeByID", "Master")',
+            data: { "Id": id },
+            success: function (Result) {
+
+                console.log(Result)
+                var data1 = JSON.parse(Result);
+                $("#hdnprojectHeadId").val(data1.schemeId);
+                $('#ProjectHead').val(data1.SchemeName);
+                $('#ProjectDesc').val(data1.schemeDesc);
+
+                $("#ProjectHead").addClass("is-valid");
+                $("#ProjectDesc").addClass("is-valid");
+                $("#form").validate().resetForm();
+
+                $('.LengthRemarks').trigger('blur');
+                $("#addProjecthead").modal("show");
+                $('#subaddData').text('Update');
+                $('#DynamicButton').text('Cancel');
+            },
+            error: function (Message) {
+                Swal.fire({
+                    title: Message,
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                console.log(Result)
+            }
+        });
+    }
+
+    function AddScheme() {
+        reset();
+        RemoveHeight();
+      
+        $("#hdnProjectId").val('');
+        $('#ProjectHead').val('');
+        $('#ProjectDesc').val('');
+          $('.LengthRemarks').trigger('blur');
+        $("#addProjecthead").modal("show");
+        //RemoveHeightLight();
+        $('#subaddData').text('Submit');
+        $('#DynamicButton').text('Reset');
+    }
+    function reset() {
+        if ($('#DynamicButton').text() == "Reset") {
+            //$('.LengthRemarks').trigger('blur');
+            $('#ProjectHead').val('');
+            $('#ProjectDesc').val('');
+
+             $('.LengthRemarks').trigger('blur');
+            $("#form").validate().resetForm();
+            // Remove validation classes
+            $("#form").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+            $("#form").find(".error").removeClass("error");
+
+            // Optional: Clear the input fields
+            $("#form")[0].reset();
+
+    }else {
+         $("#addProjecthead").modal("hide");
+    }
+    }
+
+    function RemoveHeight() {
+        //$('.LengthRemarks').trigger('blur');
+        $("#ProjectHead").removeClass("is-invalid");
+        $("#ProjectHead").removeClass("is-valid");
+        $("#ProjectDesc").removeClass("is-invalid");
+        $("#ProjectDesc").removeClass("is-valid");
+        $("#form").validate().resetForm(); // Clears error messages
+
+        $("#form").find(".is-invalid").removeClass("is-invalid"); // Removes red border
+    }
+
+</script>

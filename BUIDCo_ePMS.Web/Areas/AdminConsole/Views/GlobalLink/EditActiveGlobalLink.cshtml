@@ -1,0 +1,224 @@
+﻿
+@model BUIDCO.Domain.AdminConsole.Global_Link.ViewGlobal
+@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+           // alert(@Model.resultmsg);
+            $("#lblslno").text(@Model.intSortNum);
+             });
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function validateForm() {
+            var x = document.forms["frmUpdateGlobalLink"]["nvchGLinkName"].value;
+            var y = document.forms["frmUpdateGlobalLink"]["nvchGLinkNameHin"].value;
+            var z = document.forms["frmUpdateGlobalLink"]["nvchGLinkNameUrd"].value;
+             if ($("#ddlProjectLink").val() == 0) {
+                $("#ddlProjectLink").focus();
+                alert("Please Select Project Link  Name.");
+
+                return false;
+            }
+            else if (x == "") {
+                alert("Global Link Name Can't be blank");
+                return false;
+             }
+             else if (y == "") {
+                 alert("Global Link Name(Hindi) Can't be blank");
+                 return false;
+             }
+             else if (z == "") {
+                 alert("Global Link Name(Urdu) Can't be blank");
+                 return false;
+             }
+            else {
+                return confirm('Are you sure you want to update this?');
+            }
+        }
+
+        function inputLimiter(e, allow) {
+            var AllowableCharacters = '';
+
+            if (allow == 'NameCharactersymbol') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz./&';
+            }
+            if (allow == 'NameCharacters') {
+                AllowableCharacters = ' ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.\'';
+            }
+            if (allow == 'Email') {
+                AllowableCharacters = '1234567890@ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz_.';
+            }
+            if (allow == 'Description') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-.,()/';
+            }
+            if (allow == 'NameCharactersAndNumbers') {
+                AllowableCharacters = '1234567890 ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz-,/.\&';
+            }
+            if (allow == 'Numbers') {
+                AllowableCharacters = '1234567890';
+            }
+            if (allow == 'Decimal') {
+                AllowableCharacters = '1234567890.';
+            }
+            if (allow == 'Filename') {
+                AllowableCharacters = '1234567890ABCDEFGHIBUIDCOLMNOPQRSTUVWXYZabcdefghiBUIDCOlmnopqrstuvwxyz/';
+            }
+            var k;
+            k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
+            if (k != 13 && k != 8 && k != 0) {
+                if ((e.ctrlKey == false) && (e.altKey == false)) {
+                    return (AllowableCharacters.indexOf(String.fromCharCode(k)) != -1);
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+         $(function () {
+            $("#btnReset").bind("click", function () {
+                  var url = '@Url.Action("ViewGlobalLinkActive", "GlobalLink")';
+                window.location.href = url;
+
+            });
+        });
+    </script>
+
+}
+
+
+<hr />
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            <h4>Edit Global Link</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Global Link</li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Global Link</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-md-12 col-sm-12">
+         <div class="card">
+             <div class="card-header">
+                 <ul class="nav nav-tabs nav-fill" role="tablist">
+                     <a class="nav-item nav-link active" asp-area="AdminConsole" asp-controller="GlobalLink" asp-action="AddGlobalLink">Edit</a>
+                     <a class="nav-item nav-link" asp-area="AdminConsole"  asp-controller="GlobalLink" asp-action="ViewGlobalLinkActive">Active</a>
+                     <a class="nav-item nav-link" asp-area="AdminConsole" asp-controller="GlobalLink" asp-action="ViewGlobalLinkInActive">Inactive</a>
+                 </ul>
+                 <div class="indicatorslist">
+                     <p class="ml-2 text-danger">(*) Indicates mandatory </p>
+                 </div>
+             </div>
+
+             <div class="card-body">
+                 <form id="frmUpdateGlobalLink" data-parsley-validate novalidate method="post" asp-area="AdminConsole" asp-action="EditGlobalLink" asp-controller="GlobalLink" asp-antiforgery="true" onsubmit="return validateForm()">
+                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                     <div class="form-group row">
+                         <label class="col-12 col-md-2 col-xl-2 control-label">
+                             Project Link Name
+                             <span class="text-danger">*</span>
+                         </label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon">:</span>
+                             <select asp-for="INTPROJECTLINKID" asp-items="@(new SelectList(Model.ProjectList,"INTPROJECTLINKID","NVCHPROJECTLINKNAME"))" id="ddlProjectLink" class="form-control" autofocus>
+                                 <option value="0">--Select Project Link--</option>
+                             </select>
+                         </div>
+
+                     </div>
+                     <div class="form-group row">
+                         <label class="col-12 col-md-2 col-xl-2 control-label">
+                             Global Link Name
+                             <span class="text-danger">*</span>
+                         </label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon">:</span>
+                             <input asp-for="nvchGLinkName" type="text" id="txtGLinkName" Onkeypress="return inputLimiter(event,'NameCharactersAndNumbers')" autofocus name="nvchGLinkName" value="@Model.nvchGLinkName" class="form-control" placeholder="Enter Global Link Name" autocomplete="off" maxlength="50" />
+                             <input asp-for="intGLinkID" type="hidden" id="hdnGLinkID" value="@Model.intGLinkID" />
+                             <input asp-for="updatedBy" type="hidden" id="hdnGLinkID" value="1" />
+                         </div>
+
+
+                     </div>
+                     <div class="form-group row" style="display: none;">
+                         <label class="col-12 col-md-2 col-xl-2 control-label">
+                             Global Link Name(Hindi)
+                             <span class="text-danger">*</span>
+                         </label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon">:</span>
+                             <input asp-for="nvchGLinkNameHin" type="hidden" value="StaticValue" id="txtGLinkNameH" Onkeypress="return inputLimiter(event,'NameCharactersAndNumbers')" autofocus name="nvchGLinkNameHin" value="@Model.nvchGLinkNameHin" class="form-control" placeholder="Enter Global Link Name(Hindi)" autocomplete="off" maxlength="50" />
+                             <input asp-for="intGLinkID" type="hidden" id="hdnGLinkID" value="@Model.intGLinkID" />
+                             <input asp-for="updatedBy" type="hidden" id="hdnGLinkID" value="1" />
+                         </div>
+
+
+                     </div>
+                     <div class="form-group row" style="display: none;">
+                         <label class="col-12 col-md-2 col-xl-2 control-label">
+                             Global Link Name(Urdu)
+                             <span class="text-danger">*</span>
+                         </label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon">:</span>
+                             <input asp-for="nvchGLinkNameUrd" type="hidden" value="StaticValue" id="txtGLinkNameU" Onkeypress="return inputLimiter(event,'NameCharactersAndNumbers')" autofocus name="nvchGLinkNameUrd" value="@Model.nvchGLinkNameUrd" class="form-control" placeholder="Enter Global Link Name(Urdu)" autocomplete="off" maxlength="50" />
+                             <input asp-for="intGLinkID" type="hidden" id="hdnGLinkID" value="@Model.intGLinkID" />
+                             <input asp-for="updatedBy" type="hidden" id="hdnGLinkID" value="1" />
+                         </div>
+
+
+                     </div>
+                     <div class="form-group row">
+                         <label class="col-12 col-md-2 col-xl-2 control-label">
+                             Icon Class
+                             <span class="text-danger">*</span>
+                         </label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon">:</span>
+                             <input asp-for="VCHICONCLASS" type="text" id="txtIconClass" name="VCHICONCLASS" class="form-control" placeholder="Enter Icon Class" autocomplete="off" maxlength="50" value="@Model.VCHICONCLASS" />
+                         </div>
+                     </div>
+                     <div class="form-group row">
+                         <label class="col-12 col-md-2 col-xl-2 control-label">
+                             Global Link Sort No :
+                         </label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon">:</span>
+                             <input type="hidden" asp-for="GintSortNum" name="GintSortNum" id="hfID" />
+                             <label id="lblslno" asp-for="GMAxid" name="GMAxid"></label>
+                         </div>
+                     </div>
+
+                     <div class="form-group row">
+
+
+                         <label class="col-12 col-md-2 col-xl-2 control-label" for="demo-email-input"> <span class="text-danger"></span></label>
+                         <div class="col-12 col-md-6 col-xl-4">
+                             <span class="colon"></span>
+                             <button type="submit" id="btnsubmit" name="submitButton" class="btn btn-primary mb-1t white-text"
+                                     title="Submit" value="Submit" onclick="return Validate('Submit')">
+                                 Update
+
+                             </button>
+                             <button type="button" class="btn btn-danger" id="btnReset" value="Cancel"> Cancel </button>
+                         </div>
+                     </div>
+
+                 </form>
+             </div>
+         </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,386 @@
+﻿@{
+ViewData["Title"] = "Assign Project Details";
+}
+<div class="page-body">
+   <!-- breadcrumb section -->
+   <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+      <nav aria-label="breadcrumb">
+         <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#" title="Home"><i class="bi bi-house"></i></a></li>
+            <li class="breadcrumb-item active" title="Assign Project (Work Order)" aria-current="page">Assign Project (Work Order)</li>
+         </ul>
+      </nav>
+      <div class="col-right">
+      </div>
+   </div>
+   <!-- breadcrumb section -->
+   <!-- inner body section -->
+   <div class="body__content">
+      <div class="body__bg">
+         <div class="card table__body__text">
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-xl-8 col-lg-8 col-md-12 col-12">
+                     <h5 class="fw-600 mb-3"> Project Details  </h5>
+                     <div class="mb-1"> 
+                         <a href="#" class="fw-600 text-primary">
+                             <span id="projectDetails"></span>
+                         </a>
+                     </div>
+                     <p>
+                       <span class="clsprojectName"></span>
+                     </p>
+                     <div class="row">
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group border-right">
+                                <small class="mb-1 text-secondary">  Construction Area (Sq. Mtr)  </small>
+                                <div class="description">
+                                   <span id="constructionArea"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                           <div class="form-group border-right">
+                              <small class="mb-1 text-secondary">  Length (Mtr.):  </small>
+                              <div class="description">
+                                  <span id="Length"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                           <div class="form-group">
+                               <small class="mb-1 text-secondary">  Estimated Amount (₹): </small>
+                              <div class="description" >
+                                  <span id="EstimatedAmount"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                           <div class="form-group border-right">
+                              <small class="mb-1 text-secondary">  Project Duration </small>
+                              <div class="description">
+                                  <span id="ProjectDuration"></span>
+                                   Months
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                           <div class="form-group border-right">
+                              <small class="mb-1 text-secondary">  Start Date </small>
+                              <div class="description">
+                                  <span id="StartDate"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                           <div class="form-group">
+                              <small class="mb-1 text-secondary">  End Date </small>
+                              <div class="description">
+                                  <span id="EndDate"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-12">
+                           <div class="form-group">
+                              <div class="d-flex gap-2">
+                                 <div>  <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                 <div>
+                                    @*<a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> Letter Document </a>*@
+
+                                      <span class="clsletterdoc"></span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-12 border-left ps-xl-4 ps-lg-4 ps-md-4">
+
+                    <div class="row"> 
+
+                     <div class="col-xl-12 col-lg-12 col-md-12 col-12 border-bottom pb-4 mb-4">
+                        <h5 class="fw-600 mb-3"> Letter Details  </h5>
+                        <div class="d-block">
+                           <div class="badge bg-yellow fw-600">
+                              <span class="text-secondary fw-normal"> Letter No : <span class="text-secondary fw-normal" id="LetterNo"> </span> </span> 
+                           </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-xl-6 col-md-6 col-6 border-end">
+                                <small class="text-secondary"> Submitted By: </small>
+                                <span id="SubmittedBy"></span>
+                            </div>
+                            <div class="col-xl-6 col-md-6 col-6 ps-4">
+                                <small class="text-secondary"> Proposed By: </small>
+                                <span  id="ProposedBy"></span>
+                            </div>
+                        </div>
+                     </div>
+
+                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                         <h5 class="fw-600 mb-3"> Tender Details  </h5>
+                         <div class="d-block">
+                             <div class="badge bg-yellow fw-600">
+                                 <span class="text-secondary fw-normal" id="TenderLetterNo"> Letter No : </span>
+                             </div>
+                         </div>
+                         <div class="row mt-2 mb-2">
+                             <div class="col-xl-6 col-md-6 col-6 border-end">
+                                 <small class="text-secondary"> Opening: </small>
+                                 <span id="openingDate"></span>
+                             </div>
+                             <div class="col-xl-6 col-md-6 col-6 ps-4">
+                                 <small class="text-secondary"> Last Submission: </small>
+                                 <p class="m-0"> <span class="clssubmitdate" id="LastSubmission"></span> </p>
+                             </div>
+                         </div>
+                         <div class="d-flex gap-2">
+                             <div><i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                             <div>
+                                 @*<a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download">  NIT Document </a>*@
+                                 <span class="clsnitdoc"></span>
+                             </div>
+                         </div>
+                     </div>
+
+                    </div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- final detail report -->
+         <div class="row">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 table__body__text">
+               <h5 class="fw-600 mb-3 mt-3"> Assign Project (Work Order) Details  </h5>
+               <div class="card m-0">
+                  <div class="card-body">
+                     <div class="row mt-3">
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary" >  Assign To  </small>
+                           <div class="description">
+                               <span id="AssignProjectTo"></span>
+                           </div>
+                        </div>
+                        @*<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary"> </small>
+                           <div class="description">
+                               <span id="Amount"></span>
+                           </div>
+                        </div>*@
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary" >  Agreement Amount  </small>
+                           <div class="description">
+                               <span id="AgreementAmount"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary"> PAN Number  </small>
+                           <div class="description">
+                               <span id="PANNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary" >  GST Number  </small>
+                           <div class="description">
+                               <span id="GstNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary">  License/Registration Number  </small>
+                           <div class="description">
+                               <span id="LicenseNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary">  Phone Number  </small>
+                           <div class="description">
+                               <span id="PhoneNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary">  FAX Number  </small>
+                           <div class="description">
+                               <span id="FaxNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary" >  Email ID  </small>
+                           <div class="description">
+                               <span id="EmailId"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary" >  Mobile No.  </small>
+                           <div class="description">
+                               <span id="MobileNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary">  Conatct Person  </small>
+                           <div class="description">
+                               <span id="ContactPerson"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                           <small class="mb-1 text-secondary"> Contact Person Mobile Number  </small>
+                           <div class="description">
+                             <span id="ContactPersonMobileNumber"></span>
+                           </div>
+                        </div>
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                           <small class="mb-1 text-secondary">  Address  </small>
+                           <div class="d-block">
+                               <span id="address"></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="card bglight-primary p-4 m-0">
+                        <h5 class="heading-color mb-4">Bank Details </h5>
+                        <div class="row">
+
+                            <div class="body__content">
+                                <div class="body__bg">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped dataTable" id="basic-2">
+                                            <thead>
+                                                <tr>
+                                                    <th width="4%"> Sl# </th>
+                                                    <th width="30%"> instrumentType </th>
+                                                    <th width="12%">PGAmount</th>
+                                                    <th width="25%"> BankName </th>
+                                                    <th width="10%"> ValidTill </th>
+                                                    <th width="12%"> UploadPgDocuments </th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12 mb-3">
+                                <div class="description">
+                                    <div> <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                    <div class="d-flex gap-2">
+                                        <div> <i class="bi bi-file-earmark-pdf me-1 text-danger"> </i> </div>
+                                        <div>
+                                            <a href="#" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download"> </a>
+                                            <span id="UploadPGDocumentPath"></span>
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- final detail report -->
+      </div>
+   </div>
+   <!-- inner body section -->
+</div>
+<script>
+    $(document).ready(function () {
+        var id = getUrlVars()["Id"];
+        //alert(id);
+        viewdetails(id);
+       // ViewProjectTenderCorrigendum(id);
+
+    });
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = decodeURIComponent(value);
+        });
+        return vars;
+    }
+
+
+    function viewdetails(id) {
+        debugger
+  $('#addassignproject').modal('show'); // Show modal
+
+  $.ajax({
+      type: "GET",
+      datatype: "json",
+      url: '@Url.Action("ViewDetails", "AssignProject")',
+      data: { "id": id },
+      success: function (data1) {
+        //  console.log(result);
+        
+          $('#projectDetails').text(data1[0].projectName);
+          $('#constructionArea').text(data1[0].constructionArea);
+          $('#Length').text(data1[0].length);
+          $('#EstimatedAmount').text(data1[0].emdAmount);
+          $('#ProjectDuration').text(data1[0].projectDuration);
+          $('#StartDate').text(data1[0].startDateS);
+          $('#EndDate').text(data1[0].endDateS);
+          $('#LetterNo').text(data1[0].letterNo);
+          $('#SubmittedBy').text(data1[0].submittedBy);
+          $('#ProposedBy').text(data1[0].proposerName);
+          $('#TenderLetterNo').text(data1[0].tenderNo);
+          $('#openingDate').text(data1[0].openingDate);
+          $('#LastSubmission').text(data1[0].submissionDate);
+        
+          $('#AssignProjectTo').text(data1[0].contactPerson);
+          //$('#Amount').text(data1[0].pgAmount);
+          //$('#Amount').text(data1[0].pgAmount);
+          $('#AgreementAmount').text(data1[0].pgAmount);
+          $('#PANNumber').text(data1[0].panNo);
+          $('#GstNumber').text(data1[0].gstNo);
+          $('#LicenseNumber').text(data1[0].licenseNo);
+          $('#PhoneNumber').text(data1[0].contactNo);
+          $('#FaxNumber').text(data1[0].faxNo);
+          $('#EmailId').text(data1[0].emailId);
+          $('#MobileNumber').text(data1[0].contactNo);
+          $('#ContactPerson').text(data1[0].contactPerson);
+          $('#ContactPersonMobileNumber').text(data1[0].contactPersonMobileNumber);
+          $('#address').text(data1[0].address);
+          $('.clsletterdoc').html('<a href="/BUIDCo_ePMS.Web/Upload/Proposal/' + data1[0].prposalDoc + '" data-bs-toggle="tooltip" title="Download" download>Letter Document </a>'
+          );
+          $('.clsnitdoc').html('<a href="/BUIDCo_ePMS.Web/Upload/Tender/NIT/' + data1[0].nitDocFileName + '" data-bs-toggle="tooltip" title="Download" download>NIT Document </a>'
+          );
+          //$('#InstrumentType').text(data1[0].instrumentType);
+          //$('#PGAmount').text(data1[0].pgAmount);
+          //$('#BankName').text(data1[0].bankName);
+          //$('#ValidTill').text(data1[0].validTill);
+          //$('#UploadPGDocumentPath').text(data1[0].uploadPGDocumentPath);
+          $('.dataTable tbody').empty();
+          var rows = '';
+          //for (var i = 0; i < data1.length; i++) {
+          //    rows += '<tr id="tr_' + data1[i].projectId + '">';
+          //    rows += '<td>' + (i + 1) + '</td>';
+          //    rows += '<td>' + data1[i].instrumentType + '</td>';
+          //    rows += '<td>' + data1[i].pgAmount + '</td>';
+          //    rows += '<td>' + data1[i].bankName + '</td>';
+          //    rows += '<td>' + data1[i].validTill + '</td>';
+          //    rows += '<td>' < a href = '/BUIDCo_ePMS.Web/FileUpload/Doc/" + data1[i].letterDocpath + "' class='description' data - bs - toggle='tooltip' data - bs - original - title='Download' download > Download</a > '</td>';
+          //    rows += '</tr>';
+          //}
+          for (var i = 0; i < data1.length; i++) {
+              rows += '<tr id="tr_' + data1[i].projectId + '">';
+              rows += '<td>' + (i + 1) + '</td>';
+              rows += '<td>' + data1[i].instrumentType + '</td>';
+              rows += '<td>' + data1[i].pgAmount + '</td>';
+              rows += '<td>' + data1[i].bankName + '</td>';
+              rows += '<td>' + data1[i].validTill + '</td>';
+              rows += '<td><a href="/BUIDCo_ePMS.Web/FileUpload/Doc/' + data1[i].uploadPGDocumentPath + '" class="description" data-bs-toggle="tooltip" data-bs-original-title="Download" download><i class="bi bi-file-earmark-pdf me-1 text-danger"> </i></a></td>';
+              rows += '</tr>';
+          }
+
+          $('.dataTable tbody').append(rows);
+          ///Over
+      },
+      error: function (xhr, status, error) {
+         // console.error("AJAX Error: ", error);
+          swal.fire("failed!","Failed to fetch project details. Please try again.","error");
+      }
+  });
+}
+</script>

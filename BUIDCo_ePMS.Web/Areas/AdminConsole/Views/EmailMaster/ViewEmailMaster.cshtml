@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = "~/Areas/AdminConsole/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ViewEmailMaster";
+    var emaildata = ViewBag.Emailmaster as List<BUIDCO.Domain.AdminConsole.EmailMaster.EmailMaster>;
+}
+
+<div class="section">
+    <div class="page-title">
+        <div class="title-details">
+            
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Email Configuration</li>
+                    <li class="breadcrumb-item active" aria-current="page">View Email Configuration</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link " href="/AdminConsole/EmailMaster/AddEmailMaster">Add</a>
+                        <a class="nav-item nav-link active" href="/AdminConsole/EmailMaster/ViewEmailMaster">View</a>
+                    </ul>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" cellspacing="0" class="table table-bordered mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50px">SL#</th>
+                                    <th scope="col" width="300px">EMAIL CC</th>
+                                    <th scope="col" width="200px">EMAIL BCC</th>
+                                    
+                                    <th scope="col" width="50px">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbltbody">
+                                @{ int count = 1;}
+                                @foreach (var item in emaildata)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@item.emailcc</td>
+                                        <td>@item.emailbcc</td>
+                                        
+                                        <td>
+                                            <a href="../EmailMaster/AddEmailMaster?ID=@item.CONFIGID" class="edit-icon" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i>
+                                            
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#example").dataTable({
+        });
+    });
+</script>
